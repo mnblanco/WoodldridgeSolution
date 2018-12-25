@@ -2,3 +2,39 @@
 .Rhistory
 .RData
 .Ruserdata
+
+_bookdown_files/*
+
+# Don't ignore all _cache, _files folders because they are needed for output in the docs folder
+/*_cache/
+/*_files/
+/rmarkdown/*_cache/
+/rmarkdown/*_files/
+/rmarkdown/*.html
+
+figures
+
+# Ignore intermediate
+*.knit.md
+*.utf8.md
+/*.md
+!README.md
+!NEWS.md
+
+# ignore bookdown cache
+/bookdown[0-9a-f]*
+
+*.aux
+*.out
+*.fls
+*.toc
+*.log
+*.fdb_latexmk
+_bookdown_files
+.ipynb_checkpoints
+*.rds
+node_modules
+Rplots.pdf
+*.bib.sav
+_build
+

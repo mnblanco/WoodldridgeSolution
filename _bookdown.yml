@@ -1,0 +1,11 @@
+output_dir: "_build"
+new_session: yes
+
+rmd_files:
+  - "index.Rmd"
+  - "intro.Rmd"
+
+before_chapter_script: "_common.R"
+book_filename: "woodldridge-solutions"
+delete_merged_file: true
+edit: "https://github.com/mnblanco/WoodldridgeSolution/edit/master/%s"

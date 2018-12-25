@@ -1,0 +1,187 @@
+---
+title: "Chapter 1"
+author: "Marjorie Blanco"
+date: "12/19/2018"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+# Clear environment
+rm(list = ls(all = TRUE))
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, error=FALSE, warning=FALSE)
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+
+# Clear environment
+rm(list = ls(all = TRUE))
+library(wooldridge)
+library(dplyr)
+library(ggplot2)
+```
+
+
+## C1-WAGE1
+
+A data.frame with 526 observations on 24 variables:
+
+- wage: average hourly earnings
+- educ: years of education
+- exper: years potential experience
+- tenure: years with current employer
+- nonwhite: =1 if nonwhite
+- female: =1 if female
+- married: =1 if married
+- numdep: number of dependents
+- smsa: =1 if live in SMSA
+- northcen: =1 if live in north central U.S
+- south: =1 if live in southern region
+- west: =1 if live in western region
+- construc: =1 if work in construc. indus.
+- ndurman: =1 if in nondur. manuf. indus.
+- trcommpu: =1 if in trans, commun, pub ut
+- trade: =1 if in wholesale or retail
+- services: =1 if in services indus.
+- profserv: =1 if in prof. serv. indus.
+- profocc: =1 if in profess. occupation
+- clerocc: =1 if in clerical occupation
+- servocc: =1 if in service occupation
+- lwage: log(wage)
+- expersq: exper^2
+- tenursq: tenure^2
+
+```{r}
+data(WAGE1)
+```
+
+- Average education level (years)
+
+```{r}
+mean(wage1$educ)
+```
+
+- Lowest education level (years)
+
+```{r}
+min(wage1$educ)
+```
+
+- Highest education level (years)
+
+```{r}
+max(wage1$educ)
+```
+- Average hourly wage
+
+```{r}
+mean(wage1$wage)
+```
+
+- Women
+
+```{r}
+sum(wage1$female)
+```
+- Men
+
+```{r}
+sum(!wage1$female)
+```
+
+## C2-BWGHT
+
+A data.frame with 1388 observations on 14 variables:
+
+- faminc: 1988 family income, $1000s
+- cigtax: cig. tax in home state, 1988
+- cigprice: cig. price in home state, 1988
+- bwght: birth weight, ounces
+- fatheduc: father’s yrs of educ
+- motheduc: mother’s yrs of educ
+- parity: birth order of child
+- male: =1 if male child
+- white: =1 if white
+- cigs: cigs smked per day while preg
+- lbwght: log of bwght
+- bwghtlbs: birth weight, pounds
+- packs: packs smked per day while preg
+- lfaminc: log(faminc)
+
+```{r}
+data('bwght')
+```
+- Women
+
+```{r}
+sum(!bwght$male)
+```
+- Men
+
+```{r}
+sum(bwght$male)
+```
+
+```{r}
+bwght %>% mutate(smoke = if_else(cigs == 0, 0, 1)) %>% group_by(male) %>% count(smoke)
+```
+
+```{r}
+#bwght %>% filter(male == 0 & smoke == 1) %>% count()
+```
+
+- Average number of cigarettes smoked per day (All)
+
+```{r}
+bwght %>% filter(cigs > 0) %>% select(cigs) %>% summary()
+ggplot(bwght %>% filter(cigs > 0), aes(x=cigs)) +
+  geom_histogram(bins = 50)
+```
+
+- Average number of cigarettes smoked per day (women during pregnancy)
+
+```{r}
+bwght %>% filter(male == 0 & cigs > 0) %>% select(cigs) %>% summary()
+ggplot(bwght %>% filter(male == 0 & cigs > 0), aes(x=cigs)) +
+  geom_histogram(bins = 50)
+```
+
+```{r}
+bwght %>% filter(is.na(fatheduc)) %>% count()  #NAs for fatheduc
+bwght %>% filter(!is.na(fatheduc)) %>% count()
+mean(bwght$fatheduc, na.rm = TRUE)
+```
+
+```{r}
+avg_income <- mean(bwght$lfaminc)
+avg_income
+std_dev_income <- sd(bwght$lfaminc)
+std_dev_income
+```
+
+
+## C3-MEAP00_01
+
+A data.frame with 1692 observations on 9 variables:
+
+- dcode: district code
+- bcode: building code
+- math4: percent students satisfactory, 4th grade math
+- read4: percent students satisfactory, 4th grade reading
+- lunch: percent students eligible for free or reduced lunch
+- enroll: school enrollment
+- exppp: expenditures per pupil: expend/enroll
+- lenroll: log(enroll)
+- lexppp: log(exppp)
+
+```{r}
+data('meap00_01')
+```
+
+```{r}
+
+```
+
+
+

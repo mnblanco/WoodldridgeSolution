@@ -1,0 +1,170 @@
+---
+title: "Chapter 5: Multiple regression analysis: OLS asymptotics"
+author: "Marjorie Blanco"
+date: "12/22/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# Clear environment
+rm(list = ls(all = TRUE))
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, error=FALSE, warning=FALSE)
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+
+# Clear environment
+rm(list = ls(all = TRUE))
+library(wooldridge)
+library(dplyr)
+library(ggplot2)
+library(stats)
+library(sjPlot)
+```
+
+# Problem
+
+## Problem 3
+
+The data set SMOKE contains information on smoking behavior and other variables for a random sample of single adults from the United States. The variable cigs is the (average) number of cigarettes smoked per day. Do you think cigs has a normal distribution in the U.S. adult population? Explain.
+
+```{r}
+data('smoke') 
+hist(smoke$cigs)
+```
+
+# Computer exercises
+
+## C1
+
+Use the data in WAGE1.RAW for this exercise.
+(i) Estimate the equation
+
+$$wage =  \beta_0 + \beta_1 * educ + \beta_2 * exper + \beta_3 * tenure + u$$
+
+
+Save the residuals and plot a histogram.
+
+```{r}
+data('wage1')
+```
+
+```{r}
+fit <- lm(wage~educ+exper+tenure, data=wage1)
+summary(fit)
+plot_model(fit, type = "diag")
+```
+
+(ii) Repeat part (i), but with log(wage) as the dependent variable.
+
+```{r}
+fit <- lm(lwage~educ+exper+tenure, data=wage1)
+summary(fit)
+plot_model(fit, type = "diag")
+```
+
+(iii) Would you say that Assumption MLR.6 is closer to being satisfied for the level-level model or the log-level model?
+
+Assumption MLR.6 is closer to being satisfied for the log-level model.
+
+## C2
+
+Use the data in GPA2 for this exercise.
+
+```{r}
+data('gpa2')
+```
+
+(i) Using all 4,137 observations, estimate the equation 
+
+$$colgpa =  \beta_0 + \beta_1 * hsperc + \beta_2 * sat + u$$
+
+
+and report the results in standard form.
+
+```{r}
+fit <- lm(colgpa~hsperc+sat, data=gpa2)
+summary(fit)
+```
+
+(ii) Reestimate the equation in part (i), using the first 2,070 observations.
+
+```{r}
+fit <- lm(colgpa~hsperc+sat, data=gpa2[1:2070,])
+summary(fit)
+```
+
+(iii) Find the ratio of the standard errors on hsperc from parts (i) and (ii). Compare this
+with the result from (5.10).
+
+
+## C3
+
+In equation (4.42) of Chapter 4, using the data set BWGHT, compute the LM statistic for testing whether motheduc and fatheduc are jointly significant. In obtaining the residuals for the restricted model, be sure that the restricted model is estimated using only those observations for which all variables in the unrestricted model are available (see Example 4.9).
+
+```{r}
+data('bwght')
+bwght <- bwght %>% filter(!is.na(motheduc) & !is.na(fatheduc))
+```
+
+```{r}
+fit <- lm(bwght~cigs+parity+faminc+motheduc+fatheduc, data=bwght)
+summary(fit)
+
+bwght %>% filter(is.na(motheduc) | is.na(fatheduc))
+```
+
+```{r}
+fit1 <- lm(bwght~cigs+parity+faminc, data=bwght)
+summary(fit1)
+```
+
+
+```{r}
+anova(fit,fit1)
+```
+
+## C5
+
+Consider the analysis in Computer Exercise C11 in Chapter 4 using the data in HTV, where educ is the dependent variable in a regression.
+
+educ 5 0 1 1motheduc 1 2 fatheduc 1 3abil 1 4abil2 1 u
+
+```{r}
+data('htv')
+htv$abil2 <- htv$abil^2
+```
+
+```{r}
+fit <- lm(educ~motheduc+fatheduc+abil+abil2, data=htv)
+summary(fit)
+```
+
+(i) How many different values are taken on by educ in the sample? Does educ have a
+continuous distribution?
+
+There are 15 different values are taken on by educ in the sample.  educ does not have a
+continuous distribution.
+
+```{r}
+htv %>% mutate(educ = as.factor(educ)) %>% group_by(educ) %>% summarise(n = n())
+```
+
+(ii) Plot a histogram of educ with a normal distribution overlay. Does the distribution
+of educ appear anything close to normal?
+
+```{r}
+hist(htv$educ)
+```
+
+(iii) Which of the CLM assumptions seems clearly violated in the model?
+
+$$educ =  \beta_0 + \beta_1 * motheduc + \beta_2 * fatheduc + \beta_3 * abil +  \beta_4 * abil^2 + u$$,
+
+The homoscedasticity assumptions is  clearly violated in the model.
+
+How does this violation change the statistical inference procedures carried out in Computer Exercise C11 in Chapter 4?
+
+```{r}
+plot_model(fit, type = "diag")
+```
+
+

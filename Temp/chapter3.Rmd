@@ -1,0 +1,757 @@
+---
+title: "Chapter 3: Multiple regression Analysis: estimation"
+author: "Marjorie Blanco"
+date: "12/19/2018"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+# Clear environment
+rm(list = ls(all = TRUE))
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, error=FALSE, warning=FALSE)
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+
+# Clear environment
+rm(list = ls(all = TRUE))
+library(wooldridge)
+library(dplyr)
+library(ggplot2)
+library(stats)
+```
+
+# Formula
+
+$$wage =  \beta_0 + \beta_1 * educ + \beta_2 * exper + u$$
+
+The coefficient of interest for policy purposes is b1, the ceteris paribus effect of expend on avgscore
+
+$$avgscore =  \beta_0 + \beta_1 * expend + \beta_2 * avginc + u$$
+
+b2, measures the ceteris paribus effect of exper on wage
+
+
+$$cons =  \beta_0 + \beta_1 * inc + \beta_2 * inc^{2} + u$$
+
+$$\tilde{\beta_1} = \hat{\beta_1} + \hat{\beta_2} + \tilde{\delta_1} $$
+The simple regression coefficient $\tilde{\beta_1}$ does not usually equal the multiple $\hat{\beta_1}$.
+
+$\tilde{\delta_1}$ is the slope coefficient from the simple regression of $x_{i2}$ on $x_{i1}$.
+$\tilde{\delta_1}$ differs from the partial effect of $x_1$ on $\hat{y}$.
+
+The relationship between $\tilde{\delta_1}$1 and $\hat{\beta_1}$ also shows there are two distinct cases where they are equal:
+1. The partial effect of $x_2$ on $\hat{y}$ is zero in the sample. That is, $\hat{\beta_2}$ = 0.
+2. $x_1$ and $x_2$ are uncorrelated in the sample. That is, $\tilde{\delta_1}$ = 0.
+
+# Explore
+
+A simple model to explain city murder rates (murdrate) in terms of the probability of conviction (prbconv) and average sentence length (avgsen) is
+
+$$murdrate =  \beta_0 + \beta_1 * prbconv + \beta_2 * avgsen + u$$
+
+What are some factors contained in u? Do you think the key assumption (3.5) is likely to hold?
+
+In Example 3.1, the OLS fitted line explaining college GPA in terms of high school GPA and ACT score is
+
+$$colGPA =  1.29 + .453 * hsGPA + .0094 * ACT$$
+
+If the average high school GPA is about 3.4 and the average ACT score is about 24.2, what is the average college GPA in the sample?
+
+```{r}
+fit <- lm(colGPA~hsGPA+ACT, data=gpa1)
+summary(fit)
+```
+
+
+```{r}
+new <- data.frame(hsGPA = c(3.4), ACT = c(24.2))
+predict(fit, new, se.fit = TRUE)
+```
+
+In the previous example, if we use as explanatory variables expendA, expendB, and shareA, where shareA = 100(expendA/ totexpend) is the percentage share of total campaign expenditures made by Candidate A, does this violate Assumption MLR.3?
+
+# Example
+
+## Example 3.1
+
+The variables in GPA1 include the college grade point average (colGPA), high school GPA (hsGPA), and achievement test score (ACT) for a sample of 141 students from a large university; both college and high school GPAs are on a four-point scale. We obtain the following OLS regression line to predict college GPA from high school GPA and achievement test score:
+
+```{r}
+data('gpa1')
+```
+
+```{r}
+fit <- lm(colGPA~hsGPA+ACT, data=gpa1)
+summary(fit)
+```
+
+The intercept 1.29 is the predicted college GPA if hsGPA and ACT are both set as zero. Since no one who attends college has either a zero high school GPA or a zero on the achievement test. 
+
+hsGPA is associated with .453 of a point on the college GPA, or almost half a point. 
+
+The sign on ACT implies that, while holding hsGPA fixed, a change in the ACT score of 10 points—a very large change, since the maximum ACT score is 36 and the average score in the sample is about 24 with a standard deviation less than three—affects colGPA by less than one-tenth of a point.  The ACT score is not a strong predictor of college GPA and statistically insignificant.
+
+```{r}
+fit <- lm(colGPA~ACT, data=gpa1)
+summary(fit)
+```
+
+## Example 3.2
+
+Using the 526 observations on workers in WAGE1, we include educ (years of education), exper (years of labor market experience), and tenure (years with the current employer) in an equation explaining log(wage). The estimated equation is
+
+$$log(wage) =  0.284 + 0.092 educ + 0.0041 exper + 0.022 tenure$$
+
+```{r}
+data('wage1')
+```
+
+```{r}
+fit <- lm(lwage~exper+tenure, data=wage1)
+summary(fit)
+```
+
+The coefficients have a percentage interpretation.  The coefficient 0.092 means that, holding exper and tenure fixed, another year of education is predicted to increase log(wage) by 0.092, which translates into an approximate 9.2% increase in wage.
+
+The coefficient 0.0041 means that, holding educ and tenure fixed, another year of experience is predicted to increase log(wage) by 0.0041, which translates into an approximate 0.4% increase in wage.
+
+The coefficient 0.022 means that, holding educ and exper fixed, another year of tenure is predicted to increase log(wage) by 0.022, which translates into an approximate 2.2% increase in wage.
+
+## Example 3.3
+
+We use the data in 401K to estimate the effect of a plan’s match rate (mrate) on the participation rate (prate) in its 401(k) pension plan. The match rate is the amount the firm contributes to a worker’s fund for each dollar the worker contributes (up to some limit); thus, mrate 5 .75 means that the firm contributes 75¢ for each dollar contributed by the worker. The participation rate is the percentage of eligible workers having a 401(k) account. The variable age is the age of the 401(k) plan. There are 1,534 plans in the data set, the average prate is 87.36, the average mrate is .732, and the average age is 13.2.
+
+Regressing prate on mrate gives
+
+$$prate =  83.076 + 5.861 mrate$$
+
+Regressing prate on mrate, age gives
+
+$$prate =  80.12 + 5.52 mrate + 243 age$$
+
+
+```{r}
+data('k401k')
+```
+
+```{r}
+fit <- lm(prate~mrate, data=k401k)
+summary(fit)
+```
+
+```{r}
+fit <- lm(prate~mrate+age, data=k401k)
+summary(fit)
+```
+
+The simple regression estimate of the effect of mrate on prate is clearly different from the multiple regression estimate, but the difference is not very big.
+
+The simple regression estimate is only about 6.2% larger than the multiple regression estimate.  This can be explained by the fact that the sample correlation between mrate and age is only 0.12.
+
+```{r}
+cor(k401k$mrate, k401k$age)
+```
+
+
+## Example 3.4
+
+```{r}
+fit <- lm(colGPA~hsGPA+ACT, data=gpa1)
+summary(fit)
+```
+
+
+This means that hsGPA and ACT together explain about 17.6% of the variation in college GPA for this sample of students. This may not seem like a high percentage, but we must remember that there are many other factors—including family background, personality, quality of high school education, affinity for college—that contribute to a student’s college performance. If hsGPA and ACT explained almost all of the variation in colGPA, then performance in college would be preordained by high school performance!
+
+## Example 3.5
+
+CRIME1 contains data on arrests during the year 1986 and other information on 2,725 men born in either 1960 or 1961 in California. Each man in the sample was arrested at least once prior to 1986. The variable narr86 is the number of times the man was arrested during 1986: it is zero for most men in the sample (72.29%), and it varies from 0 to 12. (The percentage of men arrested once during 1986 was 20.51.) The variable pcnv is the proportion (not percentage) of arrests prior to 1986 that led to conviction, avgsen is average sentence length served for prior convictions (zero for most people), ptime86 is months spent in prison in 1986, and qemp86 is the number of quarters during which the man was employed in 1986 (from zero to four).
+
+A linear model explaining arrests is
+
+```{r}
+data('crime1')
+```
+
+```{r}
+fit <- lm(narr86~pcnv+avgsen+ptime86+qemp86, data=crime1)
+summary(fit)
+```
+This equation says that, as a group, the three variables pcnv, ptime86, and qemp86 explain about 4.1% of the variation in narr86.
+
+```{r}
+fit <- lm(narr86~pcnv+ptime86+qemp86, data=crime1)
+summary(fit)
+```
+This equation says that, as a group, the three variables pcnv, avgsen, ptime86, and qemp86 explain about 4.1% of the variation in narr86.
+
+Adding the average sentence variable increases $R^2$ from .0413 to .0422, a practically small effect. The sign of the coefficient on avgsen is also unexpected: it says that a longer average sentence length increases criminal activity.
+
+```{r}
+fit <- lm(narr86~pcnv+ptime86+qemp86, data=crime1)
+summary(fit)
+```
+
+## Example 3.6
+
+```{r}
+fit <- lm(lwage~educ, data=wage1)
+summary(fit)
+```
+
+# Problem
+
+## Problem 1
+
+Using the data in GPA2 on 4,137 college students, the following equation was estimated by OLS:
+$$colgpa = 1.392 - .0135 hsperc + .00148 sat $$
+$$n = 4137, R^{2} = .273$$
+where colgpa is measured on a four-point scale, hsperc is the percentile in the high school graduating class (defined so that, for example, hsperc = 5 means the top 5% of the class), and sat is the combined math and verbal scores on the student achievement test.
+
+(i) Why does it make sense for the coefficient on hsperc to be negative?
+
+`hsperc` is defined so that the smaller it is, the higher the student’s standing in high school.  Everything else equal, the worse the student’s standing in high school, the expected college GPA is lower.
+
+`hsperc` is the percentile in the high school graduating class.  As the percentile increases we expecte the college GPA to decrease.
+
+(ii) What is the predicted college GPA when hsperc = 20 and sat = 1,050?
+
+```{r}
+data('gpa2')
+```
+
+```{r}
+fit <- lm(colgpa~hsperc+sat, data=gpa2)
+summary(fit)
+```
+
+```{r}
+new <- data.frame(hsperc = c(20), sat = c(1050))
+predict(fit, new, se.fit = TRUE)
+```
+
+(iii) Suppose that two high school graduates, A and B, graduated in the same percentile from high school, but Student A’s SAT score was 140 points higher (about one standard deviation in the sample). What is the predicted difference in college GPA for these two students? Is the difference large?
+
+```{r}
+new <- data.frame(hsperc = c(1,1), sat = c(1190, 1050))
+x <- predict(fit, new, se.fit = TRUE)
+```
+
+The difference between A and B is simply 140 times the coefficient on `sat`, because `hsperc` is the same for both students.  So A is predicted to have colgpa `r signif(summary(fit)$coefficients["sat", 1], 3)` (140) $\sim$ .207 higher.
+
+(iv) Holding `hsperc` fixed, what difference in SAT scores leads to a predicted `colgpa` difference of .50, or one-half of a grade point? Comment on your answer.
+
+$\Delta colgpa$  = .5, so .5 = `r signif(summary(fit)$coefficients["sat", 1], 3)` $\Delta sat$, $\Delta sat$ = `r 0.5 / signif(summary(fit)$coefficients["sat", 1], 3)`
+
+A difference in SAT score of roughly two and one-half standard deviations is required to get predicted difference in college GPA of a half a point.
+  
+```{r}
+sd(gpa2$sat)
+new <- data.frame(hsperc = c(0, 0), sat = c(1190, 1190 + 337.8378))
+predict(fit, new, se.fit = TRUE)
+```
+
+## Problem 2
+
+The data in WAGE2 on working men was used to estimate the following equation: 
+
+$$educ = 10.36 - .094 sibs + .131 meduc + .210 feduc$$
+$$n = 722, R^{2} = .214$$
+where `educ` is years of schooling, `sibs` is number of siblings, `meduc` is mother’s years of schooling, and `feduc` is father’s years of schooling.
+
+(i) Does `sibs` have the expected effect? Explain. Holding `meduc` and `feduc` fixed, by how much does `sibs` have to increase to reduce predicted years of education by one year? (A noninteger answer is acceptable here.)
+
+```{r}
+data('wage2')
+```
+
+```{r}
+fit <- lm(educ~sibs+meduc+feduc, data=wage2)
+summary(fit)
+```
+
+
+An increase in number of siblings (`sibs`) is associated with an `r signif(abs(summary(fit)$coefficients["sibs", 1]), 3)` `r ifelse(summary(fit)$coefficients["sibs", 1] > 0, "increase", "decrease")` in the average monthly earnings and this effect is  ``r ifelse(summary(fit)$coefficients["sibs", 4] < 0.1, "is", "is not")` statistically significant at 1%`.
+
+(ii) Discuss the interpretation of the coefficient on `meduc`.
+
+A year increase in mother's education (`meduc`) is associated with a `r signif(abs(summary(fit)$coefficients["meduc", 1]), 3)` `r ifelse(summary(fit)$coefficients["meduc", 1] > 0, "increase", "decrease")` in the average monthly earnings and this effect is  ``r ifelse(summary(fit)$coefficients["meduc", 4] < 0.1, "is", "is not")` statistically significant at 1%`.
+
+(iii) Suppose that Man A has no siblings, and his mother and father each have 12 years of education. Man B has no siblings, and his mother and father each have 16 years of education. What is the predicted difference in years of education between B and A?
+
+```{r}
+new <- data.frame(sibs = c(0, 0), meduc = c(12, 16), feduc = c(12, 16))
+x <- predict(fit, new, se.fit = TRUE)
+```
+
+The predicted difference in years of education between B and A is `r x$fit[2] - x$fit[1]`.
+
+## Problem 3
+
+The following model is a simplified version of the multiple regression model used by Biddle and Hamermesh (1990) to study the tradeoff between time spent sleeping and working and to look at other factors affecting sleep:
+
+$$sleep =  \beta_0 + \beta_1 * totwrk + \beta_2 * educ + \beta_3 * age + u$$
+
+where sleep and totwrk (total work) are measured in minutes per week and educ and age are measured in years. (See also Computer Exercise C3 in Chapter 2.)
+
+(i) If adults trade off sleep for work, what is the sign of $\beta1$?
+
+The sign would be negative if adults trade off sleep for work.  More work implies less sleep (other things equal), so  $\beta1$ < 0.
+
+```{r}
+data('sleep75')
+```
+
+```{r}
+fit <- lm(sleep~totwrk+educ+age, data=sleep75)
+summary(fit)
+```
+
+(ii) What signs do you think $\beta2$ and $\beta3$ will have?
+
+* The sign could probably be negative for adults' education.
+
+More educated people like to get more out of life (other things equal) so they sleep less ($\beta2$  < 0).
+
+* The sign could probably be positive for adults' age.
+
+Older people might want to sleep more (other things equal) ($\beta3$  < 0).
+
+
+(iii) Using the data in SLEEP75, the estimated equation is
+
+$$sleep =  3638.25 - .148 * totwrk - 11.13 * educ + 2.20 * age $$
+$$n = 706, R^{2} = .113$$
+
+If someone works five more hours per week, by how many minutes is sleep predicted to fall? Is this a large tradeoff?
+
+```{r}
+signif(summary(fit)$coefficients["totwrk", 1], 3) * 60 *5
+```
+
+`totwrk` is in minutes, five hours must be converted into minutes:  $\Delta$ totwrk = 5(60) = 300.   `sleep` is predicted to decrease by `r signif(summary(fit)$coefficients["totwrk", 1], 3)` (300) = `r abs(signif(summary(fit)$coefficients["totwrk", 1], 3) * 60 *5)`  minutes.  For a week, 45 minutes less sleep is not an overwhelming change therefore it is not a large tradeoff.
+
+(iv) Discuss the sign and magnitude of the estimated coefficient on `educ`.
+
+More education implies less predicted time sleeping, but the effect is small. Assume the difference between college and high school is four years, the college graduate sleeps about `r abs(signif(summary(fit)$coefficients["totwrk", 1], 3) * 60 * 4)` minutes less per week holding other things equal.
+
+```{r}
+signif(summary(fit)$coefficients["totwrk", 1], 3) * 60 * 4
+```
+
+(v) Would you say `totwrk`, `educ`, and `age` explain much of the variation in sleep? What other factors might affect the time spent sleeping? Are these likely to be correlated with `totwrk`?
+
+The Adjusted $R^{2}$ value is `r round(summary(fit)$adj.r.square, 4)`. This tells us that `r round(summary(fit)$adj.r.square*100, 2)`% of the variation in mins sleep at night(per week), as quantified by `sleep`, is explained by ``r attr(summary(fit)$terms,"term.labels")``.
+
+- Other factors might affect the time spent sleeping: health, marital status and number of children
+
+## Problem 4
+
+
+## Problem 5
+
+In a study relating college grade point average to time spent in various activities, you distribute a survey to several students.
+
+The students are asked how many hours they spend each week in four activities: studying, sleeping, working, and leisure. Any activity is put into one of the four categories, so that for each student, the sum of hours in the four activities must be 168.
+
+(i) In the model
+
+$$GPA =  \beta_0 + \beta_1 * study + \beta_2 * sleep + \beta_3 * work + \beta_4 * leisure + u$$
+
+does it make sense to hold sleep, work, and leisure fixed, while changing study?
+
+study + sleep + work + leisure = 168.  If we change study, at least one of the other categories must change so that the sum = 168.
+
+(ii) Explain why this model violates Assumption MLR.3.
+
+study is perfect linear function of the other independent variables
+
+* study = 168 - sleep - work - leisure.
+
+(iii) How could you reformulate the model so that its parameters have a useful interpretation and it satisfies Assumption MLR.3?
+
+One option is to drop one of the independent variables such as leisure:
+
+$$GPA =  \beta_0 + \beta_1 * study + \beta_2 * sleep + \beta_3 * work + u$$
+
+$\beta_1$ is interpreted as the change in GPA when `study` increases by one hour, where sleep, work, and u are all held fixed.  If we are holding sleep and work fixed but increasing study by one hour, then we must be reducing leisure by one hour.  The other slope parameters have a similar interpretation.
+
+## Problem 7
+
+Which of the following can cause OLS estimators to be biased? 
+
+(i) Heteroskedasticity
+
+(ii) Omitting an important variable
+
+omitting an important variable can cause bias and this is true only when the omitted variable is correlated with the included explanatory variables.
+
+(iii) A sample correlation coefficient of .95 between two independent variables both included in the model.
+
+## Problem 9
+
+
+## Problem 11
+
+The following equation describes the median housing price in a community in terms of amount of pollution (nox for nitrous oxide) and the average number of rooms in houses in the community (rooms):
+
+$$log(price) =  \beta_0 + \beta_1 * log(nox) + \beta_2 * rooms + u$$
+
+(i) What are the probable signs of $\beta_1$ and $\beta_2$? What is the interpretation of $\beta_1$? Explain.
+
+```{r}
+data('hprice2')
+```
+
+```{r}
+fit <- lm(lprice~lnox+rooms, data=hprice2)
+summary(fit)
+```
+
+$\beta_1$ < 0 because more pollution can be expected to lower housing values. $\beta_1$ is the elasticity of price with respect to nox.
+
+$\beta_2$ > 0 because rooms is highly related to the size of a house. $\beta_2$ is the elasticity of price with respect to rooms
+
+(ii) Why might nox [or more precisely, log(nox)] and rooms be negatively correlated? If this is the case, does the simple regression of log(price) on log(nox) produce an upward or a downward biased estimator of $\beta_1$?
+
+```{r}
+cor(hprice2$lnox, hprice2$rooms)
+```
+
+```{r}
+fit <- lm(lprice~lnox, data=hprice2)
+summary(fit)
+fit <- lm(lprice~rooms, data=hprice2)
+summary(fit)
+```
+
+Assume that rooms increases with quality of the home/neighborhood , then log(nox) and rooms are negatively correlated when poorer/less desirable neighborhoods have more pollution.  
+
+(iii) Using the data in HPRICE2, the following equations were estimated:
+
+$$log(price) =  11.71 - 1.043 * log(nox)$$
+$$n = 506, R^{2} = 0.264$$
+
+$$log(price) =  9.23 -  0.718  * log(nox) + 0.306 * rooms + u$$
+$$n = 506, R^{2} = 0.514$$
+
+Is the relationship between the simple and multiple regression estimates of the elasticity of price with respect to nox what you would have predicted, given your answer in part? (ii) Does this mean that -0.718 is definitely closer to the true elasticity than -1.043?
+
+The relationship between the simple and multiple regression estimates of the elasticity of price with respect to nox is what was expect from the analysis in part (ii). 
+
+The simple regression estimate, 1.043, is more negative (larger in magnitude) than the multiple regression estimate, 0.718.  $\beta_1$ is closer to 0.718.
+
+# Exercise
+
+## C1
+
+ A problem of interest to health officials (and others) is to determine the effects of smoking during pregnancy on infant health. One measure of infant health is birth weight; a birth weight that is too low can put an infant at risk for contracting various illnesses. Since factors other than cigarette smoking that affect birth weight are likely to be cor- related with smoking, we should take those factors into account. For example, higher income generally results in access to better prenatal care, as well as better nutrition for the mother. An equation that recognizes this is
+ 
+$$bwght = \hat{\beta}_0 + \hat{\beta}_1 * b1cigs + \hat{\beta}_2 * faminc +  u$$
+
+```{r}
+data('bwght')
+```
+
+(i) What is the most likely sign for $\beta_2$?
+
+$\beta_2$ > 0, as more income typically means better nutrition for the mother and better prenatal care.  This in turns means higher birth weight.
+
+(ii) Do you think `cigs` and `faminc` are likely to be correlated? Explain why the correlation might be positive or negative.
+
+<!-- On the one hand, an increase in income generally increases the consumption of a good, and cigs and faminc could be positively correlated.  On the other, family incomes are also higher for families with more education, and more education and cigarette smoking tend to be negatively correlated.  The sample correlation between cigs and faminc is about .173, indicating a negative correlation. -->
+
+```{r}
+cor(bwght %>% select(cigs, faminc))
+```
+
+(iii) Now, estimate the equation with and without faminc, using the data in BWGHT. Report the results in equation form, including the sample size and R-squared. Discuss your results, focusing on whether adding faminc substantially changes the estimated effect of cigs on bwght.
+
+$$bwght = 116.97 - 0.463 * cigs + 0.093 * faminc$$
+
+
+```{r}
+fit <- lm(bwght~cigs+faminc, data=bwght)
+summary(fit)
+```
+
+Sample size is `r nrow(bwght)`.  $R^{2}$ value is `r round(summary(fit)$r.square, 4)`. Adjusted $R^{2}$ value is `r round(summary(fit)$adj.r.square, 4)`.
+
+$$bwght = 119.77 - 0.514 * cigs$$
+
+```{r}
+fit <- lm(bwght~cigs, data=bwght)
+summary(fit)
+```
+
+Sample size is `r nrow(bwght)`.  $R^{2}$ value is `r round(summary(fit)$r.square, 4)`. Adjusted $R^{2}$ value is `r round(summary(fit)$adj.r.square, 4)`.
+
+The effect of cigarette smoking is slightly larger when faminc is removed from the regression, but the difference is small.  This is probably due to the fact that `cigs` and `faminc` are not very correlated, and the coefficient on faminc is practically small.  (The variable faminc is measured in thousands, so $10,000 more in 1988 income increases predicted birth weight by only .93 ounces.)
+
+```{r}
+new <- data.frame(cigs = c(0, 1, 10))
+predict(fit, new, se.fit = TRUE)
+```
+
+## C2
+
+Use the data in HPRICE1 to estimate the model
+
+$$price =  \beta_0 + \beta_1 * sqrft + \beta_2 * bdrms  + u$$
+
+
+where price is the house price measured in thousands of dollars.
+
+(i) Write out the results in equation form.
+
+```{r}
+data('hprice1')
+```
+
+```{r}
+fit <- lm(price~sqrft+bdrms, data=hprice1)
+summary(fit)
+```
+
+$$price =  \beta_0 + \beta_1 * sqrft + \beta_2 * bdrms  + u$$
+
+(ii) What is the estimated increase in price for a house with one more bedroom, holding square footage constant?
+
+The estimated increase in price for a house with one more bedroom while holding square footage constant is `r signif(summary(fit)$coefficients["bdrms", 1], 3)`
+
+(iii) What is the estimated increase in price for a house with an additional bedroom that is 140 square feet in size? Compare this to your answer in part (ii).
+
+```{r}
+signif(summary(fit)$coefficients["sqrft", 1], 3) * 140
+```
+
+(iv) What percentage of the variation in price is explained by square footage and number of bedrooms?
+
+The Adjusted R2 value is `r round(summary(fit)$adj.r.square, 4)`. This tells us that `r round(summary(fit)$adj.r.square*100, 2)`% of the variation in house price ($1000s), as quantified by `price`, is explained by ``r attr(summary(fit)$terms,"term.labels")``.
+
+```{r}
+new <- data.frame(sqrft = c(0, 140), bdrms = c(1, 0))
+predict(fit, new, se.fit = TRUE)
+```
+
+(v) The first house in the sample has sqrft = 2,438 and bdrms = 4. Find the predicted selling price for this house from the OLS regression line.
+
+```{r}
+new <- data.frame(sqrft = c(2438), bdrms = c(4))
+predict(fit, new, se.fit = TRUE)
+hprice1[1, "price"]
+```
+
+(vi) The actual selling price of the first house in the sample was $300,000 (so price = 300). Find the residual for this house. Does it suggest that the buyer underpaid or overpaid for the house?
+
+```{r}
+pred <- predict(fit, new, se.fit = TRUE)
+hprice1[1, "price"] - pred$fit
+```
+
+## C3
+
+The file CEOSAL2 contains data on 177 chief executive officers and can be used to examine the effects of firm performance on CEO salary.
+
+(i) Estimate a model relating annual salary to firm sales and market value. Make the model of the constant elasticity variety for both independent variables. Write the results out in equation form.
+
+```{r}
+data('ceosal2')
+```
+
+```{r}
+fit <- lm(lsalary~lsales+lmktval, data=ceosal2)
+summary(fit)
+```
+
+$$price =  4.62 + 0.162 * lsales + 0.107 * lmktval$$
+$$n = 177, R^{2} = 0.299$$
+
+
+ 
+	 
+
+
+(ii) Add profits to the model from part (i). Why can this variable not be included in logarithmic form? Would you say that these firm performance variables explain most of the variation in CEO salaries?
+
+profits cannotbe included in logarithmic form because profits are negative for nine of the companies in the sample.  
+
+```{r}
+fit <- lm(lsalary~lsales+lmktval+profits, data=ceosal2)
+summary(fit)
+```
+
+$$price =  4.69 + 0.161 * lsales + 0.098 * lmktval + 0.000036 * profits$$
+
+$$n = 177, R^{2} = 0.299$$
+
+
+The coefficient on profits (measured in millions) is very small. If profits increase by `$1` billion, $\Delta profits$ = 1,000 the predicted salary increases by about only 3.6% while holding sales and market value fixed. profits can be dropped without losing variation TBD. The model explain almost 30% of the sample variation in log(salary).
+
+```{r}
+signif(summary(fit)$coefficients["profits", 1], 3) * 1000
+```
+
+(iii) Add the variable ceoten to the model in part (ii). What is the estimated percentage return for another year of CEO tenure, holding other factors fixed?
+
+```{r}
+fit <- lm(lsalary~lsales+lmktval+ceoten, data=ceosal2)
+summary(fit)
+```
+
+one more year as CEO increases predicted salary by about 1.2%.
+
+(iv) Find the sample correlation coefficient between the variables log(mktval) and profits. Are these variables highly correlated? What does this say about the OLS estimators?
+
+
+```{r}
+cor(ceosal2$lmktval, ceosal2$profits)
+```
+
+The sample correlation between log(mktval) and profits is about `r cor(ceosal2$lmktval, ceosal2$profits)`, which is high.  This causes no bias in the OLS estimators, although it can cause their variances to be large.  Given the fairly substantial correlation between market value and firm profits, it is not too surprising that the latter adds nothing to explaining CEO salaries.  Also, profits is a short term measure of how the firm is doing while mktval is based on past, current, and expected future profitability.
+
+## C5
+
+Confirm the partialling out interpretation of the OLS estimates by explicitly doing the partialling out for Example 3.2. This first requires regressing educ on exper and tenure and saving the residuals, rˆ1. Then, regress log(wage) on rˆ1. Compare the coefficient on ˆr1 with the coefficient on educ in the regression of log(wage) on educ, exper, and tenure.
+
+```{r}
+data('wage1')
+```
+
+$$log(wage) =  0.284 + 0.092 educ + 0.0041 exper + 0.022 tenure$$
+
+```{r}
+fit <- lm(lwage~educ+exper+tenure, data=wage1)
+summary(fit)
+```
+
+```{r}
+fit <- lm(educ~exper+tenure, data=wage1)
+summary(fit)
+wage1$r <- fit$residuals
+```
+
+The regression of educ on exper and tenure:
+
+$$educ = 13.57 - 0.074 exper + 0.048 tenure$$
+$$n = 526, R^{2} = 0.101$$
+
+```{r}
+fit <- lm(lwage~r, data=wage1)
+summary(fit)
+```
+
+Now, when we regress log(wage) on $r_1$:
+
+$$lwage = 1.62 + 0.092 r_1$$
+$$n = 526, R^{2} = 0.207$$
+## C7
+
+Use the data in MEAP93 to answer this question. 
+
+(i) Estimate the model
+
+$$math10 =  \beta_0 + \beta_1 * lexpend + \beta_2 * lnchprg  + u$$
+
+and report the results in the usual form, including the sample size and R-squared.
+Are the signs of the slope coefficients what you expected? Explain.
+
+```{r}
+data('meap93')
+```
+
+```{r}
+fit <- lm(math10~lexpend+lnchprg, data=meap93)
+summary(fit)
+```
+
+Sample size is `r nrow(meap93)`.  $R^{2}$ value is `r round(summary(fit)$r.square, 4)`. Adjusted $R^{2}$ value is `r round(summary(fit)$adj.r.square, 4)`.
+
+(ii) What do you make of the intercept you estimated in part (i)? In particular, does it make sense to set the two explanatory variables to zero? [Hint: Recall that log(1)=0.]
+
+(iii) Now run the simple regression of math10 on log(expend), and compare the slope coefficient with the estimate obtained in part (i). Is the estimated spending effect now larger or smaller than in part (i)?
+
+```{r}
+fit <- lm(math10~lexpend, data=meap93)
+summary(fit)
+```
+
+The estimated spending effect, almost double, is larger than it was in part (i).
+
+(iv) Find the correlation between lexpend = log(expend) and lnchprg. Does its sign make sense to you?
+
+```{r}
+cor(meap93$lexpend, meap93$lnchprg)
+```
+
+The correlation between lexpend and lnchprg is `r cor(meap93$lexpend, meap93$lnchprg)`, which means that on average high schools with poorer students spent less per student.
+
+(v) Use part (iv) to explain your findings in part (iii).
+
+Equation (3.23)
+
+$$\tilde{\beta_1} = \hat{\beta_1} + \hat{\beta_2} + \tilde{\delta_1} $$
+Because Corr(x1,x2) < 0, which means$\hat{\beta_2}$ < 0, and  $\tilde{\delta_1}$, the simple regression estimate, $\tilde{\beta_1}$, is larger than the multiple regression estimate, $\hat{\beta_1}$ . Failing to include the poverty rate (`lnchprg`) leads to an over-estimate of the effect of spending (`lexpend`).
+
+## C9
+
+Use the data in CHARITY to answer the following questions: 
+
+(i) Estimate the equation
+
+$$gift =  \beta_0 + \beta_1 * mailsyear + \beta_2 * giftlast  + \beta_3 * propresp + u$$
+
+by OLS and report the results in the usual way, including the sample size and R-squared. How does the R-squared compare with that from the simple regression that omits giftlast and propresp?
+
+```{r}
+data('charity')
+```
+
+```{r}
+fit <- lm(gift~mailsyear+giftlast+propresp, data=charity)
+summary(fit)
+```
+
+The estimated equation is
+
+$$gift =  -4.55 + 2.166 * mailsyear + 0.006 * giftlast  + 15.359 * propresp + u$$
+
+Sample size is `r nrow(charity)`. $R^{2}$ value is `r round(summary(fit)$r.square, 4)`. Adjusted $R^{2}$ value is `r round(summary(fit)$adj.r.square, 4)`.
+
+(ii) Interpret the coefficient on mailsyear. Is it bigger or smaller than the corresponding simple regression coefficient?
+
+```{r}
+fit1 <- lm(gift~mailsyear, data=charity)
+summary(fit1)
+```
+
+Holding giftlast and propresp fixed, one more mailing per year is estimated to increase gifts by `r signif(summary(fit)$coefficients["mailsyear", 1], 3)` guilders. The simple regression estimate is `r signif(summary(fit1)$coefficients["mailsyear", 1], 3)`. The multiple regression estimate is smaller.
+
+
+(iii) Interpret the coefficient on propresp. Be careful to notice the units of measurement of propresp.
+
+(iv) Now add the variable avggift to the equation. What happens to the estimated effect of mailsyear?
+
+
+The estimated equation is
+
+$$gift =  -7.328 + 1.201 * mailsyear - 0.2601 * giftlast  + 16.205 * propresp + 0.527 * avggift +u$$
+
+```{r}
+fit <- lm(gift~mailsyear+giftlast+propresp+avggift, data=charity)
+summary(fit)
+```
+
+```{r}
+fit1 <- lm(gift~giftlast, data=charity)
+summary(fit1)
+```
+
+Holding giftlast, propresp and avggift fixed, the effect of mailings is smaller. The estimated effect of mailsyear `r signif(summary(fit)$coefficients["mailsyear", 1], 3)` guilders, less than half the effect estimated by simple regression.
+
+(v) In the equation from part (iv), what has happened to the coefficient on giftlast? What do you think is happening?
+
+Holding mailsyear, propresp and avggift fixed, the effect of mailings is negative. The estimated effect of giftlast `r signif(summary(fit)$coefficients["giftlast", 1], 3)` guilders, less than half the effect estimated by simple regression.

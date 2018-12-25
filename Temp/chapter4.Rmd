@@ -1,0 +1,712 @@
+---
+title: "Chapter 4: Multiple regression Analysis: inference"
+author: "Marjorie Blanco"
+date: "12/22/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# Clear environment
+rm(list = ls(all = TRUE))
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, error=FALSE, warning=FALSE)
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+
+# Clear environment
+rm(list = ls(all = TRUE))
+library(wooldridge)
+library(dplyr)
+library(ggplot2)
+library(stats)
+```
+
+# Formula
+
+
+# Explore
+
+## Explore 4.1
+
+Suppose that u is independent of the expla- natory variables, and it takes on the values 22, 21, 0, 1, and 2 with equal probability of 1/5. Does this violate the Gauss-Markov assumptions? Does this violate the CLM assumptions?
+
+## Explore 4.2
+
+Let community loan approval rates be determined by
+
+$$apprate =  \beta_0 + \beta_1 * percmin + \beta_2 * avginc + \beta_3 * avgwlth + \beta_4 * avgdebt + u$$,
+
+where percmin is the percentage minority in the community, avginc is average income, avgwlth is average wealth, and avgdebt is some measure of average debt obligations. How do you state the null hypothesis that there is no difference in loan rates across neighborhoods due to racial and ethnic composition, when average income, average wealth, and average debt have been controlled for? How do you state the alternative that there is discrimination against minorities in loan approval rates?
+
+
+${H_0}: b_{percmin} = 0$
+${H_1}: b_{percmin} < 0$
+
+## Explore 4.3
+
+Suppose you estimate a regression model and obtain $\hat\beta_1$ = .56 and p-value = .086 for testing H0: $\beta_1$ = 0 against H1: $\beta_1 \ne$ 0. What is the p-value for testing H0: $\hat\beta_1$ = 0 against H1: $\beta_1$ > 0?
+
+It is simple to obtain the one-sided p-value: just divide the two-sided p-value by 2.
+
+```{r}
+.086 /2
+```
+
+## Explore 4.4
+
+Consider relating individual performance on a standardized test, score, to a variety of other variables. School factors include average class size, per-student expenditures, average teacher compensation, and total school enrollment. Other variables specific to the student are family income, mother’s education, father’s education, and number of siblings. The model is
+
+$$score =  \beta_0 + \beta_1 * classize + \beta_2 * expend + \beta_3 * tchcomp + \beta_4 * enroll + \beta_5 * faminc + \beta_6 * motheduc + \beta_7 * fatheduc + \beta_8 * siblings + u$$
+
+
+State the null hypothesis that student-specific variables have no effect on standardized test performance once school-related factors have been controlled for. What are k and q for this example? Write down the restricted version of the model.
+
+${H_0}: b_{faminc} = 0, b_{motheduc} = 0, b_{fatheduc} = 0, b_{siblings} = 0$
+${H_1}: {H_0}$ is not true (at least one of $\beta_5,\beta_6,\beta_7,\beta_8$, is different from zero.)
+
+k = 8
+q = 4
+
+$$score =  \beta_0 + \beta_1 * classize + \beta_2 * expend + \beta_3 * tchcomp + \beta_4 * enroll + u$$
+
+## Explore 4.5
+
+The data in ATTEND.RAW were used to estimate the two equations
+atndrte5 47.13 1 13.37 priGPA (2.87) (1.09)
+n5680,R2 5.183
+and
+atndrte 5 75.70 1 17.26 priGPA 2 1.72 ACT (3.88) (1.08) (?)
+n 5 680, R2 5 .291,
+where, as always, standard errors are in parentheses; the standard error for ACT is missing in the second equation. What is the t statistic for the coefficient on ACT ? (Hint: First compute the F statistic for significance of ACT.)
+
+```{r}
+data('attend')
+```
+
+```{r}
+fit <- lm(atndrte~priGPA, data=attend)
+summary(fit)
+fit1 <- lm(atndrte~priGPA+ACT, data=attend)
+summary(fit1)
+anova(fit, fit1)
+```
+
+```{r}
+rssur <- sum(residuals(fit1)^2)
+rssr <- sum(residuals(fit)^2)
+
+x <- rssr - rssur
+q <-fit$df.residual - fit1$df.residual
+dfur <- fit$df.residual 
+F <- x/rssur * (dfur/q)
+
+qf(.95, df1=q, df2=dfur) 
+```
+
+`r ifelse(F > qf(.95, df1=q, df2=dfur), "reject", "fail to reject")` reject the hypothesis that droprate and gradrate have no effect on salary.
+
+
+## Explore 4.6
+
+How does adding droprate and gradrate affect the estimate of the salary-benefits tradeoff? Are these variables jointly significant at the 5% level? What about the 10% level?
+
+```{r}
+data('meap93')
+```
+
+```{r}
+fit <- lm(lsalary~bensal+lenroll+lstaff+droprate+gradrate, data=meap93)
+summary(fit)
+fit1 <- lm(lsalary~bensal+lenroll+lstaff, data=meap93)
+summary(fit1)
+anova(fit, fit1)
+```
+
+```{r}
+rssur <- sum(residuals(fit)^2)
+rssr <- sum(residuals(fit1)^2)
+
+x <- rssr - rssur
+q <- fit1$df.residual - fit$df.residual
+dfur <- fit$df.residual 
+F <- x/rssur * (dfur/q)
+
+qf(.95, df1=q, df2=dfur) 
+```
+
+`r ifelse(F > qf(.95, df1=q, df2=dfur), "reject", "fail to rejct")` reject the hypothesis that droprate and gradrate have no effect on salary.
+
+
+# Example
+
+
+## Example 4.1
+
+```{r}
+data('wage1')
+```
+
+Using the data in WAGE1 gives the estimated equation
+
+$$log(wage) =  0.284 + 0.092 educ + 0.0041 exper + 0.022 tenure$$
+
+```{r}
+fit <- lm(lwage~educ+exper+tenure, data=wage1)
+summary(fit)
+```
+```{r}
+qnorm(1-.1)
+qnorm(1-.05)
+qnorm(1-.01)
+```
+
+test whether the return to exper, controlling for educ and tenure, is zero in the population, against the alternative that it is positive.
+
+${H_0}: b_{exper} = 0$
+${H_1}: b_{exper} > 0$
+
+The t statistic for $\hat{b}_{exper}$ is $t_{exper} = 0.0041/0.0017 \sim 2.41$.  $\hat{b}_{exper}$ is statistically significant even at the 1% level.
+
+Adding three more years increases log(wage) by 3(.0041) = .0123, so wage is only about 1.2% higher
+
+```{r}
+signif(summary(fit)$coefficients["exper", 1], 3) * 3
+```
+
+Partial effect of experience is positive in the population.
+
+## Example 4.2
+
+```{r}
+data('meap93')
+```
+
+```{r}
+fit <- lm(math10~totcomp+staff+enroll, data=meap93)
+summary(fit)
+```
+enroll is in accordance with the conjecture that larger schools hamper performance: higher enrollment leads to a lower percentage of students with a passing tenth-grade math score. 
+ 
+${H_0}: b_{enroll} = 0$
+${H_1}: b_{enroll} < 0$
+
+ fail to reject H0 in favor of H1 at the 5% level
+
+${H_0}: b_{totcomp} = 0$
+${H_1}: b_{totcomp} > 0$
+
+reject H0 in favor of H1 at the 1% level
+
+${H_0}: b_{staff} = 0$
+${H_1}: b_{staff} > 0$
+
+ fail to reject H0 in favor of H1 at the 5% level
+
+```{r}
+fit <- lm(math10~ltotcomp+lstaff+lenroll, data=meap93)
+summary(fit)
+```
+
+changing functional form can affect conclusions
+
+## Example 4.3
+
+```{r}
+data('gpa1')
+```
+
+```{r}
+fit <- lm(colGPA~hsGPA+ACT+skipped, data=gpa1)
+summary(fit)
+```
+The t statistic on hsGPA is 4.38, which is significant at very small significance levels. Thus, we say that “hsGPA is statistically significant at any conventional significance level.”
+
+The t statistic on ACT is 1.36, which is not statistically significant at the 10% level against a two-sided alternative.  Thus, the variable ACT is practically, as well as statistically, insignificant.
+
+The t statistic of skipped is -3.19, so skipped is statistically significant at the 1% significance level. 
+
+## Example 4.4
+
+```{r}
+data('campus')
+```
+
+```{r}
+fit <- lm(lcrime~lenroll, data=campus)
+summary(fit)
+```
+
+## Example 4.5
+
+```{r}
+data('hprice2')
+```
+
+```{r}
+fit <- lm(lprice~lnox+rooms+stratio , data=hprice2)
+summary(fit)
+```
+
+## Example 4.6
+
+```{r}
+data('k401k')
+```
+
+```{r}
+fit <- lm(prate~mrate+age+totemp, data=k401k)
+summary(fit)
+```
+
+The smallest t statistic in absolute value is that on the variable totemp: t = -3.25, and this is statistically significant at 1% significance levels. 
+
+if a firm grows by 10,000 employees, the participation rate falls by 1.3 percentage points. This is a huge increase in number of employees with only a modest effect on the participation rate.  The effect is not practically very large.
+
+## Example 4.7
+
+```{r}
+data('jtrain')
+```
+
+```{r}
+fit <- lm(lscrap~hrsemp+lsales+lemploy, data=jtrain %>% filter(year == 1987 & union == 0))
+summary(fit)
+```
+
+The t statistic on hrsemp is -1.26, and this as not being large enough in magnitude to conclude that hrsemp is statistically significant at the 5% level. hrsemp is not statistically significant, even using a one-sided alternative.
+
+## Example 4.8
+
+```{r}
+data('rdchem')
+```
+
+```{r}
+fit <- lm(lrd~lsales+profmarg, data=rdchem)
+summary(fit)
+```
+
+a 1% increase in sales is associated with a 1.084% increase in R&D spending.
+The 95% confidence interval for log(sales) is between 0.961 and 1.21.
+The estimated R&D-sales elasticity is not statistically different from 1 at the 5% level.
+The 95% confidence interval for the population parameter, bprofmarg, is between -.0045 and .0479
+
+the economic size of the profit margin coefficient is not trivial: holding sales fixed, a one percentage point increase in profmarg is estimated to increase R&D spending by 100(0.02166) = 2.2%
+
+```{r}
+data('twoyear')
+```
+
+```{r}
+fit <- lm(lwage~jc+univ+exper, data=twoyear)
+summary(fit)
+```
+
+jc and univ have both economically and statistically significant effects on wage. 
+
+```{r}
+data('mlb1')
+```
+
+```{r}
+fit <- lm(lsalary~years+gamesyr+bavg+hrunsyr+rbisyr, data=mlb1)
+summary(fit)
+rssur <- sum(residuals(fit)^2)
+```
+
+years and gamesyr are statistically significant, none of the variables bavg, hrunsyr, and rbisyr has a statistically significant t statistic against a two-sided alternative, at the 5% significance level.
+
+```{r}
+fit1 <- lm(lsalary~years+gamesyr, data=mlb1)
+summary(fit1)
+rssr <- sum(residuals(fit1)^2)
+```
+
+```{r}
+anova(fit1, fit)
+```
+
+```{r}
+rssur <- sum(residuals(fit)^2)
+rssr <- sum(residuals(fit1)^2)
+
+x <- rssr - rssur
+q <- fit1$df.residual - fit$df.residual
+dfur <- fit$df.residual 
+F <- x/rssur * (dfur/q)
+
+qf(.95, df1=q, df2=dfur) 
+```
+
+`r ifelse(F > qf(.95, df1=q, df2=dfur), "reject", "fail to reject")` the hypothesis that bavg, hrunsyr, and rbisyr have no effect on salary.
+
+```{r}
+fit2 <- lm(lsalary~years+gamesyr+bavg+hrunsyr, data=mlb1)
+summary(fit2)
+```
+
+```{r}
+fit3 <- lm(lsalary~years+gamesyr+bavg+rbisyr, data=mlb1)
+summary(fit3)
+```
+
+dropping rbisyr, in which case hrunsyr becomes very significant. The same is true for rbisyr when hrunsyr is dropped from the model.
+
+The F statistic is often useful for testing exclusion of a group of variables when the variables in the group are highly correlated.
+
+## Example 4.9
+
+```{r}
+data('bwght')
+bwght <- bwght %>% filter(!is.na(motheduc) & !is.na(fatheduc))
+
+```
+
+```{r}
+fit <- lm(bwght~cigs+parity+faminc+motheduc+fatheduc, data=bwght)
+summary(fit)
+```
+
+The R-squared for the full model turns out to be .0387
+
+
+```{r}
+fit1 <- lm(bwght~cigs+parity+faminc, data=bwght)
+summary(fit1)
+```
+
+When motheduc and fatheduc are dropped from the regression, the R-squared falls to .0364
+
+```{r}
+anova(fit, fit1)
+```
+
+fail to reject H0. In other words, motheduc and fatheduc are jointly insignificant in the birth weight equation.
+
+## Example 4.10
+
+
+# Problem
+
+## Problem 1
+
+Which of the following can cause the usual OLS t statistics to be invalid (that is, not to have t distributions under H0)?
+(i) Heteroskedasticity.
+
+(ii) A sample correlation coefficient of .95 between two independent variables that are in
+the model.
+
+(iii) Omitting an important explanatory variable.
+
+
+(i) and (iii) generally cause the t statistics not to have a t distribution under H0.  Homoskedasticity is one of the CLM assumptions.  An important omitted variable violates Assumption MLR.3.  The CLM assumptions contain no mention of the sample correlations among independent variables, except to rule out the case where the correlation is one.
+
+## Problem 2
+
+## Problem 3
+
+The variable rdintens is expenditures on research and development (R&D) as a percentage of sales. Sales are measured in millions of dollars. The variable profmarg is profits as a percentage of sales.
+
+Using the data in RDCHEM for 32 firms in the chemical industry, the following equation is estimated:
+
+```{r}
+data('rdchem')
+```
+
+Using the data in WAGE1 gives the estimated equation
+
+$$rdintens =  0.47225 + 0.32135 lsales + 0.05004 profmarg$$
+
+```{r}
+fit <- lm(rdintens~lsales+profmarg, data=rdchem)
+summary(fit)
+```
+
+(i) Interpret the coefficient on log(sales). In particular, if sales increases by 10%, what is the estimated percentage point change in rdintens? Is this an economically large effect?
+
+Holding profmarg fixed, $\Delta$rdintens  = .321 $\Delta$log(sales) = (.321/100)[100 * $\Delta$log(sales)] $\sim$ 0.00321(%$\Delta$sales).  Therefore, if %$\Delta$sales = 10, $\Delta$rdintens $\sim$ .032, or only about 3/100 of a percentage point.  For such a large percentage increase in sales, this seems like a practically small effect.
+
+(ii) Test the hypothesis that R&D intensity does not change with sales against the alternative that it does increase with sales. Do the test at the 5% and 10% levels.
+
+${H_0}: b_{lsales} = 0$
+${H_1}: b_{lsales} > 0$
+
+where $b_{lsales}$  is the population slope on log(sales).  
+
+The t statistic is .321/.216 $\sim$ 1.486.  
+The 5% critical value for a one-tailed test, with df = 32 – 3 = 29, is obtained from Table G.2 as 1.699; so we cannot reject H0 at the 5% level.  
+The 10% critical value is 1.311; since the t statistic is above this value, we reject ${H_0}$ in favor of ${H_1}$ at the 10% level.
+
+
+```{r}
+abs(qt(0.05, 29))
+abs(qt(0.1, 29))
+```
+
+(iii) Interpret the coefficient on profmarg. Is it economically large?
+
+
+(iv) Does profmarg have a statistically significant effect on rdintens?
+
+profmarg is not statistically significant effect on rdintens.
+
+## Problem 5
+
+Consider the estimated equation from Example 4.3, which can be used to study the effects of skipping class on college GPA:
+
+```{r}
+data('gpa1')
+```
+
+```{r}
+fit <- lm(colGPA~hsGPA+ACT+skipped, data=gpa1)
+summary(fit)
+```
+
+(i) Using the standard normal approximation, find the 95% confidence interval for bhsGPA.
+
+
+```{r}
+c <- qnorm(1-.05/2)
+signif(summary(fit)$coefficients["hsGPA", 1], 3) + c * signif(summary(fit)$coefficients["hsGPA", 2], 3)
+
+signif(summary(fit)$coefficients["hsGPA", 1], 3) - c * signif(summary(fit)$coefficients["hsGPA", 2], 3)
+```
+
+(ii) Can you reject the hypothesis ${H_0}$: bhsGPA = .4 against the two-sided alternative at the 5% level?
+
+The value bhsGPA = .4 is inside the 95% CI, therefore fail to reject the hypothesis ${H_0}$.
+
+(iii) Can you reject the hypothesis ${H_0}$: bhsGPA = 1 against the two-sided alternative at the 5% level?
+
+The value bhsGPA = 1 is not inside the 95% CI, therefore reject the hypothesis ${H_0}$.
+
+## Problem 7
+
+In Example 4.7, we used data on nonunionized manufacturing firms to estimate the relationship between the scrap rate and other firm characteristics. We now look at this example more closely and use all available firms.
+
+(i) The population model estimated in Example 4.7 can be written as 
+
+$$lscrap =  \beta_0 + \beta_1 * hrsemp + \beta_2 * lsales + \beta_3 * lemploy + u$$
+
+Using the 43 observations available for 1987, the estimated equation is 
+
+Compare this equation to that estimated using only the 29 nonunionized firms in
+the sample.
+
+```{r}
+data('jtrain')
+```
+
+```{r}
+fit <- lm(lscrap~hrsemp+lsales+lemploy, data=jtrain %>% filter(year == 1987))
+summary(fit)
+```
+
+```{r}
+fit <- lm(lscrap~hrsemp+lsales+lemploy, data=jtrain %>% filter(year == 1987 & union == 0))
+summary(fit)
+```
+```{r}
+c <- qnorm(1-.05/2) 
+c <- abs(qt(0.05, 25))
+
+c * signif(summary(fit)$coefficients["hrsemp", 2], 3)
+signif(summary(fit)$coefficients["hrsemp", 1], 3) + c * signif(summary(fit)$coefficients["hrsemp", 2], 3)
+
+signif(summary(fit)$coefficients["hrsemp", 1], 3) - c * signif(summary(fit)$coefficients["hrsemp", 2], 3)
+```
+
+The standard error on hrsemp has not changed, the magnitude of the coefficient has increased by half.  The t statistic on hrsemp has gone from about –1.28 to –2.21, so now the coefficient is statistically less than zero at the 5% level.  (From Table G.2 the 5% critical value with 40 df is –1.684.  The 1% critical value is –2.423, so the p-value is between .01 and .05.)
+
+(ii) Show that the population model can also be written as
+log(scrap) 5 b0 1 b1hrsemp 1 b2log(sales/employ) 1 u3log(employ) 1 u,
+where u3 5 b2 1 b3. [Hint: Recall that log(x2/x3) 5 log(x2) 2 log(x3).] Interpret the
+
+log(scrap)5 11.74 2 .042 hrsemp2 .951 log(sales)1 .992 log(employ) (4.57) (.019) (.370) (.360)
+n543,R2 5.310.
+hypothesis H0: u3 5 0.
+
+(iii) When the equation from part (ii) is estimated, we obtain Controlling for worker training and for the sales-to-employee ratio, do bigger firms have larger statistically significant scrap rates?
+
+(iv) Test the hypothesis that a 1% increase in sales/employ is associated with a 1% drop in the scrap rate.
+
+## Problem 9
+
+In Problem 3 in Chapter 3, we estimated the equation
+
+$$sleep =  3638.25 - .148 * totwrk - 11.13 * educ + 2.20 * age $$
+$$n = 706, R^{2} = .113$$
+
+where we now report standard errors along with the estimates.
+
+```{r}
+data('sleep75')
+```
+
+```{r}
+fit <- lm(sleep~totwrk+educ+age, data=sleep75)
+summary(fit)
+```
+
+(i) Is either educ or age individually significant at the 5% level against a two-sided alternative? Show your work.
+
+With df = 706 – 4 = 702, we use the standard normal critical value (df = $\infty$ in Table G.2), which is 1.96 for a two-tailed test at the 5% level.  
+$t_{educ}$ = -11.13/5.88 $\sim$ -1.89, so |$t_{educ}$| = 1.89 < 1.96, therefore fail to reject $H_0$:  $t_{educ}$ = 0 at the 5% level.  educ is statistically insignificant at the 5% level.
+
+$t_{age}$ = 2.20/1.446 $\sim$ 1.522, so |$t_{age}$| = 1.522 < 1.96, therefore fail to reject $H_0$: $t_{age}$ = 0 at the 5% level.  age is statistically insignificant at the 5% level.
+
+
+(ii) Dropping educ and age from the equation gives
+
+Are educ and age jointly significant in the original equation at the 5% level? Justify your answer.
+
+```{r}
+fit1 <- lm(sleep~totwrk, data=sleep75)
+summary(fit1)
+```
+
+Compute the R-squared form of the F statistic for joint significance.  
+
+```{r}
+(summary(fit)$r.square - summary(fit1)$r.square) / (1 - summary(fit)$r.square) * (fit$df.residual/2)
+qf(.95, df1=2, df2=702) 
+anova(fit, fit1)
+```
+
+F = [(.113 - .103)/(1 - .113)](702/2) $\sim$ 3.96.  
+
+The 5% critical value in the $F_{2,702}$ distribution can be obtained from Table G.3b with denominator df = $\infty$:  critical value = 3.00.  Therefore, educ and age are jointly significant at the 5% level (3.96 > 3.00).  In fact, the p-value is about .019, and so educ and age are jointly significant at the 5% level.
+
+
+(iii) Does including educ and age in the model greatly affect the estimated tradeoff between sleeping and working?
+
+These variables are jointly significant, but including them only changes the coefficient on totwrk from `r signif(summary(fit1)$coefficients["totwrk", 1], 3)` to `r signif(summary(fit)$coefficients["totwrk", 1], 3)`.
+
+(iv) Suppose that the sleep equation contains heteroskedasticity. What does this mean about the tests computed in parts (i) and (ii)?
+
+Bothe standard t and F statistics assume homoskedasticity, in addition to the other CLM assumptions.  If the sleep equation contains heteroskedasticity, the tests are not valid.
+
+## Problem 11
+
+The following table was created using the data in CEOSAL, where standard errors are in parentheses below the coefficients:
+
+```{r}
+data('ceosal2')
+fit1 <- lm(lsalary~lsales+lmktval+profmarg+ceoten+comten, data=ceosal2)
+summary(fit1)
+fit2 <- lm(lsalary~lsales+lmktval+profmarg, data=ceosal2)
+summary(fit2)
+fit3 <- lm(lsalary~lsales, data=ceosal2)
+summary(fit3)
+```
+
+The variable mktval is market value of the firm, profmarg is profit as a percentage of sales, ceoten is years as CEO with the current company, and comten is total years with the company.
+
+(i) Comment on the effect of profmarg on CEO
+
+In model 1 and 2, the coefficient on lmktval is actually negative (`r signif(summary(fit1)$coefficients["lmktval", 1], 3)` and `r signif(summary(fit2)$coefficients["lmktval", 1], 3)`), although its t statistic is only about –1.  Once firm sales and market value have been controlled for, profit margin has no effect on CEO salary.
+
+```{r}
+anova(fit1, fit2)
+```
+
+(ii) Does market value have a significant effect? Explain.
+
+In model 1 and 2, the coefficient on profmarg is  positive (`r signif(summary(fit1)$coefficients["profmarg", 1], 3)` and `r signif(summary(fit2)$coefficients["profmarg", 1], 3)`), although its t statistic is only about 0.1.  Once firm sales and profit as a percentage of sales have been controlled for, market value haseffect on CEO salary.
+
+In model 1, market value controls for the most factors affecting salary.  The t statistic on log(mktval) is `r signif(summary(fit1)$coefficients["lmktval", 3], 3)`, which is significant at the 5% level against a two-sided alternative. log(mktval) is statistically significant.  Because the coefficient is an elasticity, a ceteris paribus 10% increase in market value is predicted to increase salary by 1%.  This is not a large nor negligible effect.
+
+(iii) Interpret the coefficients on ceoten and comten. Are these explanatory variables statistically significant?
+
+In model 1, years as ceo with company the t statistic on ceoten is `r signif(summary(fit1)$coefficients["ceoten", 3], 3)`, which is significant at the 5% level against a two-sided alternative. ceoten is statistically significant.
+
+Other factors fixed, another year as CEO with the company increases salary by about `r signif(summary(fit1)$coefficients["ceoten", 1], 3)*100`%. 
+
+In model 1, years with company the t statistic on ceoten is `r signif(summary(fit1)$coefficients["comten", 3], 3)`, which is significant at the 5% level against a two-sided alternative. comten is statistically significant.
+
+Other factors fixed, another year with the company decreases salary by about `r signif(summary(fit1)$coefficients["ceoten", 1], 3)*100`%.
+
+(iv) What do you make of the fact that longer tenure with the company, holding the other factors fixed, is associated with a lower salary?
+
+One possibility is that firms that hire CEOs from outside the company (lower tenure with the company) often go after a small pool of highly regarded candidates, and salaries of these people are bid up.  
+
+# Exercise
+
+## C1
+
+The following model can be used to study whether campaign expenditures affect election outcomes:
+
+$$voteA =  \beta_0 + \beta_1 * lexpendA + \beta_2 * lexpendB + \beta_3 * prtystrA + u$$
+
+where voteA is the percentage of the vote received by Candidate A, expendA and expendB are campaign expenditures by Candidates A and b, and prtystrA is a measure of party strength for Candidate A (the percentage of the most recent presidential vote that went to A’s party).
+
+(i) What is the interpretation of $\beta_1$?
+
+```{r}
+data('vote1')
+```
+
+```{r}
+fit <- lm(voteA~lexpendA+lexpendB+prtystrA, data=vote1)
+summary(fit)
+```
+Holding other factors fixed, $\Delta$voteA = $\beta_1\Delta$lexpendA where we use the fact that 100 * $\Delta$lexpendA $\sim$ %$\Delta$lexpendA.  So  $\beta_1$/100 is the (ceteris paribus) percentage point change in voteA when expendA increases by one percent.
+
+(ii) In terms of the parameters, state the null hypothesis that a 1% increase in A’s expenditures is offset by a 1% increase in B’s expenditures.
+
+${H_0}: \beta_1 - \beta_2 = 0$
+${H_1}: \beta_1 - \beta_2 \ne 0$
+
+(iii) Estimate the given model using the data in VOTE1 and report the results in usual form. Do A’s expenditures affect the outcome? What about B’s expenditures? Can you use these results to test the hypothesis in part (ii)?
+
+(iv) Estimate a model that directly gives the t statistic for testing the hypothesis in part
+
+(ii) What do you conclude? (Use a two-sided alternative.)
+
+The coefficient on log(expendA) is very significant (t statistic = `r signif(summary(fit)$coefficients["lexpendA", 3], 3)`).  The estimates imply that a 10% ceteris paribus increase in spending by candidate A increases the predicted share of the vote going to A by about `r signif(summary(fit)$coefficients["lexpendA", 1], 3)/10` percentage points. 
+
+The coefficient on log(expendB) is very significant (t statistic = `r signif(summary(fit)$coefficients["lexpendB", 3], 3)`).  The estimates imply that a 10% ceteris paribus decrease in spending by candidate B increases the predicted share of the vote going to A by about `r signif(summary(fit)$coefficients["lexpendB", 1], 3)/10` percentage points. 
+
+The coefficients on log(expendA) and log(expendB) are of similar magnitudes but opposite in sign, we do not have the standard error of   +  , which is what we would need to test the hypothesis from part (ii).
+
+
+##
+
+Refer to Computer Exercise C2 in Chapter 3. Now, use the log of the housing price as the dependent variable:
+
+$$log(price) =  \beta_0 + \beta_1 * sqrft + \beta_2 * bdrms  + u$$
+
+
+(i) You are interested in estimating and obtaining a confidence interval for the percentage change in price when a 150-square-foot bedroom is added to a house. In decimal form, this is $\theta_1$ = 150 $\beta_1$ + $\beta_2$ Use the data in HPRICE1 to estimate u1.
+
+```{r}
+data('hprice1')
+```
+
+```{r}
+fit <- lm(lprice~sqrft+bdrms, data=hprice1)
+summary(fit)
+```
+
+Therefore, $\hat{\theta_1}$ = 150 (0.000379) + 0.0289 = 0.0858, which means that an additional 150 square foot bedroom increases the predicted price by about 8.6%.
+
+$\hat{\theta_1}$ = 0.0858, $\beta_1$ = 0.000379, $\beta_2$ = 0.0289
+
+(ii) Write $\beta_2$ in terms of $\theta_1$ and $\beta_1$ and plug this into the log(price) equation.
+
+$\theta_1$ = 150 $\beta_1$ + $\beta_2$
+
+$\theta_1$ - 150 $\beta_1$ = $\beta_2$
+
+log(price)	=	 $\beta_0$ +  $\beta_1$ sqrft  + ($\theta_1$ – 150 $\beta_1$) bdrms  + u
+log(price)	=	 $\beta_0$ +  $\beta_1$ (sqrft – 150 bdrms) +  $\theta_1$ bdrms + u.
+
+
+(iii) Use part (ii) to obtain a standard error for $\theta_1$ and use this standard error to construct a 95% confidence interval.
+
+log(price) on (sqrft – 150 bdrms)
+
+$\hat{\theta_1}$ = 0.0858; now we also get se($\hat{\theta_1}$) = 0.0268.  The 95% confidence interval is 0.0326 to 0.1390 (3.3% to 13.9%).
+
+##
+
+##

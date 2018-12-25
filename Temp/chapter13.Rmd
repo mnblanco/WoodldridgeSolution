@@ -1,0 +1,67 @@
+---
+title: "Chapter 13"
+author: "Marjorie Blanco"
+date: "12/20/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercise 13.1
+
+```{r}
+data('fertil1')
+```
+
+
+```{r}
+fertil1 <- fertil1 %>% select(educ, age:agesq)
+fit <- lm(kids~., data=fertil1)
+
+summary(fit)
+```
+
+## Exercise 13.2
+
+```{r}
+data('cps78_85')
+```
+
+```{r}
+fit <- lm(lwage~y85+educ+y85educ+exper+expersq+union+female+y85fem, data=cps78_85)
+summary(fit)
+```
+
+## Exercise 13.2
+
+```{r}
+data('kielmc')
+```
+
+```{r}
+fit <- lm(rprice~nearinc, data=kielmc %>% filter(year == 1981))
+summary(fit)
+```
+
+```{r}
+fit <- lm(rprice~nearinc, data=kielmc %>% filter(year == 1978))
+summary(fit)
+```
+
+```{r}
+fit <- lm(rprice~y81+nearinc+y81nrinc, data=kielmc %>% filter(between(year, 1978, 1981)))
+summary(fit)
+```
+
+## Exercise 13.3
+
+```{r}
+data('injury')
+```
+
+```{r}
+fit <- lm(ldurat~afchnge+highearn+I(afchnge*highearn), data=injury)
+summary(fit)
+```

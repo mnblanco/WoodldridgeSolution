@@ -1,0 +1,135 @@
+---
+title: 'Multiple Regression Analysis with Qualitative Information: Binary (or Dummy) Variables'
+author: "Marjorie Blanco"
+date: "12/23/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# Clear environment
+rm(list = ls(all = TRUE))
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, error=FALSE, warning=FALSE)
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+
+# Clear environment
+rm(list = ls(all = TRUE))
+library(wooldridge)
+library(dplyr)
+library(ggplot2)
+library(stats)
+```
+
+# Example
+
+Suppose that, in a study comparing election outcomes between Democratic and Republican candidates, you wish to indi- cate the party of each candidate. Is a name such as party a wise choice for a binary variable in this case? What would be a better name?
+
+## Example 1
+
+```{r}
+data('wage1')
+wage1$female <- as.factor(wage1$female)
+```
+
+```{r}
+fit <- lm(wage~educ+female, data=wage1)
+summary(fit)
+
+ggplot(data = wage1, aes(x = educ, y = wage, colour = female)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+```{r}
+fit <- lm(wage~educ+female+exper+tenure, data=wage1)
+summary(fit)
+```
+The negative intercept—the intercept for men, in this case—is not very meaningful because no one has zero values for all of educ, exper, and tenure.
+
+If we take a woman and a man with the same levels of education, experience, and tenure, the woman earns, on average, $1.81 less per hour than the man.
+
+```{r}
+fit <- lm(wage~female, data=wage1)
+summary(fit)
+```
+
+men earn $7.10 per hour on average
+
+average wage for women in the sample is 7.10 - 2.51 = 4.59, or $4.59 per hour
+
+The estimated wage differential between men and women is larger in model 2 than in model 1 because model 2 does not control for differences in education, experience, and tenure, and these are lower, on average, for women than for men 
+## Example 2
+
+```{r}
+data('gpa1')
+gpa1$PC <- as.factor(gpa1$PC)
+```
+
+```{r}
+fit <- lm(colGPA~PC+hsGPA+ACT, data=gpa1)
+summary(fit)
+fit <- lm(colGPA~PC, data=gpa1)
+summary(fit)
+```
+
+student who owns a PC has a predicted GPA about .16 points higher than a comparable student without a PC
+
+Regressing colGPA on PC gives an estimate on PC equal to about .17. 
+
+## Example 3
+
+```{r}
+data('jtrain')
+```
+
+```{r}
+fit <- lm(hrsemp~grant+lsales+lemploy, data=jtrain %>% filter(year == 1988))
+summary(fit)
+```
+cannot enter hrsemp in logarithmic form because hrsemp is zero for 29 
+
+grant is very statistically significant
+
+coefficient on log(sales) is small and very insignificant
+
+coefficient on log(employ) means that, if a firm is 10% larger, it trains its workers about .61 hour less. Its t statistic is 21.56, which is only marginally statistically significan
+
+```{r}
+data('hprice1')
+hprice1$colonial <- as.factor(hprice1$colonial)
+```
+
+```{r}
+fit <- lm(lprice~llotsize+lsqrft+bdrms+colonial, data=hprice1)
+summary(fit)
+```
+
+the difference in log(price) between a house of colonial style and that of another style is .054
+
+a colonial-style house is predicted to sell for about 5.4% more, holding other factors fixed
+
+when log(y) is the dependent variable in a model, the co- efficient on a dummy variable, when multiplied by 100, is interpreted as the percentage difference in y, holding all other factors fixed.
+
+```{r}
+fit <- lm(lwage~educ+female+exper+expersq+tenure+tenursq, data=wage1)
+summary(fit)
+```
+the coefficient on female implies that, for the same levels of educ, exper, and tenure, women earn about 100(.297) = 29.7% less than men
+
+exact percentage difference in predicted wages
+
+```{r}
+exp(signif(summary(fit)$coefficients["female", 1], 3)) - 1
+```
+
+
+the difference in predicted wages between men and women is about 29.7%
+
+
+```{r}
+wage1$marrmale
+wage1$marrfem
+wage1$singfem
+
+fit <- lm(lwage~marrmale+marrfem+singfem+educ+exper+expersq+tenure+tenursq, data=wage1)
+summary(fit)
+```

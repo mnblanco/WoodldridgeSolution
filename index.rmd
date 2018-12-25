@@ -19,8 +19,7 @@ biblio-stye: apalike
 
 # Welcome {-}
 
-This contains solutions to the exercise in [*Introductory Econometrics: A Modern Approach*](https://www.amazon.com/Introductory-Econometrics-Modern-Approach-Economics), by Jeffrey Wooldridg [@WickhamGrolemund2017].
-Physical copy is published by O'Reilly and available from [amazon](https://www.amazon.com/Introductory-Econometrics-Modern-Approach-Economics).
+This contains solutions to the exercise in Introductory Econometrics: A Modern Approach, by Jeffrey Wooldridge.
 
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
 

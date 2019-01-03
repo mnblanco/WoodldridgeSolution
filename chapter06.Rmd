@@ -1,0 +1,234 @@
+---
+title: "Chapter 6: Multiple Regression Analysis: Further Issues"
+author: "Marjorie Blanco"
+date: "12/22/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# Clear environment
+rm(list = ls(all = TRUE))
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, error=FALSE, warning=FALSE)
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+
+# Clear environment
+rm(list = ls(all = TRUE))
+library(wooldridge)
+library(dplyr)
+library(ggplot2)
+library(stats)
+library(sjPlot)
+```
+
+# Multiple Regression Analysis: Further Issues
+
+```{r}
+plot_coeffs <- function(mlr_model) {
+  coeffs <- coefficients(mlr_model)
+  mp <- barplot(coeffs, col="#3F97D0", xaxt='n', main="Regression Coefficients")
+  lablist <- names(coeffs)
+  text(mp, par("usr")[3], labels = lablist, srt = 45, adj = c(1.1,1.1), xpd = TRUE, cex=0.6)
+}
+
+plotScatter <- function(data, x, y)
+  ggplot(data = data, aes_string(x = x, y = y)) + 
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x + I(x^2), se = FALSE)
+```
+
+## 
+
+```{r}
+data('bwght')
+```
+
+```{r}
+fit <- lm(bwght~cigs+faminc, data=bwght)
+summary(fit)
+
+fit <- lm(bwghtlbs~cigs+faminc, data=bwght)
+summary(fit)
+
+fit <- lm(bwght~packs+faminc, data=bwght)
+summary(fit)
+```
+
+Once the effects are transformed into the same units, we get exactly the same answer, regardless of how the dependent variable is measured.
+
+Changing the dependent variable from ounces to pounds has no effect on how statistically important the independent variables are.
+
+The standard errors in model 2 are 16 times smaller than those in model 1 (t statistics are indeed identical).
+
+SER in model 2 is 16 times smaller than that in model 1. 
+
+In terms of goodness-of-fit, the R-squareds from the two regressions are identical.
+
+## Example 1
+
+We use the data from Example 4.5 (in the file HPRICE2) to illustrate the use of beta coefficients. Recall that the key independent variable is nox, a measure of the nitrogen oxide in the air over each community. One way to understand the size of the pollution effect—without getting into the science underlying nitrogen oxide’s effect on air quality—is to compute beta coefficients. (An alternative approach is contained in Example 4.5: we obtained a price elasticity with respect to nox by using price and nox in logarithmic form.)
+
+```{r}
+data('hprice2')
+```
+
+```{r}
+fit <- lm(price~nox+crime+rooms+dist+stratio, data=hprice2)
+summary(fit)
+plot_coeffs(fit)
+```
+
+```{r}
+hprice2$zprice <- scale(hprice2$price)
+hprice2$znox <- scale(hprice2$nox)
+hprice2$zcrime <- scale(hprice2$crime)
+hprice2$zrooms <- scale(hprice2$rooms)
+hprice2$zdist <- scale(hprice2$dist)
+hprice2$zstratio <- scale(hprice2$stratio)
+```
+
+```{r}
+fit <- lm(zprice~znox+zcrime+zrooms+zdist+zstratio, data=hprice2)
+summary(fit)
+plot_coeffs(fit)
+```
+
+This equation shows that a one standard deviation increase in nox decreases price by .34 standard deviation; a one standard deviation increase in crime reduces price by .14 standard deviation. Thus, the same relative movement of pollution in the population has a larger effect on housing prices than crime does. Size of the house, as measured by number of rooms (rooms), has the largest standardized effect. If we want to know the effects of each independent variable on the dollar value of median house price, we should use the unstandardized variables.
+Whether we use standardized or unstandardized variables does not affect statistical significance: the t statistics are the same in both cases.
+
+```{r}
+fit <- lm(lprice~lnox+rooms, data=hprice2)
+summary(fit)
+```
+nox increases by 1%, price falls by .718%, holding only rooms fixed
+
+rooms increases by one, price increases by approximately 100(.306) 5 30.6%
+100[exp(.306) + 1] = 35.8%, which is  larger than the approximate percentage change
+
+as the change in log(y) becomes larger and larger, the approximation becomes more and more inaccurate
+
+```{r}
+data('wage1')
+```
+
+```{r}
+wage1$exper2 <- wage1$exper^2
+fit <- lm(wage~exper+exper2, data=wage1)
+summary(fit)
+
+plotScatter(wage1, "exper", "wage")
+```
+
+## Example 2
+
+```{r}
+data('hprice2')
+```
+
+```{r}
+fit <- lm(lprice~lnox+log(dist)+rooms+I(rooms^2)+stratio, data=hprice2)
+summary(fit)
+
+plotScatter(hprice2, "rooms", "lprice")
+```
+
+```{r}
+fit <- lm(lprice~lnox+I(lnox^2)+crime+rooms+I(rooms^2)+stratio, data=hprice2)
+summary(fit)
+```
+
+## Example 3
+
+```{r}
+data('attend')
+```
+
+```{r}
+fit <- lm(stndfnl~atndrte+priGPA+ACT+I(priGPA^2)+I(ACT^2)+I(atndrte*priGPA), data=attend)
+summary(fit)
+```
+
+```{r}
+data('mlb1')
+```
+
+```{r}
+fit <- lm(lsalary~years+gamesyr+bavg+hrunsyr, data=mlb1)
+summary(fit)
+fit <- lm(lsalary~years+gamesyr+bavg+rbisyr, data=mlb1)
+summary(fit)
+```
+```{r}
+data('rdchem')
+```
+
+```{r}
+fit <- lm(rdintens~lsales, data=rdchem)
+summary(fit)
+fit <- lm(rdintens~sales+I(sales^2), data=rdchem)
+summary(fit)
+```
+
+## Example 4
+
+```{r}
+data('ceosal1')
+fit <- lm(salary~sales+roe, data=ceosal1)
+summary(fit)
+fit <- lm(lsalary~lsales+roe, data=ceosal1)
+summary(fit)
+```
+
+## Example 5
+
+```{r}
+data('gpa2')
+gpa2$hsizesq <- gpa2$hsize * gpa2$hsize
+```
+
+```{r}
+fit <- lm(colgpa~sat+hsperc+hsize+hsizesq, data=gpa2)
+summary(fit)
+
+new <- data.frame(sat = c(1200), hsperc = c(30), hsize = c(5), hsizesq = c(25)) 
+predict(fit, new, se.fit = TRUE)
+
+gpa2$sat0 <- gpa2$sat - 1200
+gpa2$hsperc0 <- gpa2$hsperc - 30
+gpa2$hsize0 <- gpa2$hsize - 5
+gpa2$hsizesq0 <- gpa2$hsizesq - 25
+
+fit <- lm(colgpa~sat0+hsperc0+hsize0+hsizesq0, data=gpa2)
+summary(fit)
+```
+
+## Example 3
+
+```{r}
+data('ceosal2')
+```
+
+```{r}
+fit <- lm(lsalary~lsales+lmktval+ceoten, data=ceosal2)
+summary(fit)
+
+new <- data.frame(lsales = c(log(5000) ), lmktval = c(log(10000)), ceoten = c(10)) 
+x <- predict(fit, new, se.fit = TRUE)
+exp(x$fit)
+```
+
+## Explore 6.3
+
+If we add the term $\beta_74 ACT * atndrte to equation (6.18), what is the partial effect of atndrte on stndfnl?
+
+```{r}
+data('attend')
+```
+
+```{r}
+fit <- lm(stndfnl~atndrte+priGPA+ACT+I(priGPA^2)+I(ACT^2)+I(atndrte*priGPA)+I(ACT * atndrte), data=attend)
+summary(fit)
+```
+
+## Explore 6.5
+
+How would you use residual analysis to deter- mine which professional athletes are overpaid or underpaid relative to their performance?

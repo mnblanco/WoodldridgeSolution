@@ -1,14 +1,3 @@
----
-title: "Chapter 2: The simple regression Model"
-author: "Marjorie Blanco"
-date: "12/19/2018"
-output:
-  html_document:
-    toc: true
-    toc_float: true
-    number_sections: true
----
-
 ```{r setup, include=FALSE}
 # Clear environment
 rm(list = ls(all = TRUE))

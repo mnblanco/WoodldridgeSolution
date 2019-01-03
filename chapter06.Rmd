@@ -36,7 +36,7 @@ plotScatter <- function(data, x, y)
   geom_smooth(method = "lm", formula = y ~ x + I(x^2), se = FALSE)
 ```
 
-## 
+## Effects of Data Scaling on OLS Statistics
 
 ```{r}
 data('bwght')

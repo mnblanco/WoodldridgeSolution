@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 3 Multiple regression Analysis: estimation | Introductory Econometrics: A Modern Approach Solutions</title>
+  <meta name="description" content="This contains the solutions to the exercises in the book, Introductory Econometrics: A Modern Approach, by Jeffrey Woodldridge.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 3 Multiple regression Analysis: estimation | Introductory Econometrics: A Modern Approach Solutions" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This contains the solutions to the exercises in the book, Introductory Econometrics: A Modern Approach, by Jeffrey Woodldridge." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Multiple regression Analysis: estimation | Introductory Econometrics: A Modern Approach Solutions" />
+  
+  <meta name="twitter:description" content="This contains the solutions to the exercises in the book, Introductory Econometrics: A Modern Approach, by Jeffrey Woodldridge." />
+  
+
+<meta name="author" content="Marjorie Blanco">
+
+
+<meta name="date" content="2019-01-02">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="the-simple-regression-model.html">
+<link rel="next" href="multiple-regression-analysis-inference.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introductory Econometrics: A Modern Approach Solutions</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="nature-of-econometrics-and-economic-data.html"><a href="nature-of-econometrics-and-economic-data.html"><i class="fa fa-check"></i><b>1</b> Nature of econometrics and economic Data</a></li>
+<li class="chapter" data-level="2" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html"><i class="fa fa-check"></i><b>2</b> The simple regression Model</a><ul>
+<li class="chapter" data-level="2.1" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c1-k401k"><i class="fa fa-check"></i><b>2.1</b> C1-K401K</a></li>
+<li class="chapter" data-level="2.2" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c2-ceosal2"><i class="fa fa-check"></i><b>2.2</b> C2-CEOSAL2</a></li>
+<li class="chapter" data-level="2.3" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c3-sleep75"><i class="fa fa-check"></i><b>2.3</b> C3-SLEEP75</a></li>
+<li class="chapter" data-level="2.4" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c4-wage2"><i class="fa fa-check"></i><b>2.4</b> C4-WAGE2</a></li>
+<li class="chapter" data-level="2.5" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c5-rdchem"><i class="fa fa-check"></i><b>2.5</b> C5-RDCHEM</a></li>
+<li class="chapter" data-level="2.6" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c6-meap93"><i class="fa fa-check"></i><b>2.6</b> C6-MEAP93</a></li>
+<li class="chapter" data-level="2.7" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c7-charitu"><i class="fa fa-check"></i><b>2.7</b> C7-CHARITU</a></li>
+<li class="chapter" data-level="2.8" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c8"><i class="fa fa-check"></i><b>2.8</b> C8</a></li>
+<li class="chapter" data-level="2.9" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c9-countymurders"><i class="fa fa-check"></i><b>2.9</b> C9-countymurders</a></li>
+<li class="chapter" data-level="2.10" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c10-catholic"><i class="fa fa-check"></i><b>2.10</b> C10-CATHOLIC</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html"><i class="fa fa-check"></i><b>3</b> Multiple regression Analysis: estimation</a><ul>
+<li class="chapter" data-level="3.1" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#formula"><i class="fa fa-check"></i><b>3.1</b> Formula</a></li>
+<li class="chapter" data-level="3.2" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#explore"><i class="fa fa-check"></i><b>3.2</b> Explore</a></li>
+<li class="chapter" data-level="3.3" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#example-3.1"><i class="fa fa-check"></i><b>3.3</b> Example 3.1</a></li>
+<li class="chapter" data-level="3.4" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#example-3.2"><i class="fa fa-check"></i><b>3.4</b> Example 3.2</a></li>
+<li class="chapter" data-level="3.5" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#example-3.3"><i class="fa fa-check"></i><b>3.5</b> Example 3.3</a></li>
+<li class="chapter" data-level="3.6" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#example-3.4"><i class="fa fa-check"></i><b>3.6</b> Example 3.4</a></li>
+<li class="chapter" data-level="3.7" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#example-3.5"><i class="fa fa-check"></i><b>3.7</b> Example 3.5</a></li>
+<li class="chapter" data-level="3.8" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#example-3.6"><i class="fa fa-check"></i><b>3.8</b> Example 3.6</a></li>
+<li class="chapter" data-level="3.9" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-1"><i class="fa fa-check"></i><b>3.9</b> Problem 1</a></li>
+<li class="chapter" data-level="3.10" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-2"><i class="fa fa-check"></i><b>3.10</b> Problem 2</a></li>
+<li class="chapter" data-level="3.11" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-3"><i class="fa fa-check"></i><b>3.11</b> Problem 3</a></li>
+<li class="chapter" data-level="3.12" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-4"><i class="fa fa-check"></i><b>3.12</b> Problem 4</a></li>
+<li class="chapter" data-level="3.13" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-5"><i class="fa fa-check"></i><b>3.13</b> Problem 5</a></li>
+<li class="chapter" data-level="3.14" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-7"><i class="fa fa-check"></i><b>3.14</b> Problem 7</a></li>
+<li class="chapter" data-level="3.15" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-9"><i class="fa fa-check"></i><b>3.15</b> Problem 9</a></li>
+<li class="chapter" data-level="3.16" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-11"><i class="fa fa-check"></i><b>3.16</b> Problem 11</a></li>
+<li class="chapter" data-level="3.17" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#c1"><i class="fa fa-check"></i><b>3.17</b> C1</a></li>
+<li class="chapter" data-level="3.18" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#c2"><i class="fa fa-check"></i><b>3.18</b> C2</a></li>
+<li class="chapter" data-level="3.19" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#c3"><i class="fa fa-check"></i><b>3.19</b> C3</a></li>
+<li class="chapter" data-level="3.20" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#c5"><i class="fa fa-check"></i><b>3.20</b> C5</a></li>
+<li class="chapter" data-level="3.21" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#c9"><i class="fa fa-check"></i><b>3.21</b> C9</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html"><i class="fa fa-check"></i><b>4</b> Multiple regression Analysis: inference</a><ul>
+<li class="chapter" data-level="4.1" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#explore-4.1"><i class="fa fa-check"></i><b>4.1</b> Explore 4.1</a></li>
+<li class="chapter" data-level="4.2" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#explore-4.2"><i class="fa fa-check"></i><b>4.2</b> Explore 4.2</a></li>
+<li class="chapter" data-level="4.3" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#explore-4.3"><i class="fa fa-check"></i><b>4.3</b> Explore 4.3</a></li>
+<li class="chapter" data-level="4.4" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#explore-4.4"><i class="fa fa-check"></i><b>4.4</b> Explore 4.4</a></li>
+<li class="chapter" data-level="4.5" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#explore-4.5"><i class="fa fa-check"></i><b>4.5</b> Explore 4.5</a></li>
+<li class="chapter" data-level="4.6" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#explore-4.6"><i class="fa fa-check"></i><b>4.6</b> Explore 4.6</a></li>
+<li class="chapter" data-level="4.7" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.1"><i class="fa fa-check"></i><b>4.7</b> Example 4.1</a></li>
+<li class="chapter" data-level="4.8" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.2"><i class="fa fa-check"></i><b>4.8</b> Example 4.2</a></li>
+<li class="chapter" data-level="4.9" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.3"><i class="fa fa-check"></i><b>4.9</b> Example 4.3</a></li>
+<li class="chapter" data-level="4.10" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.4"><i class="fa fa-check"></i><b>4.10</b> Example 4.4</a></li>
+<li class="chapter" data-level="4.11" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.5"><i class="fa fa-check"></i><b>4.11</b> Example 4.5</a></li>
+<li class="chapter" data-level="4.12" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.6"><i class="fa fa-check"></i><b>4.12</b> Example 4.6</a></li>
+<li class="chapter" data-level="4.13" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.7"><i class="fa fa-check"></i><b>4.13</b> Example 4.7</a></li>
+<li class="chapter" data-level="4.14" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.8"><i class="fa fa-check"></i><b>4.14</b> Example 4.8</a></li>
+<li class="chapter" data-level="4.15" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.9"><i class="fa fa-check"></i><b>4.15</b> Example 4.9</a></li>
+<li class="chapter" data-level="4.16" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.10"><i class="fa fa-check"></i><b>4.16</b> Example 4.10</a></li>
+<li class="chapter" data-level="4.17" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-1-1"><i class="fa fa-check"></i><b>4.17</b> Problem 1</a></li>
+<li class="chapter" data-level="4.18" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-2-1"><i class="fa fa-check"></i><b>4.18</b> Problem 2</a></li>
+<li class="chapter" data-level="4.19" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-3-1"><i class="fa fa-check"></i><b>4.19</b> Problem 3</a></li>
+<li class="chapter" data-level="4.20" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-5-1"><i class="fa fa-check"></i><b>4.20</b> Problem 5</a></li>
+<li class="chapter" data-level="4.21" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-7-1"><i class="fa fa-check"></i><b>4.21</b> Problem 7</a></li>
+<li class="chapter" data-level="4.22" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-9-1"><i class="fa fa-check"></i><b>4.22</b> Problem 9</a></li>
+<li class="chapter" data-level="4.23" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-11-1"><i class="fa fa-check"></i><b>4.23</b> Problem 11</a></li>
+<li class="chapter" data-level="4.24" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#c1-1"><i class="fa fa-check"></i><b>4.24</b> C1</a></li>
+<li class="chapter" data-level="4.25" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#c2-1"><i class="fa fa-check"></i><b>4.25</b> C2</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="multiple-regression-analysis-ols-asymptotics.html"><a href="multiple-regression-analysis-ols-asymptotics.html"><i class="fa fa-check"></i><b>5</b> Multiple regression analysis: OLS asymptotics</a><ul>
+<li class="chapter" data-level="5.1" data-path="multiple-regression-analysis-ols-asymptotics.html"><a href="multiple-regression-analysis-ols-asymptotics.html#problem-3-2"><i class="fa fa-check"></i><b>5.1</b> Problem 3</a></li>
+<li class="chapter" data-level="5.2" data-path="multiple-regression-analysis-ols-asymptotics.html"><a href="multiple-regression-analysis-ols-asymptotics.html#c1-2"><i class="fa fa-check"></i><b>5.2</b> C1</a></li>
+<li class="chapter" data-level="5.3" data-path="multiple-regression-analysis-ols-asymptotics.html"><a href="multiple-regression-analysis-ols-asymptotics.html#c2-2"><i class="fa fa-check"></i><b>5.3</b> C2</a></li>
+<li class="chapter" data-level="5.4" data-path="multiple-regression-analysis-ols-asymptotics.html"><a href="multiple-regression-analysis-ols-asymptotics.html#c3-1"><i class="fa fa-check"></i><b>5.4</b> C3</a></li>
+<li class="chapter" data-level="5.5" data-path="multiple-regression-analysis-ols-asymptotics.html"><a href="multiple-regression-analysis-ols-asymptotics.html#c5-1"><i class="fa fa-check"></i><b>5.5</b> C5</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html"><i class="fa fa-check"></i><b>6</b> Multiple Regression Analysis: Further Issues</a><ul>
+<li class="chapter" data-level="6.1" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#effects-of-data-scaling-on-ols-statistics"><i class="fa fa-check"></i><b>6.1</b> Effects of Data Scaling on OLS Statistics</a></li>
+<li class="chapter" data-level="6.2" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#example-1"><i class="fa fa-check"></i><b>6.2</b> Example 1</a></li>
+<li class="chapter" data-level="6.3" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#example-2"><i class="fa fa-check"></i><b>6.3</b> Example 2</a></li>
+<li class="chapter" data-level="6.4" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#example-3"><i class="fa fa-check"></i><b>6.4</b> Example 3</a></li>
+<li class="chapter" data-level="6.5" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#example-4"><i class="fa fa-check"></i><b>6.5</b> Example 4</a></li>
+<li class="chapter" data-level="6.6" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#example-5"><i class="fa fa-check"></i><b>6.6</b> Example 5</a></li>
+<li class="chapter" data-level="6.7" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#example-3-1"><i class="fa fa-check"></i><b>6.7</b> Example 3</a></li>
+<li class="chapter" data-level="6.8" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#explore-6.3"><i class="fa fa-check"></i><b>6.8</b> Explore 6.3</a></li>
+<li class="chapter" data-level="6.9" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#explore-6.5"><i class="fa fa-check"></i><b>6.9</b> Explore 6.5</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html"><a href="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html"><i class="fa fa-check"></i><b>7</b> Multiple Regression Analysis with Qualitative Information: Binary (or Dummy) Variables</a><ul>
+<li class="chapter" data-level="7.1" data-path="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html"><a href="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html#example-1-1"><i class="fa fa-check"></i><b>7.1</b> Example 1</a></li>
+<li class="chapter" data-level="7.2" data-path="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html"><a href="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html#example-2-1"><i class="fa fa-check"></i><b>7.2</b> Example 2</a></li>
+<li class="chapter" data-level="7.3" data-path="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html"><a href="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html#example-3-2"><i class="fa fa-check"></i><b>7.3</b> Example 3</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="heteroskedasticity.html"><a href="heteroskedasticity.html"><i class="fa fa-check"></i><b>8</b> Heteroskedasticity</a></li>
+<li class="chapter" data-level="9" data-path="more-on-specification-and-data-issues.html"><a href="more-on-specification-and-data-issues.html"><i class="fa fa-check"></i><b>9</b> More on Specification and Data Issues</a></li>
+<li class="chapter" data-level="10" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html"><i class="fa fa-check"></i><b>10</b> Basic Regression Analysis with Time Series Data</a><ul>
+<li class="chapter" data-level="10.1" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.1"><i class="fa fa-check"></i><b>10.1</b> Example 10.1</a></li>
+<li class="chapter" data-level="10.2" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.2"><i class="fa fa-check"></i><b>10.2</b> Example 10.2</a></li>
+<li class="chapter" data-level="10.3" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.3"><i class="fa fa-check"></i><b>10.3</b> Example 10.3</a></li>
+<li class="chapter" data-level="10.4" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.4"><i class="fa fa-check"></i><b>10.4</b> Example 10.4</a></li>
+<li class="chapter" data-level="10.5" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.5"><i class="fa fa-check"></i><b>10.5</b> Example 10.5</a></li>
+<li class="chapter" data-level="10.6" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.7"><i class="fa fa-check"></i><b>10.6</b> Example 10.7</a></li>
+<li class="chapter" data-level="10.7" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.8"><i class="fa fa-check"></i><b>10.7</b> Example 10.8</a></li>
+<li class="chapter" data-level="10.8" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.9"><i class="fa fa-check"></i><b>10.8</b> Example 10.9</a></li>
+<li class="chapter" data-level="10.9" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#c1-3"><i class="fa fa-check"></i><b>10.9</b> C1</a></li>
+<li class="chapter" data-level="10.10" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#c2-3"><i class="fa fa-check"></i><b>10.10</b> C2</a></li>
+<li class="chapter" data-level="10.11" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#c3-2"><i class="fa fa-check"></i><b>10.11</b> C3</a></li>
+<li class="chapter" data-level="10.12" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#c4"><i class="fa fa-check"></i><b>10.12</b> C4</a></li>
+<li class="chapter" data-level="10.13" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#c5-2"><i class="fa fa-check"></i><b>10.13</b> C5</a></li>
+<li class="chapter" data-level="10.14" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#c6"><i class="fa fa-check"></i><b>10.14</b> C6</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="further-issues-in-using-ols-with-time-series-data.html"><a href="further-issues-in-using-ols-with-time-series-data.html"><i class="fa fa-check"></i><b>11</b> Further Issues in Using OLS with Time Series Data</a></li>
+<li class="chapter" data-level="12" data-path="serial-correlation-and-heteroskedasticity-in-time-series-regressions.html"><a href="serial-correlation-and-heteroskedasticity-in-time-series-regressions.html"><i class="fa fa-check"></i><b>12</b> Serial Correlation and Heteroskedasticity in Time Series Regressions</a></li>
+<li class="chapter" data-level="13" data-path="pooling-cross-sections-across-time-simple-panel-data-method.html"><a href="pooling-cross-sections-across-time-simple-panel-data-method.html"><i class="fa fa-check"></i><b>13</b> Pooling Cross Sections Across Time: Simple Panel Data Method</a><ul>
+<li class="chapter" data-level="13.1" data-path="pooling-cross-sections-across-time-simple-panel-data-method.html"><a href="pooling-cross-sections-across-time-simple-panel-data-method.html#exercise-13.1"><i class="fa fa-check"></i><b>13.1</b> Exercise 13.1</a></li>
+<li class="chapter" data-level="13.2" data-path="pooling-cross-sections-across-time-simple-panel-data-method.html"><a href="pooling-cross-sections-across-time-simple-panel-data-method.html#exercise-13.2"><i class="fa fa-check"></i><b>13.2</b> Exercise 13.2</a></li>
+<li class="chapter" data-level="13.3" data-path="pooling-cross-sections-across-time-simple-panel-data-method.html"><a href="pooling-cross-sections-across-time-simple-panel-data-method.html#exercise-13.2-1"><i class="fa fa-check"></i><b>13.3</b> Exercise 13.2</a></li>
+<li class="chapter" data-level="13.4" data-path="pooling-cross-sections-across-time-simple-panel-data-method.html"><a href="pooling-cross-sections-across-time-simple-panel-data-method.html#exercise-13.3"><i class="fa fa-check"></i><b>13.4</b> Exercise 13.3</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/mnblanco/WoodldridgeSolution" target="blank">Introductory Econometrics: A Modern Approach</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introductory Econometrics: A Modern Approach Solutions</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="multiple-regression-analysis-estimation" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Multiple regression Analysis: estimation</h1>
+<div id="formula" class="section level2">
+<h2><span class="header-section-number">3.1</span> Formula</h2>
+<p><span class="math display">\[wage =  \beta_0 + \beta_1 * educ + \beta_2 * exper + u\]</span></p>
+<p>The coefficient of interest for policy purposes is <span class="math inline">\(\beta_1\)</span>, the ceteris paribus effect of expend on avgscore</p>
+<p><span class="math display">\[avgscore =  \beta_0 + \beta_1 * expend + \beta_2 * avginc + u\]</span></p>
+<p><span class="math inline">\(\beta_2\)</span>, measures the ceteris paribus effect of exper on wage</p>
+<p><span class="math display">\[cons =  \beta_0 + \beta_1 * inc + \beta_2 * inc^{2} + u\]</span></p>
+<p><span class="math display">\[\tilde{\beta_1} = \hat{\beta_1} + \hat{\beta_2} + \tilde{\delta_1} \]</span>
+The simple regression coefficient <span class="math inline">\(\tilde{\beta_1}\)</span> does not usually equal the multiple <span class="math inline">\(\hat{\beta_1}\)</span>.</p>
+<p><span class="math inline">\(\tilde{\delta_1}\)</span> is the slope coefficient from the simple regression of <span class="math inline">\(x_{i2}\)</span> on <span class="math inline">\(x_{i1}\)</span>.
+<span class="math inline">\(\tilde{\delta_1}\)</span> differs from the partial effect of <span class="math inline">\(x_1\)</span> on <span class="math inline">\(\hat{y}\)</span>.</p>
+<p>The relationship between <span class="math inline">\(\tilde{\delta_1}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span> also shows there are two distinct cases where they are equal:
+1. The partial effect of <span class="math inline">\(x_2\)</span> on <span class="math inline">\(\hat{y}\)</span> is zero in the sample. That is, <span class="math inline">\(\hat{\beta_2}\)</span> = 0.
+2. <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are uncorrelated in the sample. That is, <span class="math inline">\(\tilde{\delta_1}\)</span> = 0.</p>
+</div>
+<div id="explore" class="section level2">
+<h2><span class="header-section-number">3.2</span> Explore</h2>
+<p>A simple model to explain city murder rates (murdrate) in terms of the probability of conviction (prbconv) and average sentence length (avgsen) is</p>
+<p><span class="math display">\[murdrate =  \beta_0 + \beta_1 * prbconv + \beta_2 * avgsen + u\]</span></p>
+<p>What are some factors contained in u? Do you think the key assumption (3.5) is likely to hold?</p>
+<p>In Example 3.1, the OLS fitted line explaining college GPA in terms of high school GPA and ACT score is</p>
+<p><span class="math display">\[colGPA =  1.29 + .453 * hsGPA + .0094 * ACT\]</span></p>
+<p>If the average high school GPA is about 3.4 and the average ACT score is about 24.2, what is the average college GPA in the sample?</p>
+<pre><code>## 
+## Call:
+## lm(formula = colGPA ~ hsGPA + ACT, data = gpa1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.85442 -0.24666 -0.02614  0.28127  0.85357 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1.286328   0.340822   3.774 0.000238 ***
+## hsGPA       0.453456   0.095813   4.733 5.42e-06 ***
+## ACT         0.009426   0.010777   0.875 0.383297    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3403 on 138 degrees of freedom
+## Multiple R-squared:  0.1764, Adjusted R-squared:  0.1645 
+## F-statistic: 14.78 on 2 and 138 DF,  p-value: 1.526e-06</code></pre>
+<pre><code>## $fit
+##        1 
+## 3.056187 
+## 
+## $se.fit
+## [1] 0.02866556
+## 
+## $df
+## [1] 138
+## 
+## $residual.scale
+## [1] 0.3403158</code></pre>
+<p>In the previous example, if we use as explanatory variables expendA, expendB, and shareA, where shareA = 100(expendA/ totexpend) is the percentage share of total campaign expenditures made by Candidate A, does this violate Assumption MLR.3?</p>
+</div>
+<div id="example-3.1" class="section level2">
+<h2><span class="header-section-number">3.3</span> Example 3.1</h2>
+<p>The variables in GPA1 include the college grade point average (colGPA), high school GPA (hsGPA), and achievement test score (ACT) for a sample of 141 students from a large university; both college and high school GPAs are on a four-point scale. We obtain the following OLS regression line to predict college GPA from high school GPA and achievement test score:</p>
+<pre><code>## 
+## Call:
+## lm(formula = colGPA ~ hsGPA + ACT, data = gpa1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.85442 -0.24666 -0.02614  0.28127  0.85357 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1.286328   0.340822   3.774 0.000238 ***
+## hsGPA       0.453456   0.095813   4.733 5.42e-06 ***
+## ACT         0.009426   0.010777   0.875 0.383297    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3403 on 138 degrees of freedom
+## Multiple R-squared:  0.1764, Adjusted R-squared:  0.1645 
+## F-statistic: 14.78 on 2 and 138 DF,  p-value: 1.526e-06</code></pre>
+<p>The intercept 1.29 is the predicted college GPA if hsGPA and ACT are both set as zero. Since no one who attends college has either a zero high school GPA or a zero on the achievement test.</p>
+<p>hsGPA is associated with .453 of a point on the college GPA, or almost half a point.</p>
+<p>The sign on ACT implies that, while holding hsGPA fixed, a change in the ACT score of 10 points—a very large change, since the maximum ACT score is 36 and the average score in the sample is about 24 with a standard deviation less than three—affects colGPA by less than one-tenth of a point. The ACT score is not a strong predictor of college GPA and statistically insignificant.</p>
+<pre><code>## 
+## Call:
+## lm(formula = colGPA ~ ACT, data = gpa1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.85251 -0.25251 -0.04426  0.26400  0.89336 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  2.40298    0.26420   9.095  8.8e-16 ***
+## ACT          0.02706    0.01086   2.491   0.0139 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3656 on 139 degrees of freedom
+## Multiple R-squared:  0.04275,    Adjusted R-squared:  0.03586 
+## F-statistic: 6.207 on 1 and 139 DF,  p-value: 0.0139</code></pre>
+</div>
+<div id="example-3.2" class="section level2">
+<h2><span class="header-section-number">3.4</span> Example 3.2</h2>
+<p>Using the 526 observations on workers in WAGE1, we include educ (years of education), exper (years of labor market experience), and tenure (years with the current employer) in an equation explaining log(wage). The estimated equation is</p>
+<p><span class="math display">\[log(wage) =  0.284 + 0.092 educ + 0.0041 exper + 0.022 tenure\]</span></p>
+<pre><code>## 
+## Call:
+## lm(formula = lwage ~ exper + tenure, data = wage1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.18698 -0.36511 -0.05057  0.31486  1.45326 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.533650   0.035222  43.542  &lt; 2e-16 ***
+## exper       -0.002669   0.001865  -1.431    0.153    
+## tenure       0.026455   0.003504   7.550 1.95e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5026 on 523 degrees of freedom
+## Multiple R-squared:  0.1095, Adjusted R-squared:  0.1061 
+## F-statistic: 32.14 on 2 and 523 DF,  p-value: 6.825e-14</code></pre>
+<p>The coefficients have a percentage interpretation. The coefficient 0.092 means that, holding exper and tenure fixed, another year of education is predicted to increase log(wage) by 0.092, which translates into an approximate 9.2% increase in wage.</p>
+<p>The coefficient 0.0041 means that, holding educ and tenure fixed, another year of experience is predicted to increase log(wage) by 0.0041, which translates into an approximate 0.4% increase in wage.</p>
+<p>The coefficient 0.022 means that, holding educ and exper fixed, another year of tenure is predicted to increase log(wage) by 0.022, which translates into an approximate 2.2% increase in wage.</p>
+</div>
+<div id="example-3.3" class="section level2">
+<h2><span class="header-section-number">3.5</span> Example 3.3</h2>
+<p>We use the data in 401K to estimate the effect of a plan’s match rate (mrate) on the participation rate (prate) in its 401(k) pension plan. The match rate is the amount the firm contributes to a worker’s fund for each dollar the worker contributes (up to some limit); thus, mrate 5 .75 means that the firm contributes 75¢ for each dollar contributed by the worker. The participation rate is the percentage of eligible workers having a 401(k) account. The variable age is the age of the 401(k) plan. There are 1,534 plans in the data set, the average prate is 87.36, the average mrate is .732, and the average age is 13.2.</p>
+<p>Regressing prate on mrate gives</p>
+<p><span class="math display">\[prate =  83.076 + 5.861 mrate\]</span></p>
+<p>Regressing prate on mrate, age gives</p>
+<p><span class="math display">\[prate =  80.12 + 5.52 mrate + 243 age\]</span></p>
+<pre><code>## 
+## Call:
+## lm(formula = prate ~ mrate, data = k401k)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -82.303  -8.184   5.178  12.712  16.807 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  83.0755     0.5633  147.48   &lt;2e-16 ***
+## mrate         5.8611     0.5270   11.12   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.09 on 1532 degrees of freedom
+## Multiple R-squared:  0.0747, Adjusted R-squared:  0.0741 
+## F-statistic: 123.7 on 1 and 1532 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = prate ~ mrate + age, data = k401k)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -81.162  -8.067   4.787  12.474  18.256 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  80.1191     0.7790  102.85  &lt; 2e-16 ***
+## mrate         5.5213     0.5259   10.50  &lt; 2e-16 ***
+## age           0.2432     0.0447    5.44 6.21e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 15.94 on 1531 degrees of freedom
+## Multiple R-squared:  0.09225,    Adjusted R-squared:  0.09106 
+## F-statistic: 77.79 on 2 and 1531 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The simple regression estimate of the effect of mrate on prate is clearly different from the multiple regression estimate, but the difference is not very big.</p>
+<p>The simple regression estimate is only about 6.2% larger than the multiple regression estimate. This can be explained by the fact that the sample correlation between mrate and age is only 0.12.</p>
+<pre><code>## [1] 0.1187841</code></pre>
+</div>
+<div id="example-3.4" class="section level2">
+<h2><span class="header-section-number">3.6</span> Example 3.4</h2>
+<pre><code>## 
+## Call:
+## lm(formula = colGPA ~ hsGPA + ACT, data = gpa1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.85442 -0.24666 -0.02614  0.28127  0.85357 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1.286328   0.340822   3.774 0.000238 ***
+## hsGPA       0.453456   0.095813   4.733 5.42e-06 ***
+## ACT         0.009426   0.010777   0.875 0.383297    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3403 on 138 degrees of freedom
+## Multiple R-squared:  0.1764, Adjusted R-squared:  0.1645 
+## F-statistic: 14.78 on 2 and 138 DF,  p-value: 1.526e-06</code></pre>
+<p>This means that hsGPA and ACT together explain about 17.6% of the variation in college GPA for this sample of students. This may not seem like a high percentage, but we must remember that there are many other factors—including family background, personality, quality of high school education, affinity for college—that contribute to a student’s college performance. If hsGPA and ACT explained almost all of the variation in colGPA, then performance in college would be preordained by high school performance!</p>
+</div>
+<div id="example-3.5" class="section level2">
+<h2><span class="header-section-number">3.7</span> Example 3.5</h2>
+<p>CRIME1 contains data on arrests during the year 1986 and other information on 2,725 men born in either 1960 or 1961 in California. Each man in the sample was arrested at least once prior to 1986. The variable narr86 is the number of times the man was arrested during 1986: it is zero for most men in the sample (72.29%), and it varies from 0 to 12. (The percentage of men arrested once during 1986 was 20.51.) The variable pcnv is the proportion (not percentage) of arrests prior to 1986 that led to conviction, avgsen is average sentence length served for prior convictions (zero for most people), ptime86 is months spent in prison in 1986, and qemp86 is the number of quarters during which the man was employed in 1986 (from zero to four).</p>
+<p>A linear model explaining arrests is</p>
+<pre><code>## 
+## Call:
+## lm(formula = narr86 ~ pcnv + avgsen + ptime86 + qemp86, data = crime1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.9330 -0.4247 -0.2934  0.3506 11.4403 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.706756   0.033151  21.319  &lt; 2e-16 ***
+## pcnv        -0.150832   0.040858  -3.692 0.000227 ***
+## avgsen       0.007443   0.004734   1.572 0.115993    
+## ptime86     -0.037391   0.008794  -4.252 2.19e-05 ***
+## qemp86      -0.103341   0.010396  -9.940  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.8414 on 2720 degrees of freedom
+## Multiple R-squared:  0.04219,    Adjusted R-squared:  0.04079 
+## F-statistic: 29.96 on 4 and 2720 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>This equation says that, as a group, the three variables pcnv, ptime86, and qemp86 explain about 4.1% of the variation in narr86.</p>
+<pre><code>## 
+## Call:
+## lm(formula = narr86 ~ pcnv + ptime86 + qemp86, data = crime1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.7118 -0.4031 -0.2953  0.3452 11.4358 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.711772   0.033007  21.565  &lt; 2e-16 ***
+## pcnv        -0.149927   0.040865  -3.669 0.000248 ***
+## ptime86     -0.034420   0.008591  -4.007 6.33e-05 ***
+## qemp86      -0.104113   0.010388 -10.023  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.8416 on 2721 degrees of freedom
+## Multiple R-squared:  0.04132,    Adjusted R-squared:  0.04027 
+## F-statistic:  39.1 on 3 and 2721 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>This equation says that, as a group, the three variables pcnv, avgsen, ptime86, and qemp86 explain about 4.1% of the variation in narr86.</p>
+<p>Adding the average sentence variable increases <span class="math inline">\(R^2\)</span> from .0413 to .0422, a practically small effect. The sign of the coefficient on avgsen is also unexpected: it says that a longer average sentence length increases criminal activity.</p>
+<pre><code>## 
+## Call:
+## lm(formula = narr86 ~ pcnv + ptime86 + qemp86, data = crime1)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.7118 -0.4031 -0.2953  0.3452 11.4358 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.711772   0.033007  21.565  &lt; 2e-16 ***
+## pcnv        -0.149927   0.040865  -3.669 0.000248 ***
+## ptime86     -0.034420   0.008591  -4.007 6.33e-05 ***
+## qemp86      -0.104113   0.010388 -10.023  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.8416 on 2721 degrees of freedom
+## Multiple R-squared:  0.04132,    Adjusted R-squared:  0.04027 
+## F-statistic:  39.1 on 3 and 2721 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="example-3.6" class="section level2">
+<h2><span class="header-section-number">3.8</span> Example 3.6</h2>
+<pre><code>## 
+## Call:
+## lm(formula = lwage ~ educ, data = wage1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.21158 -0.36393 -0.07263  0.29712  1.52339 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.583773   0.097336   5.998 3.74e-09 ***
+## educ        0.082744   0.007567  10.935  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4801 on 524 degrees of freedom
+## Multiple R-squared:  0.1858, Adjusted R-squared:  0.1843 
+## F-statistic: 119.6 on 1 and 524 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="problem-1" class="section level2">
+<h2><span class="header-section-number">3.9</span> Problem 1</h2>
+<p>Using the data in GPA2 on 4,137 college students, the following equation was estimated by OLS:
+<span class="math display">\[colgpa = 1.392 - .0135 hsperc + .00148 sat \]</span>
+<span class="math display">\[n = 4137, R^{2} = .273\]</span>
+where colgpa is measured on a four-point scale, hsperc is the percentile in the high school graduating class (defined so that, for example, hsperc = 5 means the top 5% of the class), and sat is the combined math and verbal scores on the student achievement test.</p>
+<ol style="list-style-type: lower-roman">
+<li>Why does it make sense for the coefficient on hsperc to be negative?</li>
+</ol>
+<p><code>hsperc</code> is defined so that the smaller it is, the higher the student’s standing in high school. Everything else equal, the worse the student’s standing in high school, the expected college GPA is lower.</p>
+<p><code>hsperc</code> is the percentile in the high school graduating class. As the percentile increases we expecte the college GPA to decrease.</p>
+<ol start="2" style="list-style-type: lower-roman">
+<li>What is the predicted college GPA when hsperc = 20 and sat = 1,050?</li>
+</ol>
+<pre><code>## 
+## Call:
+## lm(formula = colgpa ~ hsperc + sat, data = gpa2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.6007 -0.3581  0.0329  0.3963  1.7599 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.392e+00  7.154e-02   19.45   &lt;2e-16 ***
+## hsperc      -1.352e-02  5.495e-04  -24.60   &lt;2e-16 ***
+## sat          1.476e-03  6.531e-05   22.60   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5615 on 4134 degrees of freedom
+## Multiple R-squared:  0.2734, Adjusted R-squared:  0.2731 
+## F-statistic: 777.9 on 2 and 4134 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre><code>## $fit
+##        1 
+## 2.671407 
+## 
+## $se.fit
+## [1] 0.008851742
+## 
+## $df
+## [1] 4134
+## 
+## $residual.scale
+## [1] 0.5615457</code></pre>
+<ol start="3" style="list-style-type: lower-roman">
+<li>Suppose that two high school graduates, A and B, graduated in the same percentile from high school, but Student A’s SAT score was 140 points higher (about one standard deviation in the sample). What is the predicted difference in college GPA for these two students? Is the difference large?</li>
+</ol>
+<p>The difference between A and B is simply 140 times the coefficient on <code>sat</code>, because <code>hsperc</code> is the same for both students. So A is predicted to have colgpa 0.00148 (140) <span class="math inline">\(\sim\)</span> .207 higher.</p>
+<ol start="4" style="list-style-type: lower-roman">
+<li>Holding <code>hsperc</code> fixed, what difference in SAT scores leads to a predicted <code>colgpa</code> difference of .50, or one-half of a grade point? Comment on your answer.</li>
+</ol>
+<p><span class="math inline">\(\Delta colgpa\)</span> = .5, so .5 = 0.00148 <span class="math inline">\(\Delta sat\)</span>, <span class="math inline">\(\Delta sat\)</span> = 337.8378378</p>
+<p>A difference in SAT score of roughly two and one-half standard deviations is required to get predicted difference in college GPA of a half a point.</p>
+<pre><code>## [1] 139.4014</code></pre>
+<pre><code>## $fit
+##        1        2 
+## 3.148463 3.647187 
+## 
+## $se.fit
+##          1          2 
+## 0.01530641 0.03239112 
+## 
+## $df
+## [1] 4134
+## 
+## $residual.scale
+## [1] 0.5615457</code></pre>
+</div>
+<div id="problem-2" class="section level2">
+<h2><span class="header-section-number">3.10</span> Problem 2</h2>
+<p>The data in WAGE2 on working men was used to estimate the following equation:</p>
+<p><span class="math display">\[educ = 10.36 - .094 sibs + .131 meduc + .210 feduc\]</span>
+<span class="math display">\[n = 722, R^{2} = .214\]</span>
+where <code>educ</code> is years of schooling, <code>sibs</code> is number of siblings, <code>meduc</code> is mother’s years of schooling, and <code>feduc</code> is father’s years of schooling.</p>
+<ol style="list-style-type: lower-roman">
+<li>Does <code>sibs</code> have the expected effect? Explain. Holding <code>meduc</code> and <code>feduc</code> fixed, by how much does <code>sibs</code> have to increase to reduce predicted years of education by one year? (A noninteger answer is acceptable here.)</li>
+</ol>
+<pre><code>## 
+## Call:
+## lm(formula = educ ~ sibs + meduc + feduc, data = wage2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.0906 -1.5957 -0.3677  1.6138  5.6103 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 10.36426    0.35850  28.910  &lt; 2e-16 ***
+## sibs        -0.09364    0.03447  -2.716  0.00676 ** 
+## meduc        0.13079    0.03269   4.001 6.96e-05 ***
+## feduc        0.21000    0.02747   7.644 6.79e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.987 on 718 degrees of freedom
+##   (213 observations deleted due to missingness)
+## Multiple R-squared:  0.2141, Adjusted R-squared:  0.2108 
+## F-statistic:  65.2 on 3 and 718 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>An increase in number of siblings (<code>sibs</code>) is associated with an 0.0936 decrease in the average monthly earnings and this effect is <code>is statistically significant at 1%</code>.</p>
+<ol start="2" style="list-style-type: lower-roman">
+<li>Discuss the interpretation of the coefficient on <code>meduc</code>.</li>
+</ol>
+<p>A year increase in mother’s education (<code>meduc</code>) is associated with a 0.131 increase in the average monthly earnings and this effect is <code>is statistically significant at 1%</code>.</p>
+<ol start="3" style="list-style-type: lower-roman">
+<li>Suppose that Man A has no siblings, and his mother and father each have 12 years of education. Man B has no siblings, and his mother and father each have 16 years of education. What is the predicted difference in years of education between B and A?</li>
+</ol>
+<p>The predicted difference in years of education between B and A is 1.363165.</p>
+</div>
+<div id="problem-3" class="section level2">
+<h2><span class="header-section-number">3.11</span> Problem 3</h2>
+<p>The following model is a simplified version of the multiple regression model used by Biddle and Hamermesh (1990) to study the tradeoff between time spent sleeping and working and to look at other factors affecting sleep:</p>
+<p><span class="math display">\[sleep =  \beta_0 + \beta_1 * totwrk + \beta_2 * educ + \beta_3 * age + u\]</span></p>
+<p>where sleep and totwrk (total work) are measured in minutes per week and educ and age are measured in years. (See also Computer Exercise C3 in Chapter 2.)</p>
+<ol style="list-style-type: lower-roman">
+<li>If adults trade off sleep for work, what is the sign of <span class="math inline">\(\beta1\)</span>?</li>
+</ol>
+<p>The sign would be negative if adults trade off sleep for work. More work implies less sleep (other things equal), so <span class="math inline">\(\beta1\)</span> &lt; 0.</p>
+<pre><code>## 
+## Call:
+## lm(formula = sleep ~ totwrk + educ + age, data = sleep75)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2405.12  -236.50    14.53   253.87  1303.42 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 3638.24531  112.27511  32.405   &lt;2e-16 ***
+## totwrk        -0.14837    0.01669  -8.888   &lt;2e-16 ***
+## educ         -11.13381    5.88457  -1.892   0.0589 .  
+## age            2.19988    1.44572   1.522   0.1285    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 419.4 on 702 degrees of freedom
+## Multiple R-squared:  0.1134, Adjusted R-squared:  0.1096 
+## F-statistic: 29.92 on 3 and 702 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ol start="2" style="list-style-type: lower-roman">
+<li>What signs do you think <span class="math inline">\(\beta2\)</span> and <span class="math inline">\(\beta3\)</span> will have?</li>
+</ol>
+<ul>
+<li>The sign could probably be negative for adults’ education.</li>
+</ul>
+<p>More educated people like to get more out of life (other things equal) so they sleep less (<span class="math inline">\(\beta2\)</span> &lt; 0).</p>
+<ul>
+<li>The sign could probably be positive for adults’ age.</li>
+</ul>
+<p>Older people might want to sleep more (other things equal) (<span class="math inline">\(\beta3\)</span> &lt; 0).</p>
+<ol start="3" style="list-style-type: lower-roman">
+<li>Using the data in SLEEP75, the estimated equation is</li>
+</ol>
+<p><span class="math display">\[sleep =  3638.25 - .148 * totwrk - 11.13 * educ + 2.20 * age \]</span>
+<span class="math display">\[n = 706, R^{2} = .113\]</span></p>
+<p>If someone works five more hours per week, by how many minutes is sleep predicted to fall? Is this a large tradeoff?</p>
+<pre><code>## [1] -44.4</code></pre>
+<p><code>totwrk</code> is in minutes, five hours must be converted into minutes: <span class="math inline">\(\Delta\)</span> totwrk = 5(60) = 300. <code>sleep</code> is predicted to decrease by -0.148 (300) = 44.4 minutes. For a week, 45 minutes less sleep is not an overwhelming change therefore it is not a large tradeoff.</p>
+<ol start="4" style="list-style-type: lower-roman">
+<li>Discuss the sign and magnitude of the estimated coefficient on <code>educ</code>.</li>
+</ol>
+<p>More education implies less predicted time sleeping, but the effect is small. Assume the difference between college and high school is four years, the college graduate sleeps about 35.52 minutes less per week holding other things equal.</p>
+<pre><code>## [1] -35.52</code></pre>
+<ol start="22" style="list-style-type: lower-alpha">
+<li>Would you say <code>totwrk</code>, <code>educ</code>, and <code>age</code> explain much of the variation in sleep? What other factors might affect the time spent sleeping? Are these likely to be correlated with <code>totwrk</code>?</li>
+</ol>
+<p>The Adjusted <span class="math inline">\(R^{2}\)</span> value is 0.1096. This tells us that 10.96% of the variation in mins sleep at night(per week), as quantified by <code>sleep</code>, is explained by <code>totwrk, educ, age</code>.</p>
+<ul>
+<li>Other factors might affect the time spent sleeping: health, marital status and number of children</li>
+</ul>
+</div>
+<div id="problem-4" class="section level2">
+<h2><span class="header-section-number">3.12</span> Problem 4</h2>
+</div>
+<div id="problem-5" class="section level2">
+<h2><span class="header-section-number">3.13</span> Problem 5</h2>
+<p>In a study relating college grade point average to time spent in various activities, you distribute a survey to several students.</p>
+<p>The students are asked how many hours they spend each week in four activities: studying, sleeping, working, and leisure. Any activity is put into one of the four categories, so that for each student, the sum of hours in the four activities must be 168.</p>
+<ol style="list-style-type: lower-roman">
+<li>In the model</li>
+</ol>
+<p><span class="math display">\[GPA =  \beta_0 + \beta_1 * study + \beta_2 * sleep + \beta_3 * work + \beta_4 * leisure + u\]</span></p>
+<p>does it make sense to hold sleep, work, and leisure fixed, while changing study?</p>
+<p>study + sleep + work + leisure = 168. If we change study, at least one of the other categories must change so that the sum = 168.</p>
+<ol start="2" style="list-style-type: lower-roman">
+<li>Explain why this model violates Assumption MLR.3.</li>
+</ol>
+<p>study is perfect linear function of the other independent variables</p>
+<ul>
+<li>study = 168 - sleep - work - leisure.</li>
+</ul>
+<ol start="3" style="list-style-type: lower-roman">
+<li>How could you reformulate the model so that its parameters have a useful interpretation and it satisfies Assumption MLR.3?</li>
+</ol>
+<p>One option is to drop one of the independent variables such as leisure:</p>
+<p><span class="math display">\[GPA =  \beta_0 + \beta_1 * study + \beta_2 * sleep + \beta_3 * work + u\]</span></p>
+<p><span class="math inline">\(\beta_1\)</span> is interpreted as the change in GPA when <code>study</code> increases by one hour, where sleep, work, and u are all held fixed. If we are holding sleep and work fixed but increasing study by one hour, then we must be reducing leisure by one hour. The other slope parameters have a similar interpretation.</p>
+</div>
+<div id="problem-7" class="section level2">
+<h2><span class="header-section-number">3.14</span> Problem 7</h2>
+<p>Which of the following can cause OLS estimators to be biased?</p>
+<ol style="list-style-type: lower-roman">
+<li><p>Heteroskedasticity</p></li>
+<li><p>Omitting an important variable</p></li>
+</ol>
+<p>omitting an important variable can cause bias and this is true only when the omitted variable is correlated with the included explanatory variables.</p>
+<ol start="3" style="list-style-type: lower-roman">
+<li>A sample correlation coefficient of .95 between two independent variables both included in the model.</li>
+</ol>
+</div>
+<div id="problem-9" class="section level2">
+<h2><span class="header-section-number">3.15</span> Problem 9</h2>
+</div>
+<div id="problem-11" class="section level2">
+<h2><span class="header-section-number">3.16</span> Problem 11</h2>
+<p>The following equation describes the median housing price in a community in terms of amount of pollution (nox for nitrous oxide) and the average number of rooms in houses in the community (rooms):</p>
+<p><span class="math display">\[log(price) =  \beta_0 + \beta_1 * log(nox) + \beta_2 * rooms + u\]</span></p>
+<ol style="list-style-type: lower-roman">
+<li>What are the probable signs of <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span>? What is the interpretation of <span class="math inline">\(\beta_1\)</span>? Explain.</li>
+</ol>
+<pre><code>## 
+## Call:
+## lm(formula = lprice ~ lnox + rooms, data = hprice2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.06485 -0.12331  0.00782  0.14471  1.38770 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  9.23374    0.18774   49.18   &lt;2e-16 ***
+## lnox        -0.71767    0.06634  -10.82   &lt;2e-16 ***
+## rooms        0.30592    0.01902   16.09   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.286 on 503 degrees of freedom
+## Multiple R-squared:  0.5137, Adjusted R-squared:  0.5118 
+## F-statistic: 265.7 on 2 and 503 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><span class="math inline">\(\beta_1\)</span> &lt; 0 because more pollution can be expected to lower housing values. <span class="math inline">\(\beta_1\)</span> is the elasticity of price with respect to nox.</p>
+<p><span class="math inline">\(\beta_2\)</span> &gt; 0 because rooms is highly related to the size of a house. <span class="math inline">\(\beta_2\)</span> is the elasticity of price with respect to rooms</p>
+<ol start="2" style="list-style-type: lower-roman">
+<li>Why might nox [or more precisely, log(nox)] and rooms be negatively correlated? If this is the case, does the simple regression of log(price) on log(nox) produce an upward or a downward biased estimator of <span class="math inline">\(\beta_1\)</span>?</li>
+</ol>
+<pre><code>## [1] -0.3049879</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = lprice ~ lnox, data = hprice2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.17062 -0.19368 -0.02582  0.18385  1.09366 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 11.70719    0.13243   88.40   &lt;2e-16 ***
+## lnox        -1.04314    0.07767  -13.43   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3516 on 504 degrees of freedom
+## Multiple R-squared:  0.2636, Adjusted R-squared:  0.2621 
+## F-statistic: 180.4 on 1 and 504 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = lprice ~ rooms, data = hprice2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.20213 -0.09645  0.06184  0.16928  1.36319 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  7.62435    0.12702   60.02   &lt;2e-16 ***
+## rooms        0.36866    0.02009   18.35   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3172 on 504 degrees of freedom
+## Multiple R-squared:  0.4006, Adjusted R-squared:  0.3994 
+## F-statistic: 336.8 on 1 and 504 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Assume that rooms increases with quality of the home/neighborhood , then log(nox) and rooms are negatively correlated when poorer/less desirable neighborhoods have more pollution.</p>
+<ol start="3" style="list-style-type: lower-roman">
+<li>Using the data in HPRICE2, the following equations were estimated:</li>
+</ol>
+<p><span class="math display">\[log(price) =  11.71 - 1.043 * log(nox)\]</span>
+<span class="math display">\[n = 506, R^{2} = 0.264\]</span></p>
+<p><span class="math display">\[log(price) =  9.23 -  0.718  * log(nox) + 0.306 * rooms + u\]</span>
+<span class="math display">\[n = 506, R^{2} = 0.514\]</span></p>
+<p>Is the relationship between the simple and multiple regression estimates of the elasticity of price with respect to nox what you would have predicted, given your answer in part? (ii) Does this mean that -0.718 is definitely closer to the true elasticity than -1.043?</p>
+<p>The relationship between the simple and multiple regression estimates of the elasticity of price with respect to nox is what was expect from the analysis in part (ii).</p>
+<p>The simple regression estimate, 1.043, is more negative (larger in magnitude) than the multiple regression estimate, 0.718. <span class="math inline">\(\beta_1\)</span> is closer to 0.718.</p>
+</div>
+<div id="c1" class="section level2">
+<h2><span class="header-section-number">3.17</span> C1</h2>
+<p>A problem of interest to health officials (and others) is to determine the effects of smoking during pregnancy on infant health. One measure of infant health is birth weight; a birth weight that is too low can put an infant at risk for contracting various illnesses. Since factors other than cigarette smoking that affect birth weight are likely to be cor- related with smoking, we should take those factors into account. For example, higher income generally results in access to better prenatal care, as well as better nutrition for the mother. An equation that recognizes this is</p>
+<p><span class="math display">\[bwght = \hat{\beta}_0 + \hat{\beta}_1 * b1cigs + \hat{\beta}_2 * faminc +  u\]</span></p>
+<ol style="list-style-type: lower-roman">
+<li>What is the most likely sign for <span class="math inline">\(\beta_2\)</span>?</li>
+</ol>
+<p><span class="math inline">\(\beta_2\)</span> &gt; 0, as more income typically means better nutrition for the mother and better prenatal care. This in turns means higher birth weight.</p>
+<ol start="2" style="list-style-type: lower-roman">
+<li>Do you think <code>cigs</code> and <code>faminc</code> are likely to be correlated? Explain why the correlation might be positive or negative.</li>
+</ol>
+<!-- On the one hand, an increase in income generally increases the consumption of a good, and cigs and faminc could be positively correlated.  On the other, family incomes are also higher for families with more education, and more education and cigarette smoking tend to be negatively correlated.  The sample correlation between cigs and faminc is about .173, indicating a negative correlation. -->
+<pre><code>##              cigs     faminc
+## cigs    1.0000000 -0.1730449
+## faminc -0.1730449  1.0000000</code></pre>
+<ol start="3" style="list-style-type: lower-roman">
+<li>Now, estimate the equation with and without faminc, using the data in BWGHT. Report the results in equation form, including the sample size and R-squared. Discuss your results, focusing on whether adding faminc substantially changes the estimated effect of cigs on bwght.</li>
+</ol>
+<p><span class="math display">\[bwght = 116.97 - 0.463 * cigs + 0.093 * faminc\]</span></p>
+<pre><code>## 
+## Call:
+## lm(formula = bwght ~ cigs + faminc, data = bwght)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -96.061 -11.543   0.638  13.126 150.083 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 116.97413    1.04898 111.512  &lt; 2e-16 ***
+## cigs         -0.46341    0.09158  -5.060 4.75e-07 ***
+## faminc        0.09276    0.02919   3.178  0.00151 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 20.06 on 1385 degrees of freedom
+## Multiple R-squared:  0.0298, Adjusted R-squared:  0.0284 
+## F-statistic: 21.27 on 2 and 1385 DF,  p-value: 7.942e-10</code></pre>
+<p>Sample size is 1388. <span class="math inline">\(R^{2}\)</span> value is 0.0298. Adjusted <span class="math inline">\(R^{2}\)</span> value is 0.0284.</p>
+<p><span class="math display">\[bwght = 119.77 - 0.514 * cigs\]</span></p>
+<pre><code>## 
+## Call:
+## lm(formula = bwght ~ cigs, data = bwght)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -96.772 -11.772   0.297  13.228 151.228 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 119.77190    0.57234 209.267  &lt; 2e-16 ***
+## cigs         -0.51377    0.09049  -5.678 1.66e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 20.13 on 1386 degrees of freedom
+## Multiple R-squared:  0.02273,    Adjusted R-squared:  0.02202 
+## F-statistic: 32.24 on 1 and 1386 DF,  p-value: 1.662e-08</code></pre>
+<p>Sample size is 1388. <span class="math inline">\(R^{2}\)</span> value is 0.0227. Adjusted <span class="math inline">\(R^{2}\)</span> value is 0.022.</p>
+<p>The effect of cigarette smoking is slightly larger when faminc is removed from the regression, but the difference is small. This is probably due to the fact that <code>cigs</code> and <code>faminc</code> are not very correlated, and the coefficient on faminc is practically small. (The variable faminc is measured in thousands, so $10,000 more in 1988 income increases predicted birth weight by only .93 ounces.)</p>
+<pre><code>## $fit
+##        1        2        3 
+## 119.7719 119.2581 114.6342 
+## 
+## $se.fit
+##         1         2         3 
+## 0.5723407 0.5491633 0.8970024 
+## 
+## $df
+## [1] 1386
+## 
+## $residual.scale
+## [1] 20.12858</code></pre>
+</div>
+<div id="c2" class="section level2">
+<h2><span class="header-section-number">3.18</span> C2</h2>
+<p>Use the data in HPRICE1 to estimate the model</p>
+<p><span class="math display">\[price =  \beta_0 + \beta_1 * sqrft + \beta_2 * bdrms  + u\]</span></p>
+<p>where price is the house price measured in thousands of dollars.</p>
+<ol style="list-style-type: lower-roman">
+<li>Write out the results in equation form.</li>
+</ol>
+<pre><code>## 
+## Call:
+## lm(formula = price ~ sqrft + bdrms, data = hprice1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -127.627  -42.876   -7.051   32.589  229.003 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -19.31500   31.04662  -0.622    0.536    
+## sqrft         0.12844    0.01382   9.291 1.39e-14 ***
+## bdrms        15.19819    9.48352   1.603    0.113    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 63.04 on 85 degrees of freedom
+## Multiple R-squared:  0.6319, Adjusted R-squared:  0.6233 
+## F-statistic: 72.96 on 2 and 85 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><span class="math display">\[price =  \beta_0 + \beta_1 * sqrft + \beta_2 * bdrms  + u\]</span></p>
+<ol start="2" style="list-style-type: lower-roman">
+<li>What is the estimated increase in price for a house with one more bedroom, holding square footage constant?</li>
+</ol>
+<p>The estimated increase in price for a house with one more bedroom while holding square footage constant is 15.2</p>
+<ol start="3" style="list-style-type: lower-roman">
+<li>What is the estimated increase in price for a house with an additional bedroom that is 140 square feet in size? Compare this to your answer in part (ii).</li>
+</ol>
+<pre><code>## [1] 17.92</code></pre>
+<ol start="4" style="list-style-type: lower-roman">
+<li>What percentage of the variation in price is explained by square footage and number of bedrooms?</li>
+</ol>
+<p>The Adjusted R2 value is 0.6233. This tells us that 62.33% of the variation in house price ($1000s), as quantified by <code>price</code>, is explained by <code>sqrft, bdrms</code>.</p>
+<pre><code>## $fit
+##         1         2 
+## -4.116805 -1.333926 
+## 
+## $se.fit
+##        1        2 
+## 26.31783 30.48764 
+## 
+## $df
+## [1] 85
+## 
+## $residual.scale
+## [1] 63.04484</code></pre>
+<ol start="22" style="list-style-type: lower-alpha">
+<li>The first house in the sample has sqrft = 2,438 and bdrms = 4. Find the predicted selling price for this house from the OLS regression line.</li>
+</ol>
+<pre><code>## $fit
+##        1 
+## 354.6052 
+## 
+## $se.fit
+## [1] 8.41493
+## 
+## $df
+## [1] 85
+## 
+## $residual.scale
+## [1] 63.04484</code></pre>
+<pre><code>## [1] 300</code></pre>
+<ol start="6" style="list-style-type: lower-roman">
+<li>The actual selling price of the first house in the sample was $300,000 (so price = 300). Find the residual for this house. Does it suggest that the buyer underpaid or overpaid for the house?</li>
+</ol>
+<pre><code>##         1 
+## -54.60525</code></pre>
+</div>
+<div id="c3" class="section level2">
+<h2><span class="header-section-number">3.19</span> C3</h2>
+<p>The file CEOSAL2 contains data on 177 chief executive officers and can be used to examine the effects of firm performance on CEO salary.</p>
+<ol style="list-style-type: lower-roman">
+<li>Estimate a model relating annual salary to firm sales and market value. Make the model of the constant elasticity variety for both independent variables. Write the results out in equation form.</li>
+</ol>
+<pre><code>## 
+## Call:
+## lm(formula = lsalary ~ lsales + lmktval, data = ceosal2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.28060 -0.31137 -0.01269  0.30645  1.91210 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  4.62092    0.25441  18.163  &lt; 2e-16 ***
+## lsales       0.16213    0.03967   4.087 6.67e-05 ***
+## lmktval      0.10671    0.05012   2.129   0.0347 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5103 on 174 degrees of freedom
+## Multiple R-squared:  0.2991, Adjusted R-squared:  0.2911 
+## F-statistic: 37.13 on 2 and 174 DF,  p-value: 3.727e-14</code></pre>
+<p><span class="math display">\[price =  4.62 + 0.162 * lsales + 0.107 * lmktval\]</span>
+<span class="math display">\[n = 177, R^{2} = 0.299\]</span></p>
+<ol start="2" style="list-style-type: lower-roman">
+<li>Add profits to the model from part (i). Why can this variable not be included in logarithmic form? Would you say that these firm performance variables explain most of the variation in CEO salaries?</li>
+</ol>
+<p>profits cannotbe included in logarithmic form because profits are negative for nine of the companies in the sample.</p>
+<pre><code>## 
+## Call:
+## lm(formula = lsalary ~ lsales + lmktval + profits, data = ceosal2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.27002 -0.31026 -0.01027  0.31043  1.91489 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 4.687e+00  3.797e-01  12.343  &lt; 2e-16 ***
+## lsales      1.614e-01  3.991e-02   4.043 7.92e-05 ***
+## lmktval     9.753e-02  6.369e-02   1.531    0.128    
+## profits     3.566e-05  1.520e-04   0.235    0.815    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5117 on 173 degrees of freedom
+## Multiple R-squared:  0.2993, Adjusted R-squared:  0.2872 
+## F-statistic: 24.64 on 3 and 173 DF,  p-value: 2.53e-13</code></pre>
+<p><span class="math display">\[price =  4.69 + 0.161 * lsales + 0.098 * lmktval + 0.000036 * profits\]</span></p>
+<p><span class="math display">\[n = 177, R^{2} = 0.299\]</span></p>
+<p>The coefficient on profits (measured in millions) is very small. If profits increase by <code>$1</code> billion, <span class="math inline">\(\Delta profits\)</span> = 1,000 the predicted salary increases by about only 3.6% while holding sales and market value fixed. profits can be dropped without losing variation TBD. The model explain almost 30% of the sample variation in log(salary).</p>
+<pre><code>## [1] 0.0357</code></pre>
+<ol start="3" style="list-style-type: lower-roman">
+<li>Add the variable ceoten to the model in part (ii). What is the estimated percentage return for another year of CEO tenure, holding other factors fixed?</li>
+</ol>
+<pre><code>## 
+## Call:
+## lm(formula = lsalary ~ lsales + lmktval + ceoten, data = ceosal2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.49693 -0.29472  0.00964  0.30417  1.85286 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 4.503795   0.257234  17.509  &lt; 2e-16 ***
+## lsales      0.162854   0.039242   4.150 5.21e-05 ***
+## lmktval     0.109243   0.049595   2.203   0.0289 *  
+## ceoten      0.011705   0.005326   2.198   0.0293 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5048 on 173 degrees of freedom
+## Multiple R-squared:  0.3182, Adjusted R-squared:  0.3063 
+## F-statistic: 26.91 on 3 and 173 DF,  p-value: 2.474e-14</code></pre>
+<p>one more year as CEO increases predicted salary by about 1.2%.</p>
+<ol start="4" style="list-style-type: lower-roman">
+<li>Find the sample correlation coefficient between the variables log(mktval) and profits. Are these variables highly correlated? What does this say about the OLS estimators?</li>
+</ol>
+<pre><code>## [1] 0.7768976</code></pre>
+<p>The sample correlation between log(mktval) and profits is about 0.7768976, which is high. This causes no bias in the OLS estimators, although it can cause their variances to be large. Given the fairly substantial correlation between market value and firm profits, it is not too surprising that the latter adds nothing to explaining CEO salaries. Also, profits is a short term measure of how the firm is doing while mktval is based on past, current, and expected future profitability.</p>
+</div>
+<div id="c5" class="section level2">
+<h2><span class="header-section-number">3.20</span> C5</h2>
+<p>Confirm the partialling out interpretation of the OLS estimates by explicitly doing the partialling out for Example 3.2. This first requires regressing educ on exper and tenure and saving the residuals, rˆ1. Then, regress log(wage) on rˆ1. Compare the coefficient on ˆr1 with the coefficient on educ in the regression of log(wage) on educ, exper, and tenure.</p>
+<p><span class="math display">\[log(wage) =  0.284 + 0.092 educ + 0.0041 exper + 0.022 tenure\]</span></p>
+<pre><code>## 
+## Call:
+## lm(formula = lwage ~ educ + exper + tenure, data = wage1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.05802 -0.29645 -0.03265  0.28788  1.42809 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.284360   0.104190   2.729  0.00656 ** 
+## educ        0.092029   0.007330  12.555  &lt; 2e-16 ***
+## exper       0.004121   0.001723   2.391  0.01714 *  
+## tenure      0.022067   0.003094   7.133 3.29e-12 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4409 on 522 degrees of freedom
+## Multiple R-squared:  0.316,  Adjusted R-squared:  0.3121 
+## F-statistic: 80.39 on 3 and 522 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = educ ~ exper + tenure, data = wage1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -12.4285  -1.3536  -0.2055   1.6550   5.9791 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 13.574964   0.184324  73.647  &lt; 2e-16 ***
+## exper       -0.073785   0.009761  -7.559 1.83e-13 ***
+## tenure       0.047680   0.018337   2.600  0.00958 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.63 on 523 degrees of freedom
+## Multiple R-squared:  0.1013, Adjusted R-squared:  0.09791 
+## F-statistic: 29.49 on 2 and 523 DF,  p-value: 7.327e-13</code></pre>
+<p>The regression of educ on exper and tenure:</p>
+<p><span class="math display">\[educ = 13.57 - 0.074 exper + 0.048 tenure\]</span>
+<span class="math display">\[n = 526, R^{2} = 0.101\]</span></p>
+<pre><code>## 
+## Call:
+## lm(formula = lwage ~ r, data = wage1)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.12919 -0.32803 -0.07126  0.31626  1.51357 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.62327    0.02066   78.56   &lt;2e-16 ***
+## r            0.09203    0.00788   11.68   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4739 on 524 degrees of freedom
+## Multiple R-squared:  0.2066, Adjusted R-squared:  0.205 
+## F-statistic: 136.4 on 1 and 524 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Now, when we regress log(wage) on <span class="math inline">\(r_1\)</span>:</p>
+<p><span class="math display">\[lwage = 1.62 + 0.092 r_1\]</span>
+<span class="math display">\[n = 526, R^{2} = 0.207\]</span>
+## C7</p>
+<p>Use the data in MEAP93 to answer this question.</p>
+<ol style="list-style-type: lower-roman">
+<li>Estimate the model</li>
+</ol>
+<p><span class="math display">\[math10 =  \beta_0 + \beta_1 * lexpend + \beta_2 * lnchprg  + u\]</span></p>
+<p>and report the results in the usual form, including the sample size and R-squared.
+Are the signs of the slope coefficients what you expected? Explain.</p>
+<pre><code>## 
+## Call:
+## lm(formula = math10 ~ lexpend + lnchprg, data = meap93)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -24.294  -6.172  -1.293   4.855  43.203 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -20.36075   25.07288  -0.812   0.4172    
+## lexpend       6.22969    2.97263   2.096   0.0367 *  
+## lnchprg      -0.30459    0.03536  -8.614   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 9.526 on 405 degrees of freedom
+## Multiple R-squared:  0.1799, Adjusted R-squared:  0.1759 
+## F-statistic: 44.43 on 2 and 405 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Sample size is 408. <span class="math inline">\(R^{2}\)</span> value is 0.1799. Adjusted <span class="math inline">\(R^{2}\)</span> value is 0.1759.</p>
+<ol start="2" style="list-style-type: lower-roman">
+<li><p>What do you make of the intercept you estimated in part (i)? In particular, does it make sense to set the two explanatory variables to zero? [Hint: Recall that log(1)=0.]</p></li>
+<li><p>Now run the simple regression of math10 on log(expend), and compare the slope coefficient with the estimate obtained in part (i). Is the estimated spending effect now larger or smaller than in part (i)?</p></li>
+</ol>
+<pre><code>## 
+## Call:
+## lm(formula = math10 ~ lexpend, data = meap93)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -22.343  -7.100  -0.914   6.148  39.093 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -69.341     26.530  -2.614 0.009290 ** 
+## lexpend       11.164      3.169   3.523 0.000475 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.35 on 406 degrees of freedom
+## Multiple R-squared:  0.02966,    Adjusted R-squared:  0.02727 
+## F-statistic: 12.41 on 1 and 406 DF,  p-value: 0.0004752</code></pre>
+<p>The estimated spending effect, almost double, is larger than it was in part (i).</p>
+<ol start="4" style="list-style-type: lower-roman">
+<li>Find the correlation between lexpend = log(expend) and lnchprg. Does its sign make sense to you?</li>
+</ol>
+<pre><code>## [1] -0.1927042</code></pre>
+<p>The correlation between lexpend and lnchprg is -0.1927042, which means that on average high schools with poorer students spent less per student.</p>
+<ol start="22" style="list-style-type: lower-alpha">
+<li>Use part (iv) to explain your findings in part (iii).</li>
+</ol>
+<p>Equation (3.23)</p>
+<p><span class="math display">\[\tilde{\beta_1} = \hat{\beta_1} + \hat{\beta_2} + \tilde{\delta_1} \]</span>
+Because Corr(x1,x2) &lt; 0, which means<span class="math inline">\(\hat{\beta_2}\)</span> &lt; 0, and <span class="math inline">\(\tilde{\delta_1}\)</span>, the simple regression estimate, <span class="math inline">\(\tilde{\beta_1}\)</span>, is larger than the multiple regression estimate, <span class="math inline">\(\hat{\beta_1}\)</span> . Failing to include the poverty rate (<code>lnchprg</code>) leads to an over-estimate of the effect of spending (<code>lexpend</code>).</p>
+</div>
+<div id="c9" class="section level2">
+<h2><span class="header-section-number">3.21</span> C9</h2>
+<p>Use the data in CHARITY to answer the following questions:</p>
+<ol style="list-style-type: lower-roman">
+<li>Estimate the equation</li>
+</ol>
+<p><span class="math display">\[gift =  \beta_0 + \beta_1 * mailsyear + \beta_2 * giftlast  + \beta_3 * propresp + u\]</span></p>
+<p>by OLS and report the results in the usual way, including the sample size and R-squared. How does the R-squared compare with that from the simple regression that omits giftlast and propresp?</p>
+<pre><code>## 
+## Call:
+## lm(formula = gift ~ mailsyear + giftlast + propresp, data = charity)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -52.893  -7.050  -3.650   1.397 241.206 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -4.551518   0.803034  -5.668 1.54e-08 ***
+## mailsyear    2.166259   0.331927   6.526 7.53e-11 ***
+## giftlast     0.005927   0.001432   4.138 3.58e-05 ***
+## propresp    15.358605   0.874539  17.562  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 14.43 on 4264 degrees of freedom
+## Multiple R-squared:  0.08336,    Adjusted R-squared:  0.08271 
+## F-statistic: 129.3 on 3 and 4264 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The estimated equation is</p>
+<p><span class="math display">\[gift =  -4.55 + 2.166 * mailsyear + 0.006 * giftlast  + 15.359 * propresp + u\]</span></p>
+<p>Sample size is 4268. <span class="math inline">\(R^{2}\)</span> value is 0.0834. Adjusted <span class="math inline">\(R^{2}\)</span> value is 0.0827.</p>
+<ol start="2" style="list-style-type: lower-roman">
+<li>Interpret the coefficient on mailsyear. Is it bigger or smaller than the corresponding simple regression coefficient?</li>
+</ol>
+<pre><code>## 
+## Call:
+## lm(formula = gift ~ mailsyear, data = charity)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -11.287  -7.976  -5.976   2.687 245.999 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   2.0141     0.7395   2.724  0.00648 ** 
+## mailsyear     2.6495     0.3431   7.723  1.4e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 14.96 on 4266 degrees of freedom
+## Multiple R-squared:  0.01379,    Adjusted R-squared:  0.01356 
+## F-statistic: 59.65 on 1 and 4266 DF,  p-value: 1.404e-14</code></pre>
+<p>Holding giftlast and propresp fixed, one more mailing per year is estimated to increase gifts by 2.17 guilders. The simple regression estimate is 2.65. The multiple regression estimate is smaller.</p>
+<ol start="3" style="list-style-type: lower-roman">
+<li><p>Interpret the coefficient on propresp. Be careful to notice the units of measurement of propresp.</p></li>
+<li><p>Now add the variable avggift to the equation. What happens to the estimated effect of mailsyear?</p></li>
+</ol>
+<p>The estimated equation is</p>
+<p><span class="math display">\[gift =  -7.328 + 1.201 * mailsyear - 0.2601 * giftlast  + 16.205 * propresp + 0.527 * avggift +u\]</span></p>
+<pre><code>## 
+## Call:
+## lm(formula = gift ~ mailsyear + giftlast + propresp + avggift, 
+##     data = charity)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -197.016   -5.883   -2.065    3.031  221.256 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -7.32776    0.75822  -9.664  &lt; 2e-16 ***
+## mailsyear    1.20117    0.31242   3.845 0.000122 ***
+## giftlast    -0.26086    0.01076 -24.251  &lt; 2e-16 ***
+## propresp    16.20464    0.81753  19.821  &lt; 2e-16 ***
+## avggift      0.52695    0.02108  24.996  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 13.47 on 4263 degrees of freedom
+## Multiple R-squared:  0.2005, Adjusted R-squared:  0.1998 
+## F-statistic: 267.3 on 4 and 4263 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = gift ~ giftlast, data = charity)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -53.895  -7.389  -7.389   2.611 242.384 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 7.332770   0.232082  31.596  &lt; 2e-16 ***
+## giftlast    0.005656   0.001493   3.788 0.000154 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 15.04 on 4266 degrees of freedom
+## Multiple R-squared:  0.003353,   Adjusted R-squared:  0.003119 
+## F-statistic: 14.35 on 1 and 4266 DF,  p-value: 0.0001537</code></pre>
+<p>Holding giftlast, propresp and avggift fixed, the effect of mailings is smaller. The estimated effect of mailsyear 1.2 guilders, less than half the effect estimated by simple regression.</p>
+<ol start="22" style="list-style-type: lower-alpha">
+<li>In the equation from part (iv), what has happened to the coefficient on giftlast? What do you think is happening?</li>
+</ol>
+<p>Holding mailsyear, propresp and avggift fixed, the effect of mailings is negative. The estimated effect of giftlast -0.261 guilders, less than half the effect estimated by simple regression.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="the-simple-regression-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multiple-regression-analysis-inference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["woodldridge.pdf", "woodldridge.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

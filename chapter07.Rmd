@@ -119,7 +119,7 @@ the coefficient on female implies that, for the same levels of educ, exper, and 
 exact percentage difference in predicted wages
 
 ```{r}
-exp(signif(summary(fit)$coefficients["female", 1], 3)) - 1
+#exp(signif(summary(fit)$coefficients["female", 1], 3)) - 1
 ```
 
 
@@ -127,10 +127,10 @@ the difference in predicted wages between men and women is about 29.7%
 
 
 ```{r}
-wage1$marrmale
-wage1$marrfem
-wage1$singfem
-
-fit <- lm(lwage~marrmale+marrfem+singfem+educ+exper+expersq+tenure+tenursq, data=wage1)
-summary(fit)
+# wage1$marrmale <- wage1$married == 1 &&  wage1$female == 0
+# wage1$marrfem
+# wage1$singfem
+# 
+# fit <- lm(lwage~marrmale+marrfem+singfem+educ+exper+expersq+tenure+tenursq, data=wage1)
+# summary(fit)
 ```

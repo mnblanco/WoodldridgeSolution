@@ -2,7 +2,7 @@
 knit: "bookdown::render_book"
 title: "Introductory Econometrics: A Modern Approach Solutions"
 author: "Marjorie Blanco"
-date: "`r Sys.Date()`"
+date: "2019-01-02"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]

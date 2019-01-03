@@ -5,7 +5,7 @@ bookdown::gitbook:
       before: |
         <li><a href="./">Introductory Econometrics: A Modern Approach Solutions</a></li>
       after: |
-        <li><a href="https://github.com/mnblanco/WoodldridgeSolution" target="blank">Published with bookdown</a></li>
+        <li><a href="https://github.com/mnblanco/WoodldridgeSolution" target="blank">Introductory Econometrics: A Modern Approach</a></li>
     download: ["pdf", "epub"]
 bookdown::pdf_book:
   includes:

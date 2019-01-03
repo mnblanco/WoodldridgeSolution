@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 2 The simple regression Model | Introductory Econometrics: A Modern Approach Solutions</title>
+  <meta name="description" content="This contains the solutions to the exercises in the book, Introductory Econometrics: A Modern Approach, by Jeffrey Woodldridge.">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 2 The simple regression Model | Introductory Econometrics: A Modern Approach Solutions" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This contains the solutions to the exercises in the book, Introductory Econometrics: A Modern Approach, by Jeffrey Woodldridge." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 The simple regression Model | Introductory Econometrics: A Modern Approach Solutions" />
+  
+  <meta name="twitter:description" content="This contains the solutions to the exercises in the book, Introductory Econometrics: A Modern Approach, by Jeffrey Woodldridge." />
+  
+
+<meta name="author" content="Marjorie Blanco">
+
+
+<meta name="date" content="2019-01-02">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="nature-of-econometrics-and-economic-data.html">
+<link rel="next" href="multiple-regression-analysis-estimation.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introductory Econometrics: A Modern Approach Solutions</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a></li>
+<li class="chapter" data-level="1" data-path="nature-of-econometrics-and-economic-data.html"><a href="nature-of-econometrics-and-economic-data.html"><i class="fa fa-check"></i><b>1</b> Nature of econometrics and economic Data</a></li>
+<li class="chapter" data-level="2" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html"><i class="fa fa-check"></i><b>2</b> The simple regression Model</a><ul>
+<li class="chapter" data-level="2.1" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c1-k401k"><i class="fa fa-check"></i><b>2.1</b> C1-K401K</a></li>
+<li class="chapter" data-level="2.2" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c2-ceosal2"><i class="fa fa-check"></i><b>2.2</b> C2-CEOSAL2</a></li>
+<li class="chapter" data-level="2.3" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c3-sleep75"><i class="fa fa-check"></i><b>2.3</b> C3-SLEEP75</a></li>
+<li class="chapter" data-level="2.4" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c4-wage2"><i class="fa fa-check"></i><b>2.4</b> C4-WAGE2</a></li>
+<li class="chapter" data-level="2.5" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c5-rdchem"><i class="fa fa-check"></i><b>2.5</b> C5-RDCHEM</a></li>
+<li class="chapter" data-level="2.6" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c6-meap93"><i class="fa fa-check"></i><b>2.6</b> C6-MEAP93</a></li>
+<li class="chapter" data-level="2.7" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c7-charitu"><i class="fa fa-check"></i><b>2.7</b> C7-CHARITU</a></li>
+<li class="chapter" data-level="2.8" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c8"><i class="fa fa-check"></i><b>2.8</b> C8</a></li>
+<li class="chapter" data-level="2.9" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c9-countymurders"><i class="fa fa-check"></i><b>2.9</b> C9-countymurders</a></li>
+<li class="chapter" data-level="2.10" data-path="the-simple-regression-model.html"><a href="the-simple-regression-model.html#c10-catholic"><i class="fa fa-check"></i><b>2.10</b> C10-CATHOLIC</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html"><i class="fa fa-check"></i><b>3</b> Multiple regression Analysis: estimation</a><ul>
+<li class="chapter" data-level="3.1" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#formula"><i class="fa fa-check"></i><b>3.1</b> Formula</a></li>
+<li class="chapter" data-level="3.2" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#explore"><i class="fa fa-check"></i><b>3.2</b> Explore</a></li>
+<li class="chapter" data-level="3.3" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#example-3.1"><i class="fa fa-check"></i><b>3.3</b> Example 3.1</a></li>
+<li class="chapter" data-level="3.4" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#example-3.2"><i class="fa fa-check"></i><b>3.4</b> Example 3.2</a></li>
+<li class="chapter" data-level="3.5" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#example-3.3"><i class="fa fa-check"></i><b>3.5</b> Example 3.3</a></li>
+<li class="chapter" data-level="3.6" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#example-3.4"><i class="fa fa-check"></i><b>3.6</b> Example 3.4</a></li>
+<li class="chapter" data-level="3.7" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#example-3.5"><i class="fa fa-check"></i><b>3.7</b> Example 3.5</a></li>
+<li class="chapter" data-level="3.8" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#example-3.6"><i class="fa fa-check"></i><b>3.8</b> Example 3.6</a></li>
+<li class="chapter" data-level="3.9" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-1"><i class="fa fa-check"></i><b>3.9</b> Problem 1</a></li>
+<li class="chapter" data-level="3.10" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-2"><i class="fa fa-check"></i><b>3.10</b> Problem 2</a></li>
+<li class="chapter" data-level="3.11" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-3"><i class="fa fa-check"></i><b>3.11</b> Problem 3</a></li>
+<li class="chapter" data-level="3.12" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-4"><i class="fa fa-check"></i><b>3.12</b> Problem 4</a></li>
+<li class="chapter" data-level="3.13" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-5"><i class="fa fa-check"></i><b>3.13</b> Problem 5</a></li>
+<li class="chapter" data-level="3.14" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-7"><i class="fa fa-check"></i><b>3.14</b> Problem 7</a></li>
+<li class="chapter" data-level="3.15" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-9"><i class="fa fa-check"></i><b>3.15</b> Problem 9</a></li>
+<li class="chapter" data-level="3.16" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#problem-11"><i class="fa fa-check"></i><b>3.16</b> Problem 11</a></li>
+<li class="chapter" data-level="3.17" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#c1"><i class="fa fa-check"></i><b>3.17</b> C1</a></li>
+<li class="chapter" data-level="3.18" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#c2"><i class="fa fa-check"></i><b>3.18</b> C2</a></li>
+<li class="chapter" data-level="3.19" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#c3"><i class="fa fa-check"></i><b>3.19</b> C3</a></li>
+<li class="chapter" data-level="3.20" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#c5"><i class="fa fa-check"></i><b>3.20</b> C5</a></li>
+<li class="chapter" data-level="3.21" data-path="multiple-regression-analysis-estimation.html"><a href="multiple-regression-analysis-estimation.html#c9"><i class="fa fa-check"></i><b>3.21</b> C9</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html"><i class="fa fa-check"></i><b>4</b> Multiple regression Analysis: inference</a><ul>
+<li class="chapter" data-level="4.1" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#explore-4.1"><i class="fa fa-check"></i><b>4.1</b> Explore 4.1</a></li>
+<li class="chapter" data-level="4.2" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#explore-4.2"><i class="fa fa-check"></i><b>4.2</b> Explore 4.2</a></li>
+<li class="chapter" data-level="4.3" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#explore-4.3"><i class="fa fa-check"></i><b>4.3</b> Explore 4.3</a></li>
+<li class="chapter" data-level="4.4" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#explore-4.4"><i class="fa fa-check"></i><b>4.4</b> Explore 4.4</a></li>
+<li class="chapter" data-level="4.5" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#explore-4.5"><i class="fa fa-check"></i><b>4.5</b> Explore 4.5</a></li>
+<li class="chapter" data-level="4.6" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#explore-4.6"><i class="fa fa-check"></i><b>4.6</b> Explore 4.6</a></li>
+<li class="chapter" data-level="4.7" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.1"><i class="fa fa-check"></i><b>4.7</b> Example 4.1</a></li>
+<li class="chapter" data-level="4.8" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.2"><i class="fa fa-check"></i><b>4.8</b> Example 4.2</a></li>
+<li class="chapter" data-level="4.9" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.3"><i class="fa fa-check"></i><b>4.9</b> Example 4.3</a></li>
+<li class="chapter" data-level="4.10" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.4"><i class="fa fa-check"></i><b>4.10</b> Example 4.4</a></li>
+<li class="chapter" data-level="4.11" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.5"><i class="fa fa-check"></i><b>4.11</b> Example 4.5</a></li>
+<li class="chapter" data-level="4.12" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.6"><i class="fa fa-check"></i><b>4.12</b> Example 4.6</a></li>
+<li class="chapter" data-level="4.13" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.7"><i class="fa fa-check"></i><b>4.13</b> Example 4.7</a></li>
+<li class="chapter" data-level="4.14" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.8"><i class="fa fa-check"></i><b>4.14</b> Example 4.8</a></li>
+<li class="chapter" data-level="4.15" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.9"><i class="fa fa-check"></i><b>4.15</b> Example 4.9</a></li>
+<li class="chapter" data-level="4.16" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#example-4.10"><i class="fa fa-check"></i><b>4.16</b> Example 4.10</a></li>
+<li class="chapter" data-level="4.17" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-1-1"><i class="fa fa-check"></i><b>4.17</b> Problem 1</a></li>
+<li class="chapter" data-level="4.18" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-2-1"><i class="fa fa-check"></i><b>4.18</b> Problem 2</a></li>
+<li class="chapter" data-level="4.19" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-3-1"><i class="fa fa-check"></i><b>4.19</b> Problem 3</a></li>
+<li class="chapter" data-level="4.20" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-5-1"><i class="fa fa-check"></i><b>4.20</b> Problem 5</a></li>
+<li class="chapter" data-level="4.21" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-7-1"><i class="fa fa-check"></i><b>4.21</b> Problem 7</a></li>
+<li class="chapter" data-level="4.22" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-9-1"><i class="fa fa-check"></i><b>4.22</b> Problem 9</a></li>
+<li class="chapter" data-level="4.23" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#problem-11-1"><i class="fa fa-check"></i><b>4.23</b> Problem 11</a></li>
+<li class="chapter" data-level="4.24" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#c1-1"><i class="fa fa-check"></i><b>4.24</b> C1</a></li>
+<li class="chapter" data-level="4.25" data-path="multiple-regression-analysis-inference.html"><a href="multiple-regression-analysis-inference.html#c2-1"><i class="fa fa-check"></i><b>4.25</b> C2</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="multiple-regression-analysis-ols-asymptotics.html"><a href="multiple-regression-analysis-ols-asymptotics.html"><i class="fa fa-check"></i><b>5</b> Multiple regression analysis: OLS asymptotics</a><ul>
+<li class="chapter" data-level="5.1" data-path="multiple-regression-analysis-ols-asymptotics.html"><a href="multiple-regression-analysis-ols-asymptotics.html#problem-3-2"><i class="fa fa-check"></i><b>5.1</b> Problem 3</a></li>
+<li class="chapter" data-level="5.2" data-path="multiple-regression-analysis-ols-asymptotics.html"><a href="multiple-regression-analysis-ols-asymptotics.html#c1-2"><i class="fa fa-check"></i><b>5.2</b> C1</a></li>
+<li class="chapter" data-level="5.3" data-path="multiple-regression-analysis-ols-asymptotics.html"><a href="multiple-regression-analysis-ols-asymptotics.html#c2-2"><i class="fa fa-check"></i><b>5.3</b> C2</a></li>
+<li class="chapter" data-level="5.4" data-path="multiple-regression-analysis-ols-asymptotics.html"><a href="multiple-regression-analysis-ols-asymptotics.html#c3-1"><i class="fa fa-check"></i><b>5.4</b> C3</a></li>
+<li class="chapter" data-level="5.5" data-path="multiple-regression-analysis-ols-asymptotics.html"><a href="multiple-regression-analysis-ols-asymptotics.html#c5-1"><i class="fa fa-check"></i><b>5.5</b> C5</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html"><i class="fa fa-check"></i><b>6</b> Multiple Regression Analysis: Further Issues</a><ul>
+<li class="chapter" data-level="6.1" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#effects-of-data-scaling-on-ols-statistics"><i class="fa fa-check"></i><b>6.1</b> Effects of Data Scaling on OLS Statistics</a></li>
+<li class="chapter" data-level="6.2" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#example-1"><i class="fa fa-check"></i><b>6.2</b> Example 1</a></li>
+<li class="chapter" data-level="6.3" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#example-2"><i class="fa fa-check"></i><b>6.3</b> Example 2</a></li>
+<li class="chapter" data-level="6.4" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#example-3"><i class="fa fa-check"></i><b>6.4</b> Example 3</a></li>
+<li class="chapter" data-level="6.5" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#example-4"><i class="fa fa-check"></i><b>6.5</b> Example 4</a></li>
+<li class="chapter" data-level="6.6" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#example-5"><i class="fa fa-check"></i><b>6.6</b> Example 5</a></li>
+<li class="chapter" data-level="6.7" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#example-3-1"><i class="fa fa-check"></i><b>6.7</b> Example 3</a></li>
+<li class="chapter" data-level="6.8" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#explore-6.3"><i class="fa fa-check"></i><b>6.8</b> Explore 6.3</a></li>
+<li class="chapter" data-level="6.9" data-path="multiple-regression-analysis-further-issues.html"><a href="multiple-regression-analysis-further-issues.html#explore-6.5"><i class="fa fa-check"></i><b>6.9</b> Explore 6.5</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html"><a href="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html"><i class="fa fa-check"></i><b>7</b> Multiple Regression Analysis with Qualitative Information: Binary (or Dummy) Variables</a><ul>
+<li class="chapter" data-level="7.1" data-path="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html"><a href="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html#example-1-1"><i class="fa fa-check"></i><b>7.1</b> Example 1</a></li>
+<li class="chapter" data-level="7.2" data-path="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html"><a href="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html#example-2-1"><i class="fa fa-check"></i><b>7.2</b> Example 2</a></li>
+<li class="chapter" data-level="7.3" data-path="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html"><a href="multiple-regression-analysis-with-qualitative-information-binary-or-dummy-variables.html#example-3-2"><i class="fa fa-check"></i><b>7.3</b> Example 3</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="heteroskedasticity.html"><a href="heteroskedasticity.html"><i class="fa fa-check"></i><b>8</b> Heteroskedasticity</a></li>
+<li class="chapter" data-level="9" data-path="more-on-specification-and-data-issues.html"><a href="more-on-specification-and-data-issues.html"><i class="fa fa-check"></i><b>9</b> More on Specification and Data Issues</a></li>
+<li class="chapter" data-level="10" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html"><i class="fa fa-check"></i><b>10</b> Basic Regression Analysis with Time Series Data</a><ul>
+<li class="chapter" data-level="10.1" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.1"><i class="fa fa-check"></i><b>10.1</b> Example 10.1</a></li>
+<li class="chapter" data-level="10.2" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.2"><i class="fa fa-check"></i><b>10.2</b> Example 10.2</a></li>
+<li class="chapter" data-level="10.3" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.3"><i class="fa fa-check"></i><b>10.3</b> Example 10.3</a></li>
+<li class="chapter" data-level="10.4" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.4"><i class="fa fa-check"></i><b>10.4</b> Example 10.4</a></li>
+<li class="chapter" data-level="10.5" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.5"><i class="fa fa-check"></i><b>10.5</b> Example 10.5</a></li>
+<li class="chapter" data-level="10.6" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.7"><i class="fa fa-check"></i><b>10.6</b> Example 10.7</a></li>
+<li class="chapter" data-level="10.7" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.8"><i class="fa fa-check"></i><b>10.7</b> Example 10.8</a></li>
+<li class="chapter" data-level="10.8" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#example-10.9"><i class="fa fa-check"></i><b>10.8</b> Example 10.9</a></li>
+<li class="chapter" data-level="10.9" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#c1-3"><i class="fa fa-check"></i><b>10.9</b> C1</a></li>
+<li class="chapter" data-level="10.10" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#c2-3"><i class="fa fa-check"></i><b>10.10</b> C2</a></li>
+<li class="chapter" data-level="10.11" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#c3-2"><i class="fa fa-check"></i><b>10.11</b> C3</a></li>
+<li class="chapter" data-level="10.12" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#c4"><i class="fa fa-check"></i><b>10.12</b> C4</a></li>
+<li class="chapter" data-level="10.13" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#c5-2"><i class="fa fa-check"></i><b>10.13</b> C5</a></li>
+<li class="chapter" data-level="10.14" data-path="basic-regression-analysis-with-time-series-data.html"><a href="basic-regression-analysis-with-time-series-data.html#c6"><i class="fa fa-check"></i><b>10.14</b> C6</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="further-issues-in-using-ols-with-time-series-data.html"><a href="further-issues-in-using-ols-with-time-series-data.html"><i class="fa fa-check"></i><b>11</b> Further Issues in Using OLS with Time Series Data</a></li>
+<li class="chapter" data-level="12" data-path="serial-correlation-and-heteroskedasticity-in-time-series-regressions.html"><a href="serial-correlation-and-heteroskedasticity-in-time-series-regressions.html"><i class="fa fa-check"></i><b>12</b> Serial Correlation and Heteroskedasticity in Time Series Regressions</a></li>
+<li class="chapter" data-level="13" data-path="pooling-cross-sections-across-time-simple-panel-data-method.html"><a href="pooling-cross-sections-across-time-simple-panel-data-method.html"><i class="fa fa-check"></i><b>13</b> Pooling Cross Sections Across Time: Simple Panel Data Method</a><ul>
+<li class="chapter" data-level="13.1" data-path="pooling-cross-sections-across-time-simple-panel-data-method.html"><a href="pooling-cross-sections-across-time-simple-panel-data-method.html#exercise-13.1"><i class="fa fa-check"></i><b>13.1</b> Exercise 13.1</a></li>
+<li class="chapter" data-level="13.2" data-path="pooling-cross-sections-across-time-simple-panel-data-method.html"><a href="pooling-cross-sections-across-time-simple-panel-data-method.html#exercise-13.2"><i class="fa fa-check"></i><b>13.2</b> Exercise 13.2</a></li>
+<li class="chapter" data-level="13.3" data-path="pooling-cross-sections-across-time-simple-panel-data-method.html"><a href="pooling-cross-sections-across-time-simple-panel-data-method.html#exercise-13.2-1"><i class="fa fa-check"></i><b>13.3</b> Exercise 13.2</a></li>
+<li class="chapter" data-level="13.4" data-path="pooling-cross-sections-across-time-simple-panel-data-method.html"><a href="pooling-cross-sections-across-time-simple-panel-data-method.html#exercise-13.3"><i class="fa fa-check"></i><b>13.4</b> Exercise 13.3</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/mnblanco/WoodldridgeSolution" target="blank">Introductory Econometrics: A Modern Approach</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introductory Econometrics: A Modern Approach Solutions</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-simple-regression-model" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> The simple regression Model</h1>
+<div id="c1-k401k" class="section level2">
+<h2><span class="header-section-number">2.1</span> C1-K401K</h2>
+<p>The data in 401K are a subset of data analyzed by Papke (1995) to study the relationship between participation in a 401(k) pension plan and the generosity of the plan. The variable prate is the percentage of eligible workers with an active account; this is the variable we would like to explain. The measure of generosity is the plan match rate, mrate. This variable gives the average amount the firm contributes to each worker’s plan for each $1 contribution by the worker. For example, if mrate 5 0.50, then a $1 contribution by the worker is matched by a 50¢ contribution by the firm.</p>
+<p>A data.frame with 1534 observations on 8 variables:</p>
+<ul>
+<li>prate: participation rate, percent</li>
+<li>mrate: 401k plan match rate</li>
+<li>totpart: total 401k participants</li>
+<li>totelg: total eligible for 401k plan</li>
+<li>age: age of 401k plan</li>
+<li>totemp: total number of firm employees</li>
+<li>sole: = 1 if 401k is firm’s sole plan</li>
+<li>ltotemp: log of totemp</li>
+</ul>
+<ol style="list-style-type: lower-roman">
+<li>Find the average participation rate (<code>prate</code>) and the average match rate (<code>mrate</code>) in the sample of plans.</li>
+</ol>
+<p>Avg prate : 87.3629075</p>
+<p>Avg mrate 0.7315124</p>
+<ol start="2" style="list-style-type: lower-roman">
+<li>Now, estimate the simple regression equation</li>
+</ol>
+<p><span class="math display">\[\widehat{prate} =  \widehat{\beta}_0 + \widehat{\beta}_1 * mrate\]</span>
+and report the results along with the sample size and R-squared.</p>
+<pre><code>## 
+## Call:
+## lm(formula = prate ~ mrate, data = k401k)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -82.303  -8.184   5.178  12.712  16.807 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  83.0755     0.5633  147.48   &lt;2e-16 ***
+## mrate         5.8611     0.5270   11.12   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.09 on 1532 degrees of freedom
+## Multiple R-squared:  0.0747, Adjusted R-squared:  0.0741 
+## F-statistic: 123.7 on 1 and 1532 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><img src="chapter02_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Sample size is 1534. <span class="math inline">\(R^{2}\)</span> value is 0.0747. Adjusted <span class="math inline">\(R^{2}\)</span> value is 0.0741.</p>
+<ol start="3" style="list-style-type: lower-roman">
+<li>Interpret the intercept in your equation. Interpret the coefficient on mrate.</li>
+</ol>
+<p>An increase in <code>mrate</code> is associated with a 5.86 increase in the average <code>prate</code> and this effect is <code>is statistically significant at 1%</code>.</p>
+<p>The intercept implies that, even if <code>mrate</code> = 0, the predicted participation rate is 83.1 percent. The coefficient on <code>mrate</code> implies that a one-dollar increase in the match rate – a fairly large increase – is estimated to increase <code>prate</code> by 5.86 percentage points. This assumes, of course, that this change <code>prate</code> is possible (if, say, prate is already at 98, this interpretation makes no sense).</p>
+<ol start="4" style="list-style-type: lower-roman">
+<li>Find the predicted <code>prate</code> when <code>mrate</code> 3.5. Is this a reasonable prediction? Explain what is happening here.</li>
+</ol>
+<pre><code>## $fit
+##        1 
+## 103.5892 
+## 
+## $se.fit
+## [1] 1.515723
+## 
+## $df
+## [1] 1532
+## 
+## $residual.scale
+## [1] 16.08528</code></pre>
+<pre><code>## [1] 103.5892</code></pre>
+<p>This amount is impossible, as we can have at most a 100 percent participation rate. This illustrates that, especially when dependent variables are bounded, a simple regression model can give strange predictions for extreme values of the independent variable. In the sample of 1,534 firms, only 34 have mrate = 3.5.</p>
+<ol start="22" style="list-style-type: lower-alpha">
+<li>How much of the variation in <code>prate</code> is explained by <code>mrate</code>? Is this a lot in your opinion?</li>
+</ol>
+<p>The Adjusted <span class="math inline">\(R^{2}\)</span> value is 0.0741. This tells us that 7.41% of the variation in percentage of eligible workers with an active account, as quantified by <code>prate</code>, is explained by <code>mrate</code>.</p>
+<p><code>mrate</code> explains about 7.5% of the variation in <code>prate</code>. This is not much, and suggests that many other factors influence 401(k) plan participation rates.</p>
+</div>
+<div id="c2-ceosal2" class="section level2">
+<h2><span class="header-section-number">2.2</span> C2-CEOSAL2</h2>
+<p>The data set in CEOSAL2 contains information on chief executive officers for U.S. corporations. The variable salary is annual compensation, in thousands of dollars, and ceoten is prior number of years as company CEO.</p>
+<p>A data.frame with 177 observations on 15 variables:</p>
+<ul>
+<li>salary: 1990 compensation, $1000s</li>
+<li>age: in years</li>
+<li>college: =1 if attended college</li>
+<li>grad: =1 if attended graduate school</li>
+<li>comten: years with company</li>
+<li>ceoten: years as ceo with company</li>
+<li>sales: 1990 firm sales, millions</li>
+<li>profits: 1990 profits, millions</li>
+<li>mktval: market value, end 1990, mills.</li>
+<li>lsalary: log(salary)</li>
+<li>lsales: log(sales)</li>
+<li>lmktval: log(mktval)</li>
+<li>comtensq: comten^2</li>
+<li>ceotensq: ceoten^2</li>
+<li>profmarg: profits as percent of sales</li>
+</ul>
+<ol style="list-style-type: lower-roman">
+<li>Find the average salary and the average tenure in the sample.</li>
+</ol>
+<ul>
+<li>Average salary (1990 compensation, $1000s)</li>
+</ul>
+<pre><code>## [1] 865.8644</code></pre>
+<ul>
+<li>Average salary (log)</li>
+</ul>
+<pre><code>## [1] 6.582848</code></pre>
+<ul>
+<li>Average tenure</li>
+</ul>
+<pre><code>## [1] 7.954802</code></pre>
+<ol start="2" style="list-style-type: lower-roman">
+<li>How many CEOs are in their first year as CEO (that is, ceoten 5 0)? What is the longest tenure as a CEO?</li>
+</ol>
+<ul>
+<li>Number of CEOs in their first year as CEO</li>
+</ul>
+<pre><code>## # A tibble: 1 x 1
+##       n
+##   &lt;int&gt;
+## 1     5</code></pre>
+<ul>
+<li>Longest tenure as a CEO</li>
+</ul>
+<pre><code>## [1] 37</code></pre>
+<ol start="3" style="list-style-type: lower-roman">
+<li>Estimate the simple regression model <span class="math display">\[log(salary) = \widehat{\beta}_0 + \widehat{\beta}_1 * ceoten + u\]</span>
+and report your results in the usual form. What is the (approximate) predicted percentage increase in salary given one more year as a CEO?</li>
+</ol>
+<p>Sample size is 177.</p>
+<pre><code>## 
+## Call:
+## lm(formula = lsalary ~ ceoten, data = ceosal2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.15314 -0.38319 -0.02251  0.44439  1.94337 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 6.505498   0.067991  95.682   &lt;2e-16 ***
+## ceoten      0.009724   0.006364   1.528    0.128    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.6038 on 175 degrees of freedom
+## Multiple R-squared:  0.01316,    Adjusted R-squared:  0.007523 
+## F-statistic: 2.334 on 1 and 175 DF,  p-value: 0.1284</code></pre>
+<p><img src="chapter02_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<!-- The intercept implies that the estimated amount of sleep per week for someone who does not work is 3,586.4 minutes, or about 59.77 hours.  This comes to about 8.5 hours per night. -->
+</div>
+<div id="c3-sleep75" class="section level2">
+<h2><span class="header-section-number">2.3</span> C3-SLEEP75</h2>
+<p>Use the data in SLEEP75 from Biddle and Hamermesh (1990) to study whether there is a tradeoff between the time spent sleeping per week and the time spent in paid work. We could use either variable as the dependent variable. For concreteness, estimate the model
+<span class="math display">\[sleep = \widehat{\beta}_0 + \widehat{\beta}_1 * totwrk + u\]</span>
+where sleep is minutes spent sleeping at night per week and totwrk is total minutes worked during the week.</p>
+<p>A data.frame with 706 observations on 34 variables:</p>
+<ul>
+<li>age: in years</li>
+<li>black: =1 if black</li>
+<li>case: identifier</li>
+<li>clerical: =1 if clerical worker</li>
+<li>construc: =1 if construction worker</li>
+<li>educ: years of schooling</li>
+<li>earns74: total earnings, 1974</li>
+<li>gdhlth: =1 if in good or excel. health</li>
+<li>inlf: =1 if in labor force</li>
+<li>leis1: sleep - totwrk</li>
+<li>leis2: slpnaps - totwrk</li>
+<li>leis3: rlxall - totwrk</li>
+<li>smsa: =1 if live in smsa</li>
+<li>lhrwage: log hourly wage</li>
+<li>lothinc: log othinc, unless othinc &lt; 0</li>
+<li>male: =1 if male</li>
+<li>marr: =1 if married</li>
+<li>prot: =1 if Protestant</li>
+<li>rlxall: slpnaps + personal activs</li>
+<li>selfe: =1 if self employed</li>
+<li>sleep: mins sleep at night, per wk</li>
+<li>slpnaps: minutes sleep, inc. naps</li>
+<li>south: =1 if live in south</li>
+<li>spsepay: spousal wage income</li>
+<li>spwrk75: =1 if spouse works</li>
+<li>totwrk: mins worked per week</li>
+<li>union: =1 if belong to union</li>
+<li>worknrm: mins work main job</li>
+<li>workscnd: mins work second job</li>
+<li>exper: age - educ - 6</li>
+<li>yngkid: =1 if children &lt; 3 present</li>
+<li>yrsmarr: years married</li>
+<li>hrwage: hourly wage</li>
+<li>agesq: age^2</li>
+</ul>
+<pre><code>## 
+## Call:
+## lm(formula = sleep ~ totwrk, data = sleep75)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2429.94  -240.25     4.91   250.53  1339.72 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 3586.37695   38.91243  92.165   &lt;2e-16 ***
+## totwrk        -0.15075    0.01674  -9.005   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 421.1 on 704 degrees of freedom
+## Multiple R-squared:  0.1033, Adjusted R-squared:  0.102 
+## F-statistic: 81.09 on 1 and 704 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ol style="list-style-type: lower-roman">
+<li>Report your results in equation form along with the number of observations and <span class="math inline">\(R^{2}\)</span>. What does the intercept in this equation mean?</li>
+</ol>
+<p><span class="math display">\[sleep = 3586.4 - 0.151 * totwrk\]</span></p>
+<p>Sample size is 706. <span class="math inline">\(R^{2}\)</span> value is 0.1033. Adjusted <span class="math inline">\(R^{2}\)</span> value is 0.102.</p>
+<p>The intercept implies that the estimated amount of sleep per week (<code>sleep</code>) for someone who does not work (<code>totwrk</code> = 0) is 3590 minutes, or about 59.8 hours. This comes to about 8.5 hours per night.</p>
+<ol start="2" style="list-style-type: lower-roman">
+<li>If totwrk increases by 2 hours, by how much is sleep estimated to fall? Do you find this to be a large effect?</li>
+</ol>
+<p>If someone works two more hours per week then totwrk = 120 (totwrk is measured in minutes not hours). The amount of sleep would decrease by -0.151(120) = -18.1 minutes.</p>
+<pre><code>## $fit
+##        1 
+## 3568.287 
+## 
+## $se.fit
+## [1] 37.08682
+## 
+## $df
+## [1] 704
+## 
+## $residual.scale
+## [1] 421.1357</code></pre>
+<pre><code>## [1] -18.0895</code></pre>
+<p><img src="chapter02_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+</div>
+<div id="c4-wage2" class="section level2">
+<h2><span class="header-section-number">2.4</span> C4-WAGE2</h2>
+<p>Use the data in WAGE2 to estimate a simple regression explaining monthly salary (wage) in terms of IQ score (IQ).</p>
+<p>A data.frame with 935 observations on 17 variables:</p>
+<ul>
+<li>wage: monthly earnings</li>
+<li>hours: average weekly hours</li>
+<li>IQ: IQ score</li>
+<li>KWW: knowledge of world work score</li>
+<li>educ: years of education</li>
+<li>exper: years of work experience</li>
+<li>tenure: years with current employer</li>
+<li>age: age in years</li>
+<li>married: =1 if married</li>
+<li>black: =1 if black</li>
+<li>south: =1 if live in south</li>
+<li>urban: =1 if live in SMSA</li>
+<li>sibs: number of siblings</li>
+<li>brthord: birth order</li>
+<li>meduc: mother’s education</li>
+<li>feduc: father’s education</li>
+<li>lwage: natural log of wage</li>
+</ul>
+<ol style="list-style-type: lower-roman">
+<li>Find the average salary and average IQ in the sample. What is the sample standard deviation of IQ? (IQ scores are standardized so that the average in the population is 100 with a standard deviation equal to 15.)</li>
+</ol>
+<pre><code>## [1] 957.9455</code></pre>
+<pre><code>## [1] 101.2824</code></pre>
+<pre><code>## [1] 15.05264</code></pre>
+<ol start="2" style="list-style-type: lower-roman">
+<li>Estimate a simple regression model where a one-point increase in IQ changes wage by a constant dollar amount. Use this model to find the predicted increase in wage for an increase in IQ of 15 points. Does IQ explain most of the variation in wage?</li>
+</ol>
+<pre><code>## 
+## Call:
+## lm(formula = wage ~ IQ, data = wage2)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -898.7 -256.5  -47.3  201.1 2072.6 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 116.9916    85.6415   1.366    0.172    
+## IQ            8.3031     0.8364   9.927   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 384.8 on 933 degrees of freedom
+## Multiple R-squared:  0.09554,    Adjusted R-squared:  0.09457 
+## F-statistic: 98.55 on 1 and 933 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>Sample size is 935. <span class="math inline">\(R^{2}\)</span> value is 0.0955. Adjusted <span class="math inline">\(R^{2}\)</span> value is 0.0946.</p>
+<p><img src="chapter02_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>Estimate a simple regression model where a one-point increase in IQ changes wage by a constant dollar amount. Use this model to find the predicted increase in wage for an increase in IQ of 15 points. Does IQ explain most of the variation in wage?</p>
+<pre><code>## $fit
+##        1 
+## 241.5375 
+## 
+## $se.fit
+## [1] 73.25496
+## 
+## $df
+## [1] 933
+## 
+## $residual.scale
+## [1] 384.7667</code></pre>
+<ol start="3" style="list-style-type: lower-roman">
+<li>Now, estimate a model where each one-point increase in IQ has the same percent- age effect on wage. If IQ increases by 15 points, what is the approximate percent- age increase in predicted wage?</li>
+</ol>
+</div>
+<div id="c5-rdchem" class="section level2">
+<h2><span class="header-section-number">2.5</span> C5-RDCHEM</h2>
+<p>For the population of firms in the chemical industry, let rd denote annual expenditures on research and development, and let sales denote annual sales (both are in millions of dollars).</p>
+<p>A data.frame with 32 observations on 8 variables:</p>
+<ul>
+<li>rd: R&amp;D spending, millions</li>
+<li>sales: firm sales, millions</li>
+<li>profits: profits, millions</li>
+<li>rdintens: rd as percent of sales</li>
+<li>profmarg: profits as percent of sales</li>
+<li>salessq: sales^2</li>
+<li>lsales: log(sales)</li>
+<li>lrd: log(rd)</li>
+</ul>
+<ol style="list-style-type: lower-roman">
+<li>Write down a model (not an estimated equation) that implies a constant elasticity between rd and sales. Which parameter is the elasticity?</li>
+</ol>
+<p>The constant elasticity model is a log-log model: <span class="math display">\[ log(rd) = \beta_0 + \beta_1 * log(sales) \]</span> where <span class="math inline">\(\beta_1\)</span> is the elasticity of <code>rd</code> with respect to <code>sales</code>.</p>
+<pre><code>## 
+## Call:
+## lm(formula = lrd ~ lsales, data = rdchem)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.90406 -0.40086 -0.02178  0.40562  1.10439 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -4.10472    0.45277  -9.066 4.27e-10 ***
+## lsales       1.07573    0.06183  17.399  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5294 on 30 degrees of freedom
+## Multiple R-squared:  0.9098, Adjusted R-squared:  0.9068 
+## F-statistic: 302.7 on 1 and 30 DF,  p-value: &lt; 2.2e-16</code></pre>
+<ol start="2" style="list-style-type: lower-roman">
+<li>Now, estimate the model using the data in RDCHEM.RAW. Write out the estimated equation in the usual form. What is the estimated elasticity of rd with respect to sales? Explain in words what this elasticity means.</li>
+</ol>
+<pre><code>## 
+## Call:
+## lm(formula = lrd ~ lsales, data = rdchem)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.90406 -0.40086 -0.02178  0.40562  1.10439 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -4.10472    0.45277  -9.066 4.27e-10 ***
+## lsales       1.07573    0.06183  17.399  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5294 on 30 degrees of freedom
+## Multiple R-squared:  0.9098, Adjusted R-squared:  0.9068 
+## F-statistic: 302.7 on 1 and 30 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The estimated equation is: <span class="math display">\[ log(rd) = -4.105 + 1.076 * log(sales) \]</span></p>
+<p>The estimated elasticity of <code>rd</code> with respect to sales is 1.08, which is just above one. A one percent increase in <code>sales</code> is estimated to increase <code>rd</code> by about 1.1%.</p>
+</div>
+<div id="c6-meap93" class="section level2">
+<h2><span class="header-section-number">2.6</span> C6-MEAP93</h2>
+<p>We used the data in MEAP93 for Example 2.12. Now we want to explore the relationship between the math pass rate (math10) and spending per student (expend).</p>
+<p>A data.frame with 408 observations on 17 variables:</p>
+<ul>
+<li>lnchprg: perc of studs in sch lnch prog</li>
+<li>enroll: school enrollment</li>
+<li>staff: staff per 1000 students</li>
+<li>expend: expend. per stud, $</li>
+<li>salary: avg. teacher salary, $</li>
+<li>benefits: avg. teacher benefits, $</li>
+<li>droprate: school dropout rate, perc</li>
+<li>gradrate: school graduation rate, perc</li>
+<li>math10: perc studs passing MEAP math</li>
+<li>sci11: perc studs passing MEAP science</li>
+<li>totcomp: salary + benefits</li>
+<li>ltotcomp: log(totcomp)</li>
+<li>lexpend: log of expend</li>
+<li>lenroll: log(enroll)</li>
+<li>lstaff: log(staff)</li>
+<li>bensal: benefits/salary</li>
+<li>lsalary: log(salary)</li>
+</ul>
+<ol style="list-style-type: lower-roman">
+<li>Do you think each additional dollar spent has the same effect on the pass rate, or
+does a diminishing effect seem more appropriate? Explain.</li>
+</ol>
+<ul>
+<li>Additional dollar spent does not have same effect on the pass rate. I expect diminishing effect.</li>
+</ul>
+<pre><code>## 
+## Call:
+## lm(formula = math10 ~ expend, data = meap93)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -22.579  -7.175  -0.874   6.299  39.174 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1.336e+01  2.934e+00   4.553    7e-06 ***
+## expend      2.456e-03  6.601e-04   3.720 0.000227 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.33 on 406 degrees of freedom
+## Multiple R-squared:  0.03296,    Adjusted R-squared:  0.03058 
+## F-statistic: 13.84 on 1 and 406 DF,  p-value: 0.0002273</code></pre>
+<p><img src="chapter02_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<ol start="2" style="list-style-type: lower-roman">
+<li>In the population model <span class="math display">\[math10 + \widehat{\beta}_0 + \widehat{\beta}_1 log(expend ) + u\]</span>
+argue that b1/10 is the percentage point change in math10 given a 10% increase in expend.</li>
+</ol>
+<p><span class="math display">\[\beta_1 /10\]</span> is the percentage point change in <code>math10</code> given a 10% increase in <code>expend</code>.</p>
+<pre><code>## 
+## Call:
+## lm(formula = math10 ~ lexpend, data = meap93)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -22.343  -7.100  -0.914   6.148  39.093 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -69.341     26.530  -2.614 0.009290 ** 
+## lexpend       11.164      3.169   3.523 0.000475 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.35 on 406 degrees of freedom
+## Multiple R-squared:  0.02966,    Adjusted R-squared:  0.02727 
+## F-statistic: 12.41 on 1 and 406 DF,  p-value: 0.0004752</code></pre>
+<ol start="3" style="list-style-type: lower-roman">
+<li>Use the data in MEAP93 to estimate the model from part (ii). Report the estimated equation in the usual way, including the sample size and R-squared.</li>
+</ol>
+<p>A 10% increase in <code>expendidure</code> is associated with a 11.2 increase in the average perc studs passing MEAP math and this effect is <code>is statistically significant at 1%</code>.</p>
+<p><img src="chapter02_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<ol start="4" style="list-style-type: lower-roman">
+<li><p>How big is the estimated spending effect? Namely, if spending increases by 10%, what is the estimated percentage point increase in math10?</p></li>
+<li><p>One might worry that regression analysis can produce fitted values for math10 that are greater than 100. Why is this not much of a worry in this data set?</p></li>
+</ol>
+</div>
+<div id="c7-charitu" class="section level2">
+<h2><span class="header-section-number">2.7</span> C7-CHARITU</h2>
+<p>Use the data in CHARITY [obtained from Franses and Paap (2001)] to answer the following questions:</p>
+<p>A data.frame with 4268 observations on 8 variables:</p>
+<ul>
+<li>respond: =1 if responded with gift</li>
+<li>gift: amount of gift, Dutch guilders</li>
+<li>resplast: =1 if responded to most recent mailing</li>
+<li>weekslast: number of weeks since last response</li>
+<li>propresp: response rate to mailings</li>
+<li>mailsyear: number of mailings per year</li>
+<li>giftlast: amount of most recent gift</li>
+<li>avggift: average of past gifts</li>
+</ul>
+<ol style="list-style-type: lower-roman">
+<li>What is the average gift in the sample of 4,268 people (in Dutch guilders)? What percentage of people gave no gift?</li>
+</ol>
+<ul>
+<li>Average gift (Dutch guilders) and % of people that gave no gift</li>
+</ul>
+<pre><code>## [1] 7.44447</code></pre>
+<pre><code>## [1] 0.6000469</code></pre>
+<p>The average gift is about 7.4444705 Dutch guilders. Out of 4268 respondents, 2561 did not give a gift, or about 60 percent.</p>
+<ol start="2" style="list-style-type: lower-roman">
+<li>What is the average mailings per year? What are the minimum and maximum values?</li>
+</ol>
+<ul>
+<li>Average, min and max mailing per year</li>
+</ul>
+<pre><code>## [1] 2.049555</code></pre>
+<pre><code>## [1] 0.25</code></pre>
+<pre><code>## [1] 3.5</code></pre>
+<p>The average mailings per year is about 2.05. The minimum value is 0.25 (which presumably means that someone has been on the mailing list for at least four years) and the maximum value is 3.5.</p>
+<ol start="3" style="list-style-type: lower-roman">
+<li>Estimate the model <span class="math display">\[gift = \widehat{\beta}_0 + \widehat{\beta}_1 * mailsyear + u\]</span>
+by OLS and report the results in the usual way, including the sample size and R-squared.</li>
+</ol>
+<pre><code>## 
+## Call:
+## lm(formula = gift ~ mailsyear, data = charity)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -11.287  -7.976  -5.976   2.687 245.999 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   2.0141     0.7395   2.724  0.00648 ** 
+## mailsyear     2.6495     0.3431   7.723  1.4e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 14.96 on 4266 degrees of freedom
+## Multiple R-squared:  0.01379,    Adjusted R-squared:  0.01356 
+## F-statistic: 59.65 on 1 and 4266 DF,  p-value: 1.404e-14</code></pre>
+<p>Sample size is 4268. <span class="math inline">\(R^{2}\)</span> value is 0.0138. Adjusted <span class="math inline">\(R^{2}\)</span> value is 0.0136.</p>
+<p><img src="chapter02_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<ol start="4" style="list-style-type: lower-roman">
+<li>Interpret the slope coefficient. If each mailing costs one guilder, is the charity expected to make a net gain on each mailing? Does this mean the charity makes a net gain on every mailing? Explain.</li>
+</ol>
+<p>The estimated equation is <span class="math display">\[gift = 2.0141 + 2.6495 * mailsyear\]</span></p>
+<p>The slope coefficient means that each mailing per year is associated with an estimated 2.65 additional guilders, on average. Therefore, if each mailing costs one guilder, the expected profit from each mailing is estimated to be 2.65 guilders. This is only the average, however.</p>
+<!-- Some mailings generate no contributions, or a contribution less than the mailing cost; other mailings generated much more than the mailing cost. -->
+<ol start="22" style="list-style-type: lower-alpha">
+<li>What is the smallest predicted charitable contribution in the sample? Using this simple regression analysis, can you ever predict zero for gift?</li>
+</ol>
+<p>Min gift where some people have received 0.25 mailings: 0</p>
+<pre><code>## $fit
+##       1 
+## 2.01408 
+## 
+## $se.fit
+## [1] 0.7394696
+## 
+## $df
+## [1] 4266
+## 
+## $residual.scale
+## [1] 14.9601</code></pre>
+<p>The smallest mailsyear in the sample is 0.25. The smallest predicted value of gifts is 2.01 + 2.65 (.25) = 2.68. With this estimated equation, we never predict zero charitable gifts.</p>
+</div>
+<div id="c8" class="section level2">
+<h2><span class="header-section-number">2.8</span> C8</h2>
+<p>To complete this exercise you need a software package that allows you to generate data from the uniform and normal distributions.</p>
+<ol style="list-style-type: lower-roman">
+<li>Start by generating 500 observations xi – the explanatory variable – from the uniform distribution with range [0,10]. (Most statistical packages have a command for the Uniform[0,1] distribution; just multiply those observations by 10.) What are the sample mean and sample standard deviation of the xi?</li>
+</ol>
+<p>The expected mean is about 5.</p>
+<pre><code>## [1] 4.990447</code></pre>
+<pre><code>## [1] 2.97186</code></pre>
+<ol start="2" style="list-style-type: lower-roman">
+<li>Randomly generate 500 errors, ui, from the Normal[0,36] distribution. (If you generate a Normal[0,1], as is commonly available, simply multiply the outcomes by six.) Is the sample average of the ui exactly zero? Why or why not? What is the sample standard deviation of the ui?</li>
+</ol>
+<p>The expected mean is about 18.</p>
+<pre><code>## [1] 17.79883</code></pre>
+<pre><code>## [1] 10.55366</code></pre>
+<ol start="3" style="list-style-type: lower-roman">
+<li><p>Now generate the yi as <span class="math display">\[y_i = 1 + 2x_i + u_i = \widehat{\beta}_0 + \beta x_i + ui\]</span>;
+that is, the population intercept is one and the population slope is two. Use the data to run the regression of yi on xi. What are your estimates of the intercept and slope? Are they equal to the population values in the above equation? Explain.</p></li>
+<li><p>Obtain the OLS residuals, uˆi, and verify that equation (2.60) hold (subject to rounding error).</p></li>
+<li><p>Compute the same quantities in equation (2.60) but use the errors ui in place of the residuals. Now what do you conclude?</p></li>
+<li><p>Repeat parts (i), (ii), and (iii) with a new sample of data, starting with generating the xi. Now what do you obtain for bˆ0 and bˆ1? Why are these different from what you obtained in part (iii)?</p></li>
+</ol>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -17.9621  -9.3821  -0.4003   9.1537  18.0570 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  19.4545     0.9234   21.07   &lt;2e-16 ***
+## x             1.8686     0.1590   11.75   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.56 on 498 degrees of freedom
+## Multiple R-squared:  0.2171, Adjusted R-squared:  0.2155 
+## F-statistic: 138.1 on 1 and 498 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><img src="chapter02_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<pre><code>## 
+## Call:
+## lm(formula = y1 ~ x, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -17.9621  -9.3821  -0.4003   9.1537  18.0570 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  18.4545     0.9234  19.985  &lt; 2e-16 ***
+## x             0.8686     0.1590   5.462 7.44e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.56 on 498 degrees of freedom
+## Multiple R-squared:  0.05652,    Adjusted R-squared:  0.05463 
+## F-statistic: 29.84 on 1 and 498 DF,  p-value: 7.439e-08</code></pre>
+<p><img src="chapter02_files/figure-html/unnamed-chunk-43-2.png" width="672" /></p>
+</div>
+<div id="c9-countymurders" class="section level2">
+<h2><span class="header-section-number">2.9</span> C9-countymurders</h2>
+<p>A data.frame with 37349 observations on 20 variables:</p>
+<ul>
+<li>arrests: # of murder arrests</li>
+<li>countyid: county identifier: 1000*statefips + countyfips</li>
+<li>density: population density; per square mile</li>
+<li>popul: county population</li>
+<li>perc1019: percent pop. age 10-19</li>
+<li>perc2029: percent pop. age 20-29</li>
+<li>percblack: percent population black</li>
+<li>percmale: percent population male</li>
+<li>rpcincmaint: real per capita income maintenance</li>
+<li>rpcpersinc: real per capita personal income</li>
+<li>rpcunemins: real per capita unem insurance payments</li>
+<li>year: 1980-1996</li>
+<li>murders: # of murders</li>
+<li>murdrate: murders per 10,000 people</li>
+<li>arrestrate: murder arrests per 10,000</li>
+<li>statefips: state FIPS code</li>
+<li>countyfips: county FIPS code</li>
+<li>execs: # of executions</li>
+<li>lpopul: log(popul)</li>
+<li>execrate: executions per 10,000</li>
+</ul>
+<pre><code>## # A tibble: 1 x 1
+##       n
+##   &lt;int&gt;
+## 1  1051</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##       n
+##   &lt;int&gt;
+## 1    31</code></pre>
+<pre><code>##   max_execs
+## 1         3</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = murders ~ execs, data = countymurders %&gt;% filter(year == 
+##     1996))
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -149.12   -5.46   -4.46   -2.46 1338.99 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   5.4572     0.8348   6.537 7.79e-11 ***
+## execs        58.5555     5.8333  10.038  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 38.89 on 2195 degrees of freedom
+## Multiple R-squared:  0.04389,    Adjusted R-squared:  0.04346 
+## F-statistic: 100.8 on 1 and 2195 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><img src="chapter02_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<pre><code>## $fit
+##        1 
+## 5.457241 
+## 
+## $se.fit
+## [1] 0.834838
+## 
+## $df
+## [1] 2195
+## 
+## $residual.scale
+## [1] 38.88748</code></pre>
+<pre><code>## [1] 5.457241</code></pre>
+</div>
+<div id="c10-catholic" class="section level2">
+<h2><span class="header-section-number">2.10</span> C10-CATHOLIC</h2>
+<p>A data.frame with 7430 observations on 13 variables:</p>
+<ul>
+<li>id: person identifier</li>
+<li>read12: reading standardized score</li>
+<li>math12: mathematics standardized score</li>
+<li>female: =1 if female</li>
+<li>asian: =1 if Asian</li>
+<li>hispan: =1 if Hispanic</li>
+<li>black: =1 if black</li>
+<li>motheduc: mother’s years of education</li>
+<li>fatheduc: father’s years of education</li>
+<li>lfaminc: log of family income</li>
+<li>hsgrad: =1 if graduated from high school by 1994</li>
+<li>cathhs: =1 if attended Catholic HS</li>
+<li>parcath: =1 if a parent reports being Catholic</li>
+</ul>
+<p>Sample size</p>
+<pre><code>## # A tibble: 1 x 1
+##       n
+##   &lt;int&gt;
+## 1  7430</code></pre>
+<p>Means and standard deviation for math12 and read12</p>
+<pre><code>##   math12_mean math12_sd read12_mean read12_sd
+## 1    52.13362  9.459117     51.7724  9.407761</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = math12 ~ read12, data = catholic)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -24.5477  -4.5934   0.1838   4.6984  27.0182 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 15.15304    0.43204   35.07   &lt;2e-16 ***
+## read12       0.71429    0.00821   87.00   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.658 on 7428 degrees of freedom
+## Multiple R-squared:  0.5047, Adjusted R-squared:  0.5046 
+## F-statistic:  7569 on 1 and 7428 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><img src="chapter02_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p>An increase in <code>reading standardized score</code> is associated with a 0.714 increase in the average <code>mathematics standardized score</code> and this effect is <code>is statistically significant at 1%</code>.</p>
+<pre><code>## 
+## Call:
+## lm(formula = read12 ~ math12, data = catholic)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -29.1459  -4.2021   0.4885   4.4920  22.8935 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 14.937062   0.430318   34.71   &lt;2e-16 ***
+## math12       0.706556   0.008122   87.00   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 6.621 on 7428 degrees of freedom
+## Multiple R-squared:  0.5047, Adjusted R-squared:  0.5046 
+## F-statistic:  7569 on 1 and 7428 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p><img src="chapter02_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="nature-of-econometrics-and-economic-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multiple-regression-analysis-estimation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["woodldridge.pdf", "woodldridge.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

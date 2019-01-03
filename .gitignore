@@ -1,41 +1,36 @@
-.Rproj.user
+# History files
 .Rhistory
+.Rapp.history
+
+# Session Data files
 .RData
-.Ruserdata
 
-_bookdown_files/*
+# Example code in package build process
+*-Ex.R
 
-# Don't ignore all _cache, _files folders because they are needed for output in the docs folder
+# Output files from R CMD build
+/*.tar.gz
+
+# Output files from R CMD check
+/*.Rcheck/
+
+# RStudio files
+.Rproj.user/
+
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+
+# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
+.httr-oauth
+
+# knitr and R markdown default cache directories
 /*_cache/
-/*_files/
-/rmarkdown/*_cache/
-/rmarkdown/*_files/
-/rmarkdown/*.html
+/cache/
 
-figures
-
-# Ignore intermediate
-*.knit.md
+# Temporary files created by R markdown
 *.utf8.md
-/*.md
-!README.md
-!NEWS.md
+*.knit.md
 
-# ignore bookdown cache
-/bookdown[0-9a-f]*
-
-*.aux
-*.out
-*.fls
-*.toc
-*.log
-*.fdb_latexmk
-_bookdown_files
-.ipynb_checkpoints
-*.rds
-node_modules
-Rplots.pdf
-*.bib.sav
-_build
-libs
-
+# Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
+rsconnect/

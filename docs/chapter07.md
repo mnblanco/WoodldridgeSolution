@@ -1,10 +1,3 @@
----
-title: 'Multiple Regression Analysis with Qualitative Information: Binary (or Dummy) Variables'
-author: "Marjorie Blanco"
-date: "12/23/2018"
-output: html_document
----
-
 
 
 # Multiple Regression Analysis with Qualitative Information: Binary (or Dummy) Variables

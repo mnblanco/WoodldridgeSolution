@@ -1,10 +1,3 @@
----
-title: "Chapter 6: Multiple Regression Analysis: Further Issues"
-author: "Marjorie Blanco"
-date: "12/22/2018"
-output: html_document
----
-
 
 
 # Multiple Regression Analysis: Further Issues

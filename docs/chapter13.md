@@ -1,10 +1,3 @@
----
-title: "Chapter 13"
-author: "Marjorie Blanco"
-date: "12/20/2018"
-output: html_document
----
-
 
 
 # Pooling Cross Sections Across Time: Simple Panel Data Method

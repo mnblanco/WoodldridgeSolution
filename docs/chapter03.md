@@ -1,14 +1,3 @@
----
-title: "Chapter 3: Multiple regression Analysis: estimation"
-author: "Marjorie Blanco"
-date: "12/19/2018"
-output:
-  html_document:
-    toc: true
-    toc_float: true
-    number_sections: true
----
-
 
 
 # Multiple regression Analysis: estimation

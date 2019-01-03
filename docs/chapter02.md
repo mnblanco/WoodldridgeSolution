@@ -1,14 +1,3 @@
----
-title: "Chapter 2: The simple regression Model"
-author: "Marjorie Blanco"
-date: "12/19/2018"
-output:
-  html_document:
-    toc: true
-    toc_float: true
-    number_sections: true
----
-
 
 
 
@@ -683,11 +672,11 @@ The expected mean is about 5.
 
 
 ```
-## [1] 4.990447
+## [1] 5.087806
 ```
 
 ```
-## [1] 2.97186
+## [1] 2.906681
 ```
 
 (ii) Randomly generate 500 errors, ui, from the Normal[0,36] distribution. (If you generate a Normal[0,1], as is commonly available, simply multiply the outcomes by six.) Is the sample average of the ui exactly zero? Why or why not? What is the sample standard deviation of the ui?
@@ -696,11 +685,11 @@ The expected mean is about 18.
 
 
 ```
-## [1] 17.79883
+## [1] 19.09546
 ```
 
 ```
-## [1] 10.55366
+## [1] 10.29605
 ```
 
 
@@ -723,18 +712,18 @@ that is, the population intercept is one and the population slope is two. Use th
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -17.9621  -9.3821  -0.4003   9.1537  18.0570 
+## -19.4113  -8.8657   0.5281   8.7555  17.2243 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  19.4545     0.9234   21.07   <2e-16 ***
-## x             1.8686     0.1590   11.75   <2e-16 ***
+## (Intercept)  19.2886     0.9289   20.76   <2e-16 ***
+## x             2.1586     0.1586   13.61   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 10.56 on 498 degrees of freedom
-## Multiple R-squared:  0.2171,	Adjusted R-squared:  0.2155 
-## F-statistic: 138.1 on 1 and 498 DF,  p-value: < 2.2e-16
+## Residual standard error: 10.3 on 498 degrees of freedom
+## Multiple R-squared:  0.2712,	Adjusted R-squared:  0.2697 
+## F-statistic: 185.3 on 1 and 498 DF,  p-value: < 2.2e-16
 ```
 
 <img src="chapter02_files/figure-html/unnamed-chunk-43-1.png" width="672" />
@@ -746,18 +735,18 @@ that is, the population intercept is one and the population slope is two. Use th
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -17.9621  -9.3821  -0.4003   9.1537  18.0570 
+## -19.4113  -8.8657   0.5281   8.7555  17.2243 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  18.4545     0.9234  19.985  < 2e-16 ***
-## x             0.8686     0.1590   5.462 7.44e-08 ***
+## (Intercept)  18.2886     0.9289  19.688  < 2e-16 ***
+## x             1.1586     0.1586   7.306  1.1e-12 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 10.56 on 498 degrees of freedom
-## Multiple R-squared:  0.05652,	Adjusted R-squared:  0.05463 
-## F-statistic: 29.84 on 1 and 498 DF,  p-value: 7.439e-08
+## Residual standard error: 10.3 on 498 degrees of freedom
+## Multiple R-squared:  0.09682,	Adjusted R-squared:  0.095 
+## F-statistic: 53.38 on 1 and 498 DF,  p-value: 1.098e-12
 ```
 
 <img src="chapter02_files/figure-html/unnamed-chunk-43-2.png" width="672" />

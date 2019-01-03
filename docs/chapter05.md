@@ -1,9 +1,3 @@
----
-title: "Chapter 5: Multiple regression analysis: OLS asymptotics"
-author: "Marjorie Blanco"
-output: html_document
----
-
 
 
 # Multiple regression analysis: OLS asymptotics

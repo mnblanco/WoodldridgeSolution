@@ -1,10 +1,3 @@
----
-title: "Chapter 10"
-author: "Marjorie Blanco"
-date: "12/19/2018"
-output: html_document
----
-
 
 
 # Basic Regression Analysis with Time Series Data

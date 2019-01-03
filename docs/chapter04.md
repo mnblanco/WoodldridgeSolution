@@ -1,10 +1,3 @@
----
-title: "Chapter 4: Multiple regression Analysis: inference"
-author: "Marjorie Blanco"
-date: "12/22/2018"
-output: html_document
----
-
 
 
 # Multiple regression Analysis: inference
